@@ -357,7 +357,7 @@ Some examples in Chapter 3 and Chapter 10 use the Chinook database, a sample dat
 
 #### Download the Chinook Database Schema:
 
-Open a terminal or command prompt and use curl to download the Chinook databas:
+Open a terminal or command prompt and use curl to download the Chinook database:
 
 ```bash
 curl -s https://raw.githubusercontent.com/lerocha/chinook-database/master/ChinookDatabase/DataSources/Chinook_Sqlite.sql | sqlite3 Chinook.db
