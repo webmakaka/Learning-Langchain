@@ -1,13 +1,16 @@
 # [Книга] [Ошин Майо, Кампос Нуну] Изучаем LangChain: разработка AI- и LLM-приложений с использованием LangChain и LangGraph [RUS, 2026] (Устарела! Не покупайте!)
 
-[Original][Book][Mayo Oshin, Nuno Campos] Learning LangChain: Building AI and LLM Applications with LangChain and LangGraph [ENG, 2025]
+<img src="https://bhv.ru/wp-content/uploads/2026/06/front_3148.jpg" alt="Изучаем LangChain: разработка AI- и LLM-приложений с использованием LangChain и LangGraph" height="512px" align="right">
+
+[Book][Mayo Oshin, Nuno Campos] Learning LangChain: Building AI and LLM Applications with LangChain and LangGraph [ENG, 2025]
 
 **Оригинальный код книги:**  
 https://github.com/langchain-ai/learning-langchain
 
 <br/>
 
-Код книги устарел. Репо книги переведено в архив более года назад.
+:triangular_flag_on_post: Код книги устарел! :triangular_flag_on_post: 
+:triangular_flag_on_post: Репо книги переведено в архив более года назад! :triangular_flag_on_post: 
 
 <br/>
 
