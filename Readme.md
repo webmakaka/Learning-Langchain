@@ -1,11 +1,19 @@
 # [Книга] [Ошин Майо, Кампос Нуну] Изучаем LangChain: разработка AI- и LLM-приложений с использованием LangChain и LangGraph [RUS, 2026] (Устарела! Не покупайте!)
 
+[Original][Book][Mayo Oshin, Nuno Campos] Learning LangChain: Building AI and LLM Applications with LangChain and LangGraph [ENG, 2025]
 
-Learning LangChain Code Examples
+**Оригинальный код книги:**  
+https://github.com/langchain-ai/learning-langchain
 
-This repository contains code examples (in python and javascript) from each chapter of the book ["Learning LangChain: Building AI and LLM Applications with LangChain and LangGraph"](https://www.oreilly.com/library/view/learning-langchain/9781098167271/) published by O'Reilly Media.
+<br/>
 
-To run the examples, you can clone the repository and run the examples in your preferred language folders.
+Код книги устарел. Репо книги переведено в архив более года назад.
+
+<br/>
+
+Попытка (в будущем) обновить код.
+
+<br/>
 
 ## Table of Contents
 
