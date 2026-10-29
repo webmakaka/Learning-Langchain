@@ -9,7 +9,7 @@ https://github.com/langchain-ai/learning-langchain
 
 <br/>
 
-:triangular_flag_on_post: Код книги устарел! :triangular_flag_on_post: 
+:triangular_flag_on_post: Код книги устарел! :triangular_flag_on_post:  
 :triangular_flag_on_post: Репо книги переведено в архив более года назад! :triangular_flag_on_post: 
 
 <br/>
