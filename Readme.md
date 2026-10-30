@@ -1,6 +1,6 @@
 # [Книга] [Ошин Майо, Кампос Нуну] Изучаем LangChain: разработка AI- и LLM-приложений с использованием LangChain и LangGraph [RUS, 2026] (Устарела! Не покупайте!)
 
-<img src="https://bhv.ru/wp-content/uploads/2026/06/front_3148.jpg" alt="Изучаем LangChain: разработка AI- и LLM-приложений с использованием LangChain и LangGraph" height="512px" align="right">
+<img src="./img/book-cover.jpg" alt="Изучаем LangChain: разработка AI- и LLM-приложений с использованием LangChain и LangGraph" height="512px" align="right">
 
 [Book][Mayo Oshin, Nuno Campos] Learning LangChain: Building AI and LLM Applications with LangChain and LangGraph [ENG, 2025]
 
@@ -15,6 +15,29 @@ https://github.com/langchain-ai/learning-langchain
 <br/>
 
 Попытка (в будущем) обновить код.
+
+
+
+<br/>
+
+### Оглавление:
+
+
+<ul>
+  <li>01. Основы LLM с LangChain</li>
+  <li>02. Генерация с дополнением поиском, часть I: индексация ваших данных</li>
+  <li>03. Генерация с дополнением поиском, часть II: "чат" с вашими данными</li>
+  <li>04. Добавляем долгосрочную память чат-боту с помощью LangGraph</li>
+  <li>05. Когнитивные архитектуры с LangGraph</li>
+  <li>06. Агентная архитектура</li>
+  <li>07. Агентная архитектура. Продолжение</li>
+  <li>08. Паттерны для максимально эффективного использования LLM</li>
+  <li>09. Развертывание: запуск вашего AI-приложения в продакшен</li>
+  <li>10. Тестирование: оценка, мониторинг и постоянное улучшение</li>
+  <li>11. Разработка приложений с LLM</li>
+</ul>
+
+
 
 <br/>
 
