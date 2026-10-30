@@ -1,4 +1,4 @@
-# [Книга] [Ошин Майо, Кампос Нуну] Изучаем LangChain: разработка AI- и LLM-приложений с использованием LangChain и LangGraph [RUS, 2026] (Устарела! Не покупайте!)
+# [Книга][Ошин Майо, Кампос Нуну] Изучаем LangChain: разработка AI- и LLM-приложений с использованием LangChain и LangGraph [RUS, 2026] (Устарела! Не покупайте!)
 
 <img src="./img/book-cover.jpg" alt="Изучаем LangChain: разработка AI- и LLM-приложений с использованием LangChain и LangGraph" height="512px" align="right">
 
