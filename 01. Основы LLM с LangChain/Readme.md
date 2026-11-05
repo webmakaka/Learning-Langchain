@@ -5,7 +5,7 @@
 ## JS
 
 ```shell
-$ npm install langchain @langchain/openai @langchain/coппnunity
+$ npm install langchain @langchain/openai @langchain/community
 $ npm install @langchain/core pg
 
 $ export ОРЕNАI_АРI_КЕУ=ваш-ключ
