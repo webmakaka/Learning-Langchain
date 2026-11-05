@@ -20,3 +20,19 @@ Adding documents to the vector store
 Documents added successfully
 second document deleted successfully
 ```
+
+<br/>
+
+```shell
+$ node ./j-record-manager.js 
+The default method for hashing keys is insecure and will be replaced in a future version,
+but hasn't been replaced yet as to not break existing caches. It's recommended that you use
+a more secure hashing algorithm to avoid cache poisoning.
+
+See this page for more information:
+|
+└> https://js.langchain.com/docs/troubleshooting/warnings/insecure-cache-algorithm
+{ numAdded: 2, numDeleted: 2, numUpdated: 0, numSkipped: 0 }
+{ numAdded: 0, numDeleted: 0, numUpdated: 0, numSkipped: 2 }
+{ numAdded: 1, numDeleted: 1, numUpdated: 0, numSkipped: 1 }
+```
