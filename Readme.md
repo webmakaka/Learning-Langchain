@@ -1,4 +1,4 @@
-# [Книга][Ошин Майо, Кампос Нуну] Изучаем LangChain: разработка AI- и LLM-приложений с использованием LangChain и LangGraph [RUS, 2026] (Устарела! Не покупайте!)
+# [Книга][Ошин Майо, Кампос Нуну] Изучаем LangChain: разработка AI- и LLM-приложений с использованием LangChain и LangGraph [RUS, 2026]
 
 <img src="./img/book-cover.jpg" alt="Изучаем LangChain: разработка AI- и LLM-приложений с использованием LangChain и LangGraph" height="512px" align="right">
 
@@ -24,7 +24,7 @@ https://github.com/langchain-ai/learning-langchain
 
 
 <ul>
-  <li>01. Основы LLM с LangChain</li>
+  <li>:white_check_mark: :book: :hammer_and_wrench: 01. Основы LLM с LangChain</li>
   <li>02. Генерация с дополнением поиском, часть I: индексация ваших данных</li>
   <li>03. Генерация с дополнением поиском, часть II: "чат" с вашими данными</li>
   <li>04. Добавляем долгосрочную память чат-боту с помощью LangGraph</li>
@@ -139,103 +139,11 @@ npm install
 node ch2/js/a-text-loader.js
 ```
 
-## Repository Structure
-
-The repository is structured as follows:
-
-```
-├── .env.example          # Example environment variables
-├── learning-langchain    # Root directory
-│   ├── ch1               # Chapter 1 examples
-│   │   ├── js            # JavaScript examples
-│   │   │   ├── a-llm.js  # Example file
-│   │   │   └── ...
-│   │   └── py            # Python examples
-│   │       ├── a-llm.py  # Example file
-│   │       └── ...
-│   ├── ch2               # Chapter 2 examples
-│   │   ├── js            # JavaScript examples
-│   │   │   └── ...
-│   │   └── py            # Python examples
-│   │       └── ...
-│   ├── ...               # Remaining chapters
-│   ├── test.pdf          # Test PDF file
-│   ├── test.txt          # Test text file
-│   ├── package.json      # JavaScript dependencies
-│   ├── pyproject.toml    # Python dependencies
-│   └── README.md         # This file
-└── ...
-```
-
-Each chapter (ch1, ch2, etc.) contains subdirectories `js` and `py` for JavaScript and Python examples, respectively.
 
 ## Chapter-wise Examples
 
 Here's a brief overview of the code examples available for each chapter:
 
-### Chapter 1: Introduction to LangChain
-
-Demonstrates basic usage of LLMs, Chat models, prompts, and output parsers.
-
-Files:
-- `ch1/js/*.js`: JavaScript examples
-- `ch1/py/*.py`: Python examples
-
-### Chapter 2: Document Loading and Data Transformation
-
-Covers loading data from various sources (text files, web pages, PDFs), splitting text into chunks, and creating embeddings.
-
-Files:
-- `ch2/js/*.js`: JavaScript examples
-- `ch2/py/*.py`: Python examples
-
-### Chapter 3: Retrieval
-
-Explores different retrieval strategies, including basic RAG, query rewriting, multi-query, RAG fusion, and self-query.
-
-Files:
-- `ch3/js/*.js`: JavaScript examples
-- `ch3/py/*.py`: Python examples
-
-### Chapter 4: Memory
-
-Demonstrates how to add memory to your chains and agents, including simple memory, state graphs, persistent memory, and message trimming/filtering/merging.
-
-Files:
-- `ch4/js/*.js`: JavaScript examples
-- `ch4/py/*.py`: Python examples
-
-### Chapter 5: Chatbots
-
-Shows how to build chatbots using LangGraph, including basic chatbots, SQL generators, and multi-RAG chatbots.
-
-Files:
-- `ch5/js/*.js`: JavaScript examples
-- `ch5/py/*.py`: Python examples
-
-### Chapter 6: Agents
-
-Covers building agents with tools, including basic agents, forcing the first tool, and using many tools.
-
-Files:
-- `ch6/js/*.js`: JavaScript examples
-- `ch6/py/*.py`: Python examples
-
-### Chapter 7: Subgraphs
-
-Explores how to use subgraphs to create more complex agents, including reflection, direct subgraphs, function subgraphs, and supervisors.
-
-Files:
-- `ch7/js/*.js`: JavaScript examples
-- `ch7/py/*.py`: Python examples
-
-### Chapter 8: Productionizing LangGraph
-
-Demonstrates how to productionize LangGraph applications, including structured output, streaming output, interruption, authorization, resuming, editing state, and forking.
-
-Files:
-- `ch8/js/*.js`: JavaScript examples
-- `ch8/py/*.py`: Python examples
 
 ### Chapter 9: Deployment
 
