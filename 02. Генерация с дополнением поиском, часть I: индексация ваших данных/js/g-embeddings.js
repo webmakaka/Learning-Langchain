@@ -1,6 +1,7 @@
 import { OpenAIEmbeddings } from '@langchain/openai';
 
 const model = new OpenAIEmbeddings();
+
 const embeddings = await model.embedDocuments([
   'Hi there!',
   'Oh, hello!',

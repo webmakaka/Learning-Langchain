@@ -5,9 +5,8 @@
 ## JS
 
 ```shell
-$ cd environment/js
+$ cd js
 $ npm install
-$ cd ../../01.\ Основы\ LLM\ с\ LangChain/js/
 ```
 
 <br/>
