@@ -24,7 +24,7 @@ https://github.com/langchain-ai/learning-langchain
 
 
 <ul>
-  <li>01. Основы LLM с LangChain</li>
+  <li>:white_check_mark: :book: :hammer_and_wrench: 01. Основы LLM с LangChain</li>
   <li>02. Генерация с дополнением поиском, часть I: индексация ваших данных</li>
   <li>03. Генерация с дополнением поиском, часть II: "чат" с вашими данными</li>
   <li>04. Добавляем долгосрочную память чат-боту с помощью LangGraph</li>
