@@ -12,6 +12,9 @@ $ docker run \
 
 <br/>
 
+### Работа с векторными хранилищами
+
+
 ```shell
 $ node ./i-pg-vector.js 
 Vector store created successfully
@@ -22,6 +25,8 @@ second document deleted successfully
 ```
 
 <br/>
+
+### Отслеживание изменений в документах
 
 ```shell
 $ node ./j-record-manager.js 
