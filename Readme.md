@@ -14,14 +14,7 @@ https://github.com/langchain-ai/learning-langchain
 
 <br/>
 
-Попытка (в будущем) обновить код.
-
-
-
-<br/>
-
 ### Оглавление:
-
 
 <ul>
   <li>:white_check_mark: :book: :hammer_and_wrench: 01. Основы LLM с LangChain</li>
