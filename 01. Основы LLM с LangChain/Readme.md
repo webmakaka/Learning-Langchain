@@ -5,12 +5,18 @@
 ## JS
 
 ```shell
-$ npm install langchain @langchain/openai @langchain/community
-$ npm install @langchain/core pg
-
+$ cd environment/js
+$ npm install
+$ cd ../../01.\ Основы\ LLM\ с\ LangChain/js/
 $ node ./file.js
 ```
 
+```shell
+$ npm install langchain @langchain/openai @langchain/community
+$ npm install @langchain/core pg
+
+$ node ./a-llm.js
+```
 
 <br/>
 
