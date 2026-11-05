@@ -8,8 +8,6 @@
 $ npm install langchain @langchain/openai @langchain/community
 $ npm install @langchain/core pg
 
-$ export ОРЕNАI_АРI_КЕУ=ваш-ключ
-
 $ node ./file.js
 ```
 
@@ -19,7 +17,6 @@ $ node ./file.js
 ## Python
 
 ```shell
-
 $ pip install notebook
 
 $ pip install langchain langchain-openai langchain-community
