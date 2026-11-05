@@ -42,7 +42,9 @@ https://github.com/langchain-ai/learning-langchain
 ### [Qwen] Free AI for chat, apps, and agents
 https://vireonix.ai/
 
+<br/>
 
+### Openrouter.ai + AmneziaVPN
 
 <br/>
 
