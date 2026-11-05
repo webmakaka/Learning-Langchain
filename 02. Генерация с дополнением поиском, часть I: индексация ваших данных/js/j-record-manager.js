@@ -1,22 +1,9 @@
-/** 
-1. Ensure docker is installed and running (https://docs.docker.com/get-docker/)
-2. Run the following command to start the postgres container:
-   
-docker run \
-    --name pgvector-container \
-    -e POSTGRES_USER=langchain \
-    -e POSTGRES_PASSWORD=langchain \
-    -e POSTGRES_DB=langchain \
-    -p 6024:5432 \
-    -d pgvector/pgvector:pg16
-3. Use the connection string below for the postgres container
-*/
-
 import { PostgresRecordManager } from '@langchain/community/indexes/postgres';
 import { index } from 'langchain/indexes';
 import { OpenAIEmbeddings } from '@langchain/openai';
 import { PGVectorStore } from '@langchain/community/vectorstores/pgvector';
 import { v4 as uuidv4 } from 'uuid';
+import 'dotenv/config';
 
 const tableName = 'test_langchain';
 const connectionString =
@@ -36,8 +23,17 @@ const config = {
   },
 };
 
+const model = new OpenAIEmbeddings({
+  model: 'liquid/lfm-2.5-embedding-350m:free',
+  batchSize: 128,
+  configuration: {
+    baseURL: 'https://openrouter.ai/api/v1',
+  },
+  apiKey: process.env.OPENROUTER_API_KEY,
+});
+
 const vectorStore = await PGVectorStore.initialize(
-  new OpenAIEmbeddings(),
+  model,
   config
 );
 
@@ -106,3 +102,5 @@ const index_attempt_3 = await index({
 });
 
 console.log(index_attempt_3);
+
+await vectorStore.end();
