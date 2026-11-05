@@ -1,7 +1,6 @@
+import { StringOutputParser } from '@langchain/core/output_parsers';
 import { ChatPromptTemplate } from '@langchain/core/prompts';
 import { ChatOpenAI } from '@langchain/openai';
-
-// the building blocks
 
 const template = ChatPromptTemplate.fromMessages([
   ['system', 'Ты полезный помощник.'],
@@ -16,22 +15,17 @@ const model = new ChatOpenAI({
   apiKey: 'not-needed',
 });
 
-// combine them in a function
-
-const chatbot = template.pipe(model);
-
-// use it
+const chatbot = template.pipe(model).pipe(new StringOutputParser());
 
 const response = await chatbot.invoke({
   question: 'Кто является поставщиком LLM?',
 });
-
 console.log(response);
 
-//streaming
-
-for await (const part of chatbot.stream({
+const stream = await chatbot.stream({
   question: 'Кто является поставщиком LLM?',
-})) {
-  console.log(part);
+});
+
+for await (const part of stream) {
+  process.stdout.write(part);
 }
