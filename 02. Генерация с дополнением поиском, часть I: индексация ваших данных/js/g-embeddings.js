@@ -1,6 +1,13 @@
 import { OpenAIEmbeddings } from '@langchain/openai';
+import 'dotenv/config';
 
-const model = new OpenAIEmbeddings();
+const model = new OpenAIEmbeddings({
+  model: 'liquid/lfm-2.5-embedding-350m:free',
+  configuration: {
+    baseURL: 'https://openrouter.ai/api/v1',
+  },
+  apiKey: process.env.OPENROUTER_API_KEY,
+});
 
 const embeddings = await model.embedDocuments([
   'Hi there!',
