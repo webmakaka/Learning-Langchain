@@ -1,22 +1,9 @@
-/** 
-1. Ensure docker is installed and running (https://docs.docker.com/get-docker/)
-2. Run the following command to start the postgres container:
-   
-docker run \
-    --name pgvector-container \
-    -e POSTGRES_USER=langchain \
-    -e POSTGRES_PASSWORD=langchain \
-    -e POSTGRES_DB=langchain \
-    -p 6024:5432 \
-    -d pgvector/pgvector:pg16
-3. Use the connection string below for the postgres container
-*/
-
 import { TextLoader } from 'langchain/document_loaders/fs/text';
 import { RecursiveCharacterTextSplitter } from '@langchain/textsplitters';
 import { OpenAIEmbeddings } from '@langchain/openai';
 import { PGVectorStore } from '@langchain/community/vectorstores/pgvector';
 import { v4 as uuidv4 } from 'uuid';
+import 'dotenv/config';
 
 const connectionString =
   'postgresql://langchain:langchain@localhost:6024/langchain';
@@ -30,7 +17,15 @@ const splitter = new RecursiveCharacterTextSplitter({
 const docs = await splitter.splitDocuments(raw_docs);
 
 // embed each chunk and insert it into the vector store
-const model = new OpenAIEmbeddings();
+const model = new OpenAIEmbeddings({
+  model: 'liquid/lfm-2.5-embedding-350m:free',
+  batchSize: 128,
+  configuration: {
+    baseURL: 'https://openrouter.ai/api/v1',
+  },
+  apiKey: process.env.OPENROUTER_API_KEY,
+});
+
 const db = await PGVectorStore.fromDocuments(docs, model, {
   postgresConnectionOptions: {
     connectionString,
@@ -66,3 +61,5 @@ console.log('Documents added successfully');
 await db.delete({ ids: [ids[1]] });
 
 console.log('second document deleted successfully');
+
+await db.end();
