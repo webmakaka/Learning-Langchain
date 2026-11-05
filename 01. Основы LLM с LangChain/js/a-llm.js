@@ -1,6 +1,12 @@
 import { ChatOpenAI } from '@langchain/openai';
 
-const model = new ChatOpenAI({ model: 'gpt-3.5-turbo' });
+const model = new ChatOpenAI({
+  model: 'auto',
+  configuration: {
+    baseURL: 'https://vireonix.ai/v1',
+  },
+  apiKey: 'not-needed',
+});
 
 const response = await model.invoke('The sky is');
-console.log(response);
+console.log(response.content);
