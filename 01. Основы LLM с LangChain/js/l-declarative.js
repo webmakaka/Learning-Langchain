@@ -1,16 +1,19 @@
-import { ChatOpenAI } from '@langchain/openai';
 import { ChatPromptTemplate } from '@langchain/core/prompts';
-import { RunnableLambda } from '@langchain/core/runnables';
+import { ChatOpenAI } from '@langchain/openai';
 
 // the building blocks
 
 const template = ChatPromptTemplate.fromMessages([
-  ['system', 'You are a helpful assistant.'],
+  ['system', 'Ты полезный помощник.'],
   ['human', '{question}'],
 ]);
 
 const model = new ChatOpenAI({
-  model: 'gpt-3.5-turbo',
+  model: 'auto',
+  configuration: {
+    baseURL: 'https://vireonix.ai/v1',
+  },
+  apiKey: 'not-needed',
 });
 
 // combine them in a function
@@ -20,7 +23,7 @@ const chatbot = template.pipe(model);
 // use it
 
 const response = await chatbot.invoke({
-  question: 'Which model providers offer LLMs?',
+  question: 'Кто является поставщиком LLM?',
 });
 
 console.log(response);
@@ -28,7 +31,7 @@ console.log(response);
 //streaming
 
 for await (const part of chatbot.stream({
-  question: 'Which model providers offer LLMs?',
+  question: 'Кто является поставщиком LLM?',
 })) {
   console.log(part);
 }

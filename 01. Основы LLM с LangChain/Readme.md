@@ -14,16 +14,15 @@ $ cd ../../01.\ Основы\ LLM\ с\ LangChain/js/
 
 ```shell
 $ node ./a-llm.js
-The sky is **vast, ever-changing, and full of wonder.**
+Цвет облак зависит от нескольких факторов, таких как время суток, их плотность, высота и наличие пыли или влаги в воздухе. Вот основные варианты:
 
-Here are a few ways to complete that thought, depending on the context:
+1. **Белые** – это наиболее частый цвет облак в ясный день. Белый цвет возникает из-за рассеивания света во всех направлениях (эффект, называемый рассеянием Мие).
+2. **Серые** – если облака очень плотные и толстые, мало света проходит сквозь них, поэтому они выглядят серыми или темными.
+3. **Розовые, оранжевые, фиолетовые** – на закате или рассвете облака могут приобретать яркие цвета из-за того, что свет под низким углом проходит через большую часть атмосферы, рассеиваясь преимущественно в красную и оранжевую сторону спектра.
+4. **Рыжеватые или желтые** – если в воздухе много пыли, дыма или загрязнений, облака могут иметь желтоватый или бурый оттенок.
+5. **Черные** – очень темные, грозовые облака (кучево-дождевые) могут выглядеть почти черными, если они содержат очень много воды и препятствуют прохождению света.
 
-*   **Scientifically:** The sky is the atmosphere, a layer of gases (mainly nitrogen and oxygen) that surrounds Earth, protects us from harmful radiation, and regulates our climate.
-*   **Poetically:** The sky is a canvas that shifts from deep midnight blue to blinding white, then to fiery oranges and purples, reflecting the time of day and the mood of the observer.
-*   **Philosophically:** The sky is a reminder of humanity’s smallness and curiosity—a gateway to the infinite universe beyond our planet.
-*   **Practically:** The sky is where we observe weather patterns, which directly affect agriculture, travel, and daily life.
-
-Would you like to explore one of these angles further?
+Таким образом, **чаще всего облака белые или серые**, но в зависимости от освещения они могут быть самыми разными оттенками.
 ```
 
 <br/>

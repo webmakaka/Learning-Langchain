@@ -1,11 +1,18 @@
 import { ChatPromptTemplate } from '@langchain/core/prompts';
 import { ChatOpenAI } from '@langchain/openai';
 
-const model = new ChatOpenAI();
+const model = new ChatOpenAI({
+  model: 'auto',
+  configuration: {
+    baseURL: 'https://vireonix.ai/v1',
+  },
+  apiKey: 'not-needed',
+});
+
 const template = ChatPromptTemplate.fromMessages([
   [
     'system',
-    'Answer the question based on the context below. If the question cannot be answered using the information provided, answer with "I don\'t know".',
+    'Ответь на вопрос, основываясь на контексте ниже. Если на вопрос невозможно ответить, используя предоставленную информацию, ответь «Я не знаю».',
   ],
   ['human', 'Context: {context}'],
   ['human', 'Question: {question}'],
@@ -13,9 +20,9 @@ const template = ChatPromptTemplate.fromMessages([
 
 const prompt = await template.invoke({
   context:
-    "The most recent advancements in NLP are being driven by Large Language Models (LLMs). These models outperform their smaller counterparts and have become invaluable for developers who are creating applications with NLP capabilities. Developers can tap into these models through Hugging Face's `transformers` library, or by utilizing OpenAI and Cohere's offerings through the `openai` and `cohere` libraries, respectively.",
-  question: 'Which model providers offer LLMs?',
+    'Последние достижения в области обработки естественного языка обусловлены большими языковыми моделями (LLM). Эти модели превосходят своих меньших аналогов и стали бесценными для разработчиков, создающих приложения с возможностями обработки естественного языка. Разработчики могут использовать эти модели через библиотеку `transformers` от Hugging Face, или используя предложения OpenAI и Cohere через библиотеки `openai` и `cohere` соответственно.',
+  question: 'Кто является поставщиком LLM?',
 });
 
 const response = await model.invoke(prompt);
-console.log(response);
+console.log(response.content);

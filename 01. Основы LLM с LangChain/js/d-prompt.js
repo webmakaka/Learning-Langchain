@@ -1,7 +1,7 @@
 import { PromptTemplate } from '@langchain/core/prompts';
 
 const template =
-  PromptTemplate.fromTemplate(`Answer the question based on the context below. If the question cannot be answered using the information provided, answer with "I don't know".
+  PromptTemplate.fromTemplate(`Ответь на вопрос, основываясь на контексте ниже. Если на вопрос невозможно ответить, используя предоставленную информацию, ответь «Я не знаю».
 
 Context: {context}
 
@@ -11,8 +11,8 @@ Answer: `);
 
 const response = await template.invoke({
   context:
-    "The most recent advancements in NLP are being driven by Large Language Models (LLMs). These models outperform their smaller counterparts and have become invaluable for developers who are creating applications with NLP capabilities. Developers can tap into these models through Hugging Face's `transformers` library, or by utilizing OpenAI and Cohere's offerings through the `openai` and `cohere` libraries, respectively.",
-  question: 'Which model providers offer LLMs?',
+    'Последние достижения в области обработки естественного языка обусловлены большими языковыми моделями (LLM). Эти модели превосходят своих меньших аналогов и стали бесценными для разработчиков, создающих приложения с возможностями обработки естественного языка. Разработчики могут использовать эти модели через библиотеку `transformers` от Hugging Face, или используя предложения OpenAI и Cohere через библиотеки `openai` и `cohere` соответственно.',
+  question: 'Кто является поставщиком LLM?',
 });
 
-console.log(response);
+console.log(response.value);

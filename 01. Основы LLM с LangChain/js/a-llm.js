@@ -8,5 +8,5 @@ const model = new ChatOpenAI({
   apiKey: 'not-needed',
 });
 
-const response = await model.invoke('The sky is');
+const response = await model.invoke('Какого цвета облака?');
 console.log(response.content);

@@ -3,19 +3,20 @@ import { z } from 'zod';
 
 const answerSchema = z
   .object({
-    answer: z.string().describe("The answer to the user's question"),
-    justification: z.string().describe('Justification for the answer'),
+    answer: z.string().describe('Oтвeт на вопрос пользователя'),
+    justification: z.string().describe('Обоснование ответа'),
   })
-  .describe(
-    "An answer to the user's question along with justification for the answer."
-  );
+  .describe('Oтвeт на вопрос пользователя и обоснование ответа.');
 
 const model = new ChatOpenAI({
-  model: 'gpt-3.5-turbo',
-  temperature: 0,
+  model: 'auto',
+  configuration: {
+    baseURL: 'https://vireonix.ai/v1',
+  },
+  apiKey: 'not-needed',
 }).withStructuredOutput(answerSchema);
 
 const response = await model.invoke(
-  'What weighs more, a pound of bricks or a pound of feathers'
+  'Чтo весит больше, фунт кирпичей или фунт перьев'
 );
 console.log(response);
