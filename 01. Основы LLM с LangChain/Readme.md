@@ -26,7 +26,7 @@ $ node ./a-llm.js
 
 <br/>
 
-## Python
+## Python (М.б. когда-нибудь потом!)
 
 ```shell
 $ pip install notebook
