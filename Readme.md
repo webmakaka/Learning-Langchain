@@ -37,6 +37,11 @@ https://github.com/langchain-ai/learning-langchain
   <li>11. Разработка приложений с LLM</li>
 </ul>
 
+<br/>
+
+### [Qwen] Free AI for chat, apps, and agents
+https://vireonix.ai/
+
 
 
 <br/>
