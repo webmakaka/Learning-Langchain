@@ -10,6 +10,7 @@ import { ChatOpenAI } from '@langchain/openai';
 import { PromptTemplate } from '@langchain/core/prompts';
 import { RunnableSequence } from '@langchain/core/runnables';
 import { StringOutputParser } from '@langchain/core/output_parsers';
+import 'dotenv/config';
 
 const connectionString =
   'postgresql://langchain:langchain@localhost:6024/langchain';
@@ -27,7 +28,21 @@ const prompt = PromptTemplate.fromTemplate(
   `Summarize the following document:\n\n{doc}`
 );
 
-const llm = new ChatOpenAI({ modelName: 'gpt-3.5-turbo' });
+const llm = new ChatOpenAI({
+  model: 'auto',
+  configuration: {
+    baseURL: 'https://vireonix.ai/v1',
+  },
+  apiKey: 'not-needed',
+});
+
+// const llm = new ChatOpenAI({
+//   model: 'nvidia/nemotron-3-ultra-550b-a55b:free',
+//   configuration: {
+//     baseURL: 'https://openrouter.ai/api/v1',
+//   },
+//   apiKey: process.env.OPENROUTER_API_KEY,
+// });
 
 const chain = RunnableSequence.from([
   { doc: (doc) => doc.pageContent },
@@ -57,10 +72,19 @@ const summaryDocs = summaries.map((summary, i) => {
 // The byteStore to use to store the original chunks
 const byteStore = new InMemoryStore();
 
+const model = new OpenAIEmbeddings({
+  model: 'liquid/lfm-2.5-embedding-350m:free',
+  batchSize: 128,
+  configuration: {
+    baseURL: 'https://openrouter.ai/api/v1',
+  },
+  apiKey: process.env.OPENROUTER_API_KEY,
+});
+
 // vector store for the summaries
 const vectorStore = await PGVectorStore.fromDocuments(
-  docs,
-  new OpenAIEmbeddings(),
+  summaryDocs,
+  model,
   {
     postgresConnectionOptions: {
       connectionString,
@@ -94,3 +118,5 @@ const retrieverResult = await retriever.invoke('chapter on philosophy');
 console.log(
   `multi-vector retrieved chunk length: ${retrieverResult[0].pageContent.length}`
 );
+
+await vectorStore.end();
