@@ -45,6 +45,8 @@ See this page for more information:
 
 <br/>
 
+## Оптимизация индексации
+
 ### [FAIL!] МultiVectorRetriever
 
 Не отрабатывает с бесплатными моделями. А платных у меня нет.
