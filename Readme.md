@@ -32,12 +32,15 @@ https://github.com/langchain-ai/learning-langchain
 
 <br/>
 
-### [Qwen] Free AI for chat, apps, and agents
+### [Qwen] Free AI for chat, apps, and agents. Можно использовать бесплатно, но с ограничениями.
 https://vireonix.ai/
+
+### [GLM] glm-4.5-flash и glm-4.7-flash. Можно использовать бесплатно, но с ограничениями.
+https://z.ai/model-api
 
 <br/>
 
-### Openrouter.ai + AmneziaVPN
+### Openrouter.ai + AmneziaVPN. Можно использовать бесплатно, но с ограничениями.
 
 <br/>
 
