@@ -29,12 +29,20 @@ const prompt = PromptTemplate.fromTemplate(
 );
 
 const llm = new ChatOpenAI({
-  model: 'auto',
+  model: 'glm-4.5-flash',
   configuration: {
-    baseURL: 'https://vireonix.ai/v1',
+    baseURL: 'https://api.z.ai/api/paas/v4',
   },
-  apiKey: 'not-needed',
+  apiKey: process.env.GLM_API_KEY,
 });
+
+// const llm = new ChatOpenAI({
+//   model: 'auto',
+//   configuration: {
+//     baseURL: 'https://vireonix.ai/v1',
+//   },
+//   apiKey: 'not-needed',
+// });
 
 // const llm = new ChatOpenAI({
 //   model: 'nvidia/nemotron-3-ultra-550b-a55b:free',
@@ -53,7 +61,7 @@ const chain = RunnableSequence.from([
 
 // batch summarization chain across the chunks
 const summaries = await chain.batch(docs, {
-  maxConcurrency: 5,
+  maxConcurrency: 1,
 });
 
 const idKey = 'doc_id';
