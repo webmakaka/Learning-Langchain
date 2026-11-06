@@ -29,12 +29,20 @@ const prompt = PromptTemplate.fromTemplate(
 );
 
 const llm = new ChatOpenAI({
-  model: 'glm-4.5-flash',
+  model: 'openai/gpt-oss-120b',
   configuration: {
-    baseURL: 'https://api.z.ai/api/paas/v4',
+    baseURL: 'https://api.groq.com/openai/v1',
   },
-  apiKey: process.env.GLM_API_KEY,
+  apiKey: process.env.GROQ_API_KEY,
 });
+
+// const llm = new ChatOpenAI({
+//   model: 'glm-4.5-flash',
+//   configuration: {
+//     baseURL: 'https://api.z.ai/api/paas/v4',
+//   },
+//   apiKey: process.env.GLM_API_KEY,
+// });
 
 // const llm = new ChatOpenAI({
 //   model: 'auto',
