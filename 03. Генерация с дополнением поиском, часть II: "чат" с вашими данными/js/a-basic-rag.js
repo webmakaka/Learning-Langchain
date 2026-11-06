@@ -1,17 +1,3 @@
-/** 
-1. Ensure docker is installed and running (https://docs.docker.com/get-docker/)
-2. Run the following command to start the postgres container:
-   
-docker run \
-    --name pgvector-container \
-    -e POSTGRES_USER=langchain \
-    -e POSTGRES_PASSWORD=langchain \
-    -e POSTGRES_DB=langchain \
-    -p 6024:5432 \
-    -d pgvector/pgvector:pg16
-3. Use the connection string below for the postgres container
-*/
-
 import { TextLoader } from 'langchain/document_loaders/fs/text';
 import { RecursiveCharacterTextSplitter } from '@langchain/textsplitters';
 import { OpenAIEmbeddings } from '@langchain/openai';
