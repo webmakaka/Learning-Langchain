@@ -38,6 +38,9 @@ https://vireonix.ai/
 ### [GLM] glm-4.5-flash и glm-4.7-flash. Можно использовать бесплатно, но с ограничениями.
 https://z.ai/model-api
 
+### [Groq] openai/gpt-oss-120b. Можно использовать бесплатно, но с ограничениями.
+https://console.groq.com/
+
 <br/>
 
 ### Openrouter.ai + AmneziaVPN. Можно использовать бесплатно, но с ограничениями.
