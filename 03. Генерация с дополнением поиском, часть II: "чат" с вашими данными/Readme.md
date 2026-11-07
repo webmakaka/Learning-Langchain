@@ -243,4 +243,6 @@ AIMessage {
 }
 ```
 
+<br/>
 
+### Стратегия RAG-Fusion
