@@ -170,3 +170,46 @@ AIMessage {
 <br/>
 
 ### Преобразование запроса
+
+```shell
+$ node ./c-multi-query.js 
+Выполнение QA на основе множественных запросов
+
+AIMessage {
+  "id": "chatcmpl-b85444434f283cb4",
+  "content": "В данной статье упоминаются следующие города-государства (полисы):\n\n*   Афины\n*   Спарта\n*   Коринф\n*   Фивы",
+  "additional_kwargs": {
+    "function_call": null
+  },
+  "response_metadata": {
+    "tokenUsage": {
+      "promptTokens": 342,
+      "completionTokens": 40,
+      "totalTokens": 382
+    },
+    "finish_reason": "stop",
+    "model_name": "auto",
+    "usage": {
+      "prompt_tokens": 342,
+      "total_tokens": 382,
+      "completion_tokens": 40,
+      "prompt_tokens_details": null,
+      "completion_tokens_details": {
+        "reasoning_tokens": 0
+      }
+    },
+    "system_fingerprint": "vllm-0.30.0-4dc91a50"
+  },
+  "tool_calls": [],
+  "invalid_tool_calls": [],
+  "usage_metadata": {
+    "output_tokens": 40,
+    "input_tokens": 342,
+    "total_tokens": 382,
+    "input_token_details": {},
+    "output_token_details": {
+      "reasoning": 0
+    }
+  }
+}
+```
