@@ -12,7 +12,7 @@ $ docker run \
 
 <br/>
 
-### Извлечение релевантных документов
+### 01. Извлечение релевантных документов
 
 <img src="../img/ch03-pic01.png" alt="Извлечение релевантных документов">
 
@@ -83,7 +83,9 @@ AIMessage {
 
 <br/>
 
-### Преобразование запроса
+### 02. Преобразование запроса
+
+<img src="../img/ch03-pic02.png" alt="Преобразование запроса">
 
 ```shell
 $ node ./b-rewrite.js 
@@ -187,11 +189,11 @@ AIMessage {
 ```
 
 
-
-
 <br/>
 
-### Множественный запрос (Multi-Query Retrieval)
+### 03. Множественный запрос (Multi-Query Retrieval)
+
+<img src="../img/ch03-pic03.png" alt="Множественный запрос (Multi-Query Retrieval)">
 
 ```shell
 $ node ./c-multi-query.js 
