@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import { TextLoader } from 'langchain/document_loaders/fs/text';
 import { RecursiveCharacterTextSplitter } from '@langchain/textsplitters';
 import { OpenAIEmbeddings } from '@langchain/openai';
@@ -5,10 +6,11 @@ import { PGVectorStore } from '@langchain/community/vectorstores/pgvector';
 import { ChatPromptTemplate } from '@langchain/core/prompts';
 import { ChatOpenAI } from '@langchain/openai';
 import { RunnableLambda } from '@langchain/core/runnables';
+
 const connectionString =
   'postgresql://langchain:langchain@localhost:6024/langchain';
 // Load the document, split it into chunks
-const loader = new TextLoader('./test.txt');
+const loader = new TextLoader('./test.rus.txt');
 const raw_docs = await loader.load();
 const splitter = new RecursiveCharacterTextSplitter({
   chunkSize: 1000,
@@ -17,7 +19,14 @@ const splitter = new RecursiveCharacterTextSplitter({
 const splitDocs = await splitter.splitDocuments(raw_docs);
 
 // embed each chunk and insert it into the vector store
-const model = new OpenAIEmbeddings();
+const model = new OpenAIEmbeddings({
+  model: 'liquid/lfm-2.5-embedding-350m:free',
+  batchSize: 128,
+  configuration: {
+    baseURL: 'https://openrouter.ai/api/v1',
+  },
+  apiKey: process.env.OPENROUTER_API_KEY,
+});
 
 const db = await PGVectorStore.fromDocuments(splitDocs, model, {
   postgresConnectionOptions: {
@@ -29,23 +38,30 @@ const db = await PGVectorStore.fromDocuments(splitDocs, model, {
 const retriever = db.asRetriever({ k: 2 });
 
 const query =
-  'Who are the key figures in the ancient greek history of philosophy?';
+  'Подскажи, о каких городах речь в данной статье?';
 
 // fetch relevant documents
 const docs = await retriever.invoke(query);
 
 console.log(
-  `fetched document based on similarity search query:\n ${docs[0].pageContent}\n\n`
+  `Документ успешно извлечен на основе поискового запроса по сходству (семантического поиска).:\n ${docs[0].pageContent}\n\n`
 );
 
 /**
  * Provide retrieved docs as context to the LLM to answer a user's question
  */
 const prompt = ChatPromptTemplate.fromTemplate(
-  'Answer the question based only on the following context:\n {context}\n\nQuestion: {question}'
+  'Отвечайте на вопрос, основываясь исключительно на следующем контексте:\n {context}\n\nQuestion: {question}'
 );
 
-const llm = new ChatOpenAI({ temperature: 0, modelName: 'gpt-3.5-turbo' });
+const llm = new ChatOpenAI({
+   model: 'glm-4.5-flash',
+   configuration: {
+     baseURL: 'https://api.z.ai/api/paas/v4',
+   },
+   apiKey: process.env.GLM_API_KEY,
+ });
+
 const chain = prompt.pipe(llm);
 
 const result = await chain.invoke({
@@ -59,7 +75,7 @@ console.log('\n\n');
 // run again but this time encapsulate the logic for efficiency
 
 console.log(
-  'Running again but this time encapsulate the logic for efficiency\n'
+  'Выполняю повторный запуск. В целях повышения эффективности логика полностью капсулирована.\n'
 );
 const qa = RunnableLambda.from(async (input) => {
   // fetch relevant documents
@@ -73,3 +89,5 @@ const qa = RunnableLambda.from(async (input) => {
 
 const finalResult = await qa.invoke(query);
 console.log(finalResult);
+
+await db.end();
