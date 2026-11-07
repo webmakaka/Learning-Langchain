@@ -52,7 +52,10 @@ const perspectivesPrompt = ChatPromptTemplate.fromTemplate(
 );
 
 const queryGen = perspectivesPrompt.pipe(llm).pipe((message) => {
-  return message.content.split('\n');
+  return message.content
+    .split('\n')
+    .map((q) => q.trim())
+    .filter((q) => q.length > 0);
 });
 
 /**
