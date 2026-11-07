@@ -39,13 +39,13 @@ const retriever = db.asRetriever({ k: 2 });
 /**
  * Provide retrieved docs as context to the LLM to answer a user's question
  */
-const llm = new ChatOpenAI({
-   model: 'glm-4.5-flash',
-   configuration: {
-     baseURL: 'https://api.z.ai/api/paas/v4',
-   },
-   apiKey: process.env.GLM_API_KEY,
- });
+const llm =new ChatOpenAI({
+  model: 'auto',
+  configuration: {
+    baseURL: 'https://vireonix.ai/v1',
+  },
+  apiKey: 'not-needed',
+});
 
 const perspectivesPrompt = ChatPromptTemplate.fromTemplate(
   `Ты ассистент на базе языковой модели ИИ. Твоя задача — сгенерировать пять различных вариантов исходного вопроса пользователя для извлечения релевантных документов из векторной базы данных. Путем создания нескольких формулировок вопроса пользователя твоя цель — помочь преодолеть некоторые ограничения поиска по сходству на основе расстояния. Предоставь эти альтернативные вопросы, разделяя их символом новой строки. Оригинальный вопрос: {question}`
@@ -72,7 +72,7 @@ const prompt = ChatPromptTemplate.fromTemplate(
   'Отвечай на вопрос, основываясь исключительно на следующем контексте::\n {context}\n\nВопрос: {question}'
 );
 
-console.log('Running multi query qa\n');
+console.log('Выполнение QA на основе множественных запросов\n');
 const multiQueryQa = RunnableLambda.from(async (input) => {
   // fetch relevant documents
   const docs = await retrievalChain.invoke({ question: input });
