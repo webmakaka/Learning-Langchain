@@ -228,3 +228,7 @@ AIMessage {
   }
 }
 ```
+
+<br/>
+
+### Множественный запрос (Multi-Query Retrieval)
