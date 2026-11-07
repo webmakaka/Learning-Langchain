@@ -93,28 +93,40 @@ AIMessage {
 $ node ./b-rewrite.js 
 {
   answer: AIMessage {
-    "id": "202611071724538f6b46eb124f48ae",
-    "content": "На основании предоставленного контекста, **в тексте не упоминаются конкретные названия городов.** \n\nВ фрагментах говорится о **полисах** (города-государства) как **основном структурном элементе греческого общества** (\"Древнегреческое общество, сосредоточенное вокруг полиса, или города-государства\"). Полис подчеркивается как \"сердце греческого общества\".\n\n**Вывод:** В данных отрывках речи идет о **полисах как категории городов** (Афины, Спарта, Коринф и т.д.), но **не называются конкретные города**. Если контекст расширен и содержит дальнейшие главы или разделы, именно там могут появиться примеры конкретных полисов (например, Афины как центр философии, Спарта как военное государство и т.д.). Однако в **представленном фрагменте** (Глава 1) таких деталей нет.",
-    "additional_kwargs": {},
+    "id": "chatcmpl-b8eed72cd479e5a8",
+    "content": "В предоставленном контексте не упоминаются названия конкретных городов.\n\nТекст указывает только на то, что древнегреческое общество было сосредоточено вокруг **полиса** (или города-государства), который описывается как сердце греческого общества, но без перечисления отдельных городов.",
+    "additional_kwargs": {
+      "function_call": null
+    },
     "response_metadata": {
       "tokenUsage": {
-        "promptTokens": 545,
-        "completionTokens": 551,
-        "totalTokens": 1096
+        "promptTokens": 543,
+        "completionTokens": 69,
+        "totalTokens": 612
       },
       "finish_reason": "stop",
-      "model_name": "glm-4.5-flash"
+      "model_name": "auto",
+      "usage": {
+        "prompt_tokens": 543,
+        "total_tokens": 612,
+        "completion_tokens": 69,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "system_fingerprint": "vllm-0.30.0-4dc91a50"
     },
     "tool_calls": [],
     "invalid_tool_calls": [],
     "usage_metadata": {
-      "output_tokens": 551,
-      "input_tokens": 545,
-      "total_tokens": 1096,
-      "input_token_details": {
-        "cache_read": 4
-      },
-      "output_token_details": {}
+      "output_tokens": 69,
+      "input_tokens": 543,
+      "total_tokens": 612,
+      "input_token_details": {},
+      "output_token_details": {
+        "reasoning": 0
+      }
     }
   },
   docs: [
@@ -140,28 +152,40 @@ $ node ./b-rewrite.js
 
 
 AIMessage {
-  "id": "20261107172647e8f6223887af4625",
-  "content": "На основе предоставленного контекста, в статье **упоминается только один тип городов - \"полисы\" (города-государства)**. Конкретные названия городов **не приводятся** в данном отрывке.\n\nВот что говорится о городах:\n1.  **Древнегреческое общество было сосредоточено вокруг полиса**.\n2.  Полис представлял **\"сердце греческого общества\"**.\n3.  Именно围绕着 полиса развивалась уникальная комбинация общественной жизни, интеллектуальных исканий и художественных новаций.\n\n**Вывод:** В данном фрагменте речь идет **о полисах как центральном элементе древнегреческой цивилизации**, но **нет конкретных примеров названий городов** (Афины, Спарта, Коринф и т.д.).",
-  "additional_kwargs": {},
+  "id": "chatcmpl-bf8d820d94e1be25",
+  "content": "Согласно предоставленному контексту, речь идет о следующих древнегреческих городах-государствах (полисах):\n\n*   **Афины**\n*   **Спарта**\n*   **Коринф**\n*   **Фивы**\n\n*(Примечание: В контексте также упоминается сам термин «полис» как общая основа жизни, но именно эти четыре города указаны как самые известные примеры).*",
+  "additional_kwargs": {
+    "function_call": null
+  },
   "response_metadata": {
     "tokenUsage": {
-      "promptTokens": 545,
-      "completionTokens": 518,
-      "totalTokens": 1063
+      "promptTokens": 659,
+      "completionTokens": 99,
+      "totalTokens": 758
     },
     "finish_reason": "stop",
-    "model_name": "glm-4.5-flash"
+    "model_name": "auto",
+    "usage": {
+      "prompt_tokens": 659,
+      "total_tokens": 758,
+      "completion_tokens": 99,
+      "prompt_tokens_details": null,
+      "completion_tokens_details": {
+        "reasoning_tokens": 0
+      }
+    },
+    "system_fingerprint": "vllm-0.30.0-4dc91a50"
   },
   "tool_calls": [],
   "invalid_tool_calls": [],
   "usage_metadata": {
-    "output_tokens": 518,
-    "input_tokens": 545,
-    "total_tokens": 1063,
-    "input_token_details": {
-      "cache_read": 544
-    },
-    "output_token_details": {}
+    "output_tokens": 99,
+    "input_tokens": 659,
+    "total_tokens": 758,
+    "input_token_details": {},
+    "output_token_details": {
+      "reasoning": 0
+    }
   }
 }
 ```
