@@ -1,17 +1,4 @@
-/** 
-1. Ensure docker is installed and running (https://docs.docker.com/get-docker/)
-2. Run the following command to start the postgres container:
-   
-docker run \
-    --name pgvector-container \
-    -e POSTGRES_USER=langchain \
-    -e POSTGRES_PASSWORD=langchain \
-    -e POSTGRES_DB=langchain \
-    -p 6024:5432 \
-    -d pgvector/pgvector:pg16
-3. Use the connection string below for the postgres container
-*/
-
+import 'dotenv/config';
 import { TextLoader } from 'langchain/document_loaders/fs/text';
 import { RecursiveCharacterTextSplitter } from '@langchain/textsplitters';
 import { OpenAIEmbeddings } from '@langchain/openai';
@@ -22,7 +9,7 @@ import { RunnableLambda } from '@langchain/core/runnables';
 const connectionString =
   'postgresql://langchain:langchain@localhost:6024/langchain';
 // Load the document, split it into chunks
-const loader = new TextLoader('./test.txt');
+const loader = new TextLoader('./test.rus.txt');
 const raw_docs = await loader.load();
 const splitter = new RecursiveCharacterTextSplitter({
   chunkSize: 1000,
@@ -31,7 +18,14 @@ const splitter = new RecursiveCharacterTextSplitter({
 const splitDocs = await splitter.splitDocuments(raw_docs);
 
 // embed each chunk and insert it into the vector store
-const model = new OpenAIEmbeddings();
+const model = new OpenAIEmbeddings({
+  model: 'liquid/lfm-2.5-embedding-350m:free',
+  batchSize: 128,
+  configuration: {
+    baseURL: 'https://openrouter.ai/api/v1',
+  },
+  apiKey: process.env.OPENROUTER_API_KEY,
+});
 
 const db = await PGVectorStore.fromDocuments(splitDocs, model, {
   postgresConnectionOptions: {
@@ -46,15 +40,21 @@ const retriever = db.asRetriever({ k: 2 });
  * Query starts with irrelevant information before asking the relevant question
  */
 const query =
-  'Today I woke up and brushed my teeth, then I sat down to read the news. But then I forgot the food on the cooker. Who are some key figures in the ancient greek history of philosophy?';
+  'Сегодня я проснулся и почистил зубы, затем сел читать новости. Но потом я забыл про еду на плите. Напомни, о каких городах речь в данной статье??';
 /**
  * Provide retrieved docs as context to the LLM to answer a user's question
  */
 const prompt = ChatPromptTemplate.fromTemplate(
-  'Answer the question based only on the following context:\n {context}\n\nQuestion: {question}'
+  'Отвечайте на вопрос, основываясь исключительно на следующем контексте:\n {context}\n\nQuestion: {question}'
 );
 
-const llm = new ChatOpenAI({ temperature: 0, modelName: 'gpt-3.5-turbo' });
+const llm = new ChatOpenAI({
+   model: 'glm-4.5-flash',
+   configuration: {
+     baseURL: 'https://api.z.ai/api/paas/v4',
+   },
+   apiKey: process.env.GLM_API_KEY,
+ });
 
 const qa = RunnableLambda.from(async (input) => {
   // fetch relevant documents
@@ -68,10 +68,10 @@ const qa = RunnableLambda.from(async (input) => {
 
 const result = await qa.invoke(query);
 console.log(result);
-console.log('\n\nCall model again with rewritten query\n\n');
+console.log('\n\nВызовите модель снова с переписанным запросом.\n\n');
 
 const rewritePrompt = ChatPromptTemplate.fromTemplate(
-  `Provide a better search query for web search engine to answer the given question, end the queries with '**'. Question: {question} Answer:`
+  `Предоставьте более подходящий поисковый запрос для веб-поисковика, чтобы ответить на заданный вопрос, завершите запросы словом '**'. Вопрос: {question} Ответ:`
 );
 const rewriter = rewritePrompt.pipe(llm).pipe((message) => {
   return message.content.replaceAll('"', '').replaceAll('**');
@@ -86,3 +86,5 @@ const rewriterQA = RunnableLambda.from(async (input) => {
 
 const finalResult = await rewriterQA.invoke(query);
 console.log(finalResult);
+
+await db.end();
