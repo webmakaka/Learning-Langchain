@@ -85,7 +85,7 @@ AIMessage {
 
 ### 02. Преобразование запроса
 
-<img src="../img/ch03-pic02.png" alt="Преобразование запроса">
+<img src="../img/ch03-pic03.png" alt="Преобразование запроса">
 
 ```shell
 $ node ./b-rewrite.js 
@@ -198,7 +198,7 @@ LLM получает задание сгенерировать нескольк�
 
 <br/>
 
-<img src="../img/ch03-pic03.png" alt="Множественный запрос (Multi-Query Retrieval)">
+<img src="../img/ch03-pic04.png" alt="Множественный запрос (Multi-Query Retrieval)">
 
 ```shell
 $ node ./c-multi-query.js 
