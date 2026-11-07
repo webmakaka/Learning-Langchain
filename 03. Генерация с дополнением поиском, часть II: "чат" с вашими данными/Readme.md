@@ -80,6 +80,11 @@ AIMessage {
 
 <img src="../img/ch03-pic02.png" alt="Генерация предсказаний модели на основе релевантных документов">
 
+
+<br/>
+
+### Преобразование запроса
+
 ```shell
 $ node ./b-rewrite.js 
 {
@@ -182,9 +187,11 @@ AIMessage {
 ```
 
 
+
+
 <br/>
 
-### Преобразование запроса
+### Множественный запрос (Multi-Query Retrieval)
 
 ```shell
 $ node ./c-multi-query.js 
@@ -229,6 +236,4 @@ AIMessage {
 }
 ```
 
-<br/>
 
-### Множественный запрос (Multi-Query Retrieval)
