@@ -370,3 +370,12 @@ AIMessage {
 <br/>
 
 <img src="../img/ch03-pic06.png" alt="Логическая маршрутизация">
+
+```shell
+$ node ./f-router.js 
+Routing to:  { datasource: 'python_docs' }
+```
+
+<br/>
+
+### 
