@@ -85,5 +85,135 @@ console.log(drawableGraph.drawMermaid());
 <br/>
 
 ```shell
-$ node ./
+$ node ./c-persistent-memory.js 
+{
+  messages: [
+    HumanMessage {
+      "id": "58f13305-cc1b-4e65-a1d9-7cf475852479",
+      "content": "Привет, я Malrey!",
+      "additional_kwargs": {},
+      "response_metadata": {}
+    },
+    AIMessage {
+      "id": "chatcmpl-864ee7e9ed42195f",
+      "content": "Привет, Malrey! Рад знакомству. Чем могу помочь тебе сегодня?",
+      "additional_kwargs": {
+        "function_call": null
+      },
+      "response_metadata": {
+        "tokenUsage": {
+          "promptTokens": 20,
+          "completionTokens": 19,
+          "totalTokens": 39
+        },
+        "finish_reason": "stop",
+        "model_name": "auto",
+        "usage": {
+          "prompt_tokens": 20,
+          "total_tokens": 39,
+          "completion_tokens": 19,
+          "prompt_tokens_details": null,
+          "completion_tokens_details": {
+            "reasoning_tokens": 0
+          }
+        },
+        "system_fingerprint": "vllm-0.30.0-4dc91a50"
+      },
+      "tool_calls": [],
+      "invalid_tool_calls": [],
+      "usage_metadata": {
+        "output_tokens": 19,
+        "input_tokens": 20,
+        "total_tokens": 39,
+        "input_token_details": {},
+        "output_token_details": {
+          "reasoning": 0
+        }
+      }
+    }
+  ]
+}
+{
+  messages: [
+    HumanMessage {
+      "id": "58f13305-cc1b-4e65-a1d9-7cf475852479",
+      "content": "Привет, я Malrey!",
+      "additional_kwargs": {},
+      "response_metadata": {}
+    },
+    AIMessage {
+      "id": "chatcmpl-864ee7e9ed42195f",
+      "content": "Привет, Malrey! Рад знакомству. Чем могу помочь тебе сегодня?",
+      "additional_kwargs": {
+        "function_call": null
+      },
+      "response_metadata": {
+        "tokenUsage": {
+          "promptTokens": 20,
+          "completionTokens": 19,
+          "totalTokens": 39
+        },
+        "finish_reason": "stop",
+        "model_name": "auto",
+        "usage": {
+          "prompt_tokens": 20,
+          "total_tokens": 39,
+          "completion_tokens": 19,
+          "prompt_tokens_details": null,
+          "completion_tokens_details": {
+            "reasoning_tokens": 0
+          }
+        },
+        "system_fingerprint": "vllm-0.30.0-4dc91a50"
+      },
+      "tool_calls": [],
+      "invalid_tool_calls": []
+    },
+    HumanMessage {
+      "id": "6f50059f-7954-48e1-9659-f50555ea6ed6",
+      "content": "Не забыл как меня зовут?",
+      "additional_kwargs": {},
+      "response_metadata": {}
+    },
+    AIMessage {
+      "id": "chatcmpl-afd635d6041be776",
+      "content": "Конечно, я помню! Вас зовут **Malrey**. 😊\n\nЧем могу быть полезен?",
+      "additional_kwargs": {
+        "function_call": null
+      },
+      "response_metadata": {
+        "tokenUsage": {
+          "promptTokens": 61,
+          "completionTokens": 25,
+          "totalTokens": 86
+        },
+        "finish_reason": "stop",
+        "model_name": "auto",
+        "usage": {
+          "prompt_tokens": 61,
+          "total_tokens": 86,
+          "completion_tokens": 25,
+          "prompt_tokens_details": null,
+          "completion_tokens_details": {
+            "reasoning_tokens": 0
+          }
+        },
+        "system_fingerprint": "vllm-0.30.0-4dc91a50"
+      },
+      "tool_calls": [],
+      "invalid_tool_calls": [],
+      "usage_metadata": {
+        "output_tokens": 25,
+        "input_tokens": 61,
+        "total_tokens": 86,
+        "input_token_details": {},
+        "output_token_details": {
+          "reasoning": 0
+        }
+      }
+    }
+  ]
+}
 ```
+
+
