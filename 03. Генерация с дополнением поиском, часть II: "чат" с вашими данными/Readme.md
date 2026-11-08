@@ -385,3 +385,48 @@ Routing to:  { datasource: 'python_docs' }
 <br/>
 
 <img src="../img/ch03-pic07.png" alt="Семантическая маршрутизация">
+
+
+```
+$ node ./g-semantic-router.js 
+Using PHYSICS
+
+Semantic router result:  AIMessage {
+  "id": "chatcmpl-489dbd12-a78d-4193-b9c5-6ff3d12b01e6",
+  "content": "**Косинусное расстояние** — это мера различия между двумя векторами, основанная на угле между ними.\n\n1. **Косинусное сходство**  \n   \\[\n   \\operatorname{sim}_{\\cos }(\\mathbf{a},\\mathbf{b})=\n   \\frac{\\mathbf{a}\\cdot\\mathbf{b}}{\\|\\mathbf{a}\\|\\,\\|\\mathbf{b}\\|}\n   =\\frac{\\sum_i a_i b_i}{\\sqrt{\\sum_i a_i^2}\\,\\sqrt{\\sum_i b_i^2}}.\n   \\]\n   Значение лежит в диапазоне \\([-1,1]\\): 1 — векторы совпадают по направлению, 0 — перпендикулярны, -1 — противоположны.\n\n2. **Косинусное расстояние**  \n   Наиболее часто используют одну из двух форм:\n   \\[\n   d_{\\cos }(\\mathbf{a},\\mathbf{b}) = 1 - \\operatorname{sim}_{\\cos }(\\mathbf{a},\\mathbf{b}),\n   \\]\n   либо\n   \\[\n   d_{\\cos }(\\mathbf{a},\\mathbf{b}) = \\arccos\\!\\bigl(\\operatorname{sim}_{\\cos }(\\mathbf{a},\\mathbf{b})\\bigr),\n   \\]\n   где второй вариант измеряется в радианах и действительно является расстоянием в геометрическом смысле (угловое расстояние).\n\n**Ключевая идея:** косинусное расстояние учитывает только ориентацию (угол) между векторами, а не их длину. Поэтому два вектора одинакового направления, но разной величины, будут иметь расстояние 0.\n\n**Где применяется:**  \n- Поиск похожих документов (векторное представление текста).  \n- Кластеризация и классификация в машинном обучении.  \n- Анализ спектров, сигналов и других многомерных данных, где важен угол между измерениями, а не их абсолютные масштабы.  \n\nТаким образом, косинусное расстояние — это простая и эффективная метрика для сравнения направленностей векторных представлений.",
+  "additional_kwargs": {},
+  "response_metadata": {
+    "tokenUsage": {
+      "promptTokens": 124,
+      "completionTokens": 608,
+      "totalTokens": 732
+    },
+    "finish_reason": "stop",
+    "model_name": "openai/gpt-oss-120b",
+    "usage": {
+      "queue_time": 0.155174851,
+      "prompt_tokens": 124,
+      "prompt_time": 0.004922677,
+      "completion_tokens": 608,
+      "completion_time": 1.260984715,
+      "total_tokens": 732,
+      "total_time": 1.265907392,
+      "completion_tokens_details": {
+        "reasoning_tokens": 106
+      }
+    },
+    "system_fingerprint": "fp_a655021f7d"
+  },
+  "tool_calls": [],
+  "invalid_tool_calls": [],
+  "usage_metadata": {
+    "output_tokens": 608,
+    "input_tokens": 124,
+    "total_tokens": 732,
+    "input_token_details": {},
+    "output_token_details": {
+      "reasoning": 106
+    }
+  }
+}
+```
