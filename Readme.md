@@ -21,9 +21,9 @@ https://github.com/langchain-ai/learning-langchain
 
 <ul>
   <li>:white_check_mark: :book: :hammer_and_wrench: 01. Основы LLM с LangChain</li>
-  <li>:white_check_mark: :book: :hammer_and_wrench:  02. Генерация с дополнением поиском, часть I: индексация ваших данных</li>
-  <li>▶️ 03. Генерация с дополнением поиском, часть II: "чат" с вашими данными</li>
-  <li>:pause_button: 04. Добавляем долгосрочную память чат-боту с помощью LangGraph</li>
+  <li>:white_check_mark: :book: :hammer_and_wrench: 02. Генерация с дополнением поиском, часть I: индексация ваших данных</li>
+  <li>:white_check_mark: :book: :hammer_and_wrench: 03. Генерация с дополнением поиском, часть II: "чат" с вашими данными</li>
+  <li>▶️ 04. Добавляем долгосрочную память чат-боту с помощью LangGraph</li>
   <li>:pause_button: 05. Когнитивные архитектуры с LangGraph</li>
   <li>:pause_button: 06. Агентная архитектура</li>
   <li>:pause_button: 07. Агентная архитектура. Продолжение</li>
@@ -87,6 +87,18 @@ const embeddings = new OpenAIEmbeddings({
   model: 'liquid/lfm-2.5-embedding-350m:free',
   temperature: 0,
   batchSize: 128,
+  configuration: {
+    baseURL: 'https://openrouter.ai/api/v1',
+  },
+  apiKey: process.env.OPENROUTER_API_KEY,
+});
+```
+
+<br/>
+
+```js
+const llm = new ChatOpenAI({
+  model: 'nvidia/nemotron-3-ultra-550b-a55b:free',
   configuration: {
     baseURL: 'https://openrouter.ai/api/v1',
   },
