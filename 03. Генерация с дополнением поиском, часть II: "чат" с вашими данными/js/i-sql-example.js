@@ -1,20 +1,18 @@
-/*
-The below example will use a SQLite connection with the Chinook database, which is a sample database that represents a digital media store. Follow these installation steps to create Chinook.db in the same directory as this notebook. You can also download and build the database via the command line:
-
-```bash
-curl -s https://raw.githubusercontent.com/lerocha/chinook-database/master/ChinookDatabase/DataSources/Chinook_Sqlite.sql | sqlite3 Chinook.db
-
-```
-
-Afterwards, place `Chinook.db` in the same directory where this code is running.
-
-*/
-
 import { ChatOpenAI } from '@langchain/openai';
+import 'dotenv/config';
 import { createSqlQueryChain } from 'langchain/chains/sql_db';
 import { SqlDatabase } from 'langchain/sql_db';
-import { DataSource } from 'typeorm';
 import { QuerySqlTool } from 'langchain/tools/sql';
+import { DataSource } from 'typeorm';
+
+const llm = new ChatOpenAI({
+  model: 'openai/gpt-oss-120b',
+  temperature: 0,
+  configuration: {
+    baseURL: 'https://api.groq.com/openai/v1',
+  },
+  apiKey: process.env.GROQ_API_KEY,
+});
 
 const datasource = new DataSource({
   type: 'sqlite',
@@ -26,7 +24,6 @@ const db = await SqlDatabase.fromDataSourceParams({
 //test that the db is working
 await db.run('SELECT * FROM Artist LIMIT 10;');
 
-const llm = new ChatOpenAI({ modelName: 'gpt-4o', temperature: 0 });
 // convert question to sql query
 const writeQuery = await createSqlQueryChain({ llm, db, dialect: 'sqlite' });
 // execute query
@@ -35,6 +32,6 @@ const executeQuery = new QuerySqlTool(db);
 const chain = writeQuery.pipe(executeQuery);
 
 const result = await chain.invoke({
-  question: 'How many employees are there?',
+  question: 'Сколько у вас сотрудников?',
 });
 console.log(result);
