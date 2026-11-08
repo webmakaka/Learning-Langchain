@@ -70,7 +70,7 @@ function reciprocalRankFusion(results, k = 60) {
       // - save it for later
       if (!(key in fusedScores)) {
         fusedScores[key] = 0;
-        documents[key] = 0;
+        documents[key] = doc;
       }
       // Update the score of the document using the RRF formula:
       // 1 / (rank + k)
