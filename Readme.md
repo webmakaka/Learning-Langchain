@@ -37,7 +37,7 @@ https://github.com/langchain-ai/learning-langchain
 
 ## Чем пользуюсь:
 
-### [Vireonix] [Qwen] Free AI for chat, apps, and agents. Бесплатно, но с ограничениями.
+### [Vireonix][Qwen] Free AI for chat, apps, and agents. Бесплатно, но с ограничениями.
 https://vireonix.ai/
 
 ```js
@@ -51,7 +51,7 @@ const llm =new ChatOpenAI({
 });
 ```
 
-### [][GLM] glm-4.5-flash и glm-4.7-flash. Бесплатно, но с ограничениями.
+### [Z.ai] glm-4.5-flash и glm-4.7-flash. Бесплатно, но с ограничениями.
 https://z.ai/model-api
 
 ```js
@@ -79,7 +79,7 @@ const llm = new ChatOpenAI({
 });
 ```
 
-### [Openrouter + AmneziaVPN]. Бесплатно, но с ограничениями.
+### [Openrouter + AmneziaVPN] Бесплатно, но с ограничениями.
 https://Openrouter.ai
 
 ```js
