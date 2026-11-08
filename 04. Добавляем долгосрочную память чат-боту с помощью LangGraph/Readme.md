@@ -21,7 +21,7 @@ $ node ./a-simple-memory.js
 
 <br/>
 
-## Знакомство с LangGraph
+## 01. Знакомство с LangGraph
 
 <br/>
 
@@ -80,7 +80,7 @@ $ node ./b-state-graph.js
 
 <br/>
 
-### Добавление памяти в StateGraph
+### 02. Добавление памяти в StateGraph
 
 <br/>
 
