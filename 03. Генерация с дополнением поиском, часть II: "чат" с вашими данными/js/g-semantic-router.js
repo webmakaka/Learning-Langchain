@@ -4,6 +4,15 @@ import { cosineSimilarity } from '@langchain/core/utils/math';
 import { ChatOpenAI, OpenAIEmbeddings } from '@langchain/openai';
 import 'dotenv/config';
 
+const llm = new ChatOpenAI({
+  model: 'openai/gpt-oss-120b',
+  temperature: 0,
+  configuration: {
+    baseURL: 'https://api.groq.com/openai/v1',
+  },
+  apiKey: process.env.GROQ_API_KEY,
+});
+
 const physicsTemplate = `Вы – очень умный профессор физики. Вы отлично умеете отвечать на вопросы по физике кратко и понятно.
 Если вы не знаете ответа на вопрос, вы честно признаетесь в этом.
 Вот вопрос: {query}`;
@@ -20,15 +29,6 @@ const embeddings = new OpenAIEmbeddings({
     baseURL: 'https://openrouter.ai/api/v1',
   },
   apiKey: process.env.OPENROUTER_API_KEY,
-});
-
-const llm = new ChatOpenAI({
-  model: 'openai/gpt-oss-120b',
-  temperature: 0,
-  configuration: {
-    baseURL: 'https://api.groq.com/openai/v1',
-  },
-  apiKey: process.env.GROQ_API_KEY,
 });
 
 const promptTemplates = [physicsTemplate, mathTemplate];
