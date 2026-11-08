@@ -15,7 +15,7 @@ const llm = new ChatOpenAI({
 });
 
 const datasource = new DataSource({
-  type: 'sqlite',
+  type: 'better-sqlite3',
   database: 'Chinook.db', //this should be the path to the db
 });
 const db = await SqlDatabase.fromDataSourceParams({
