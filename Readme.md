@@ -40,11 +40,48 @@ https://github.com/langchain-ai/learning-langchain
 ### [Vireonix] [Qwen] Free AI for chat, apps, and agents. Бесплатно, но с ограничениями.
 https://vireonix.ai/
 
+```js
+const llm =new ChatOpenAI({
+  model: 'auto',
+  temperature: 0,
+  configuration: {
+    baseURL: 'https://vireonix.ai/v1',
+  },
+  apiKey: 'not-needed',
+});
+```
+
 ### [][GLM] glm-4.5-flash и glm-4.7-flash. Бесплатно, но с ограничениями.
 https://z.ai/model-api
+
+```js
+const llm = new ChatOpenAI({
+  model: 'glm-4.5-flash',
+  temperature: 0,
+  configuration: {
+    baseURL: 'https://api.z.ai/api/paas/v4',
+  },
+  apiKey: process.env.GLM_API_KEY,
+});
+```
 
 ### [Groq + AmneziaVPN] openai/gpt-oss-120b. Бесплатно, но с ограничениями.
 https://console.groq.com/
 
+```js
+
+```
+
 ### [Openrouter + AmneziaVPN]. Бесплатно, но с ограничениями.
 https://Openrouter.ai
+
+```
+const model = new OpenAIEmbeddings({
+  model: 'liquid/lfm-2.5-embedding-350m:free',
+  batchSize: 128,
+  configuration: {
+    baseURL: 'https://openrouter.ai/api/v1',
+  },
+  apiKey: process.env.OPENROUTER_API_KEY,
+});
+```
