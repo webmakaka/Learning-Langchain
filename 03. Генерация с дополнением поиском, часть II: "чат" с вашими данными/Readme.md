@@ -448,4 +448,22 @@ Semantic router result:  AIMessage {
 
 ### 01. Фильтр Текст-в-метаданные
 
+```shell
+$ node ./h-self-query.js 
+[
+  Document {
+    pageContent: 'Three men walk into the Zone, three men walk out of the Zone',
+    metadata: {
+      year: 1979,
+      director: 'Andrei Tarkovsky',
+      genre: 'science fiction',
+      rating: 9.9
+    },
+    id: undefined
+  }
+]
+```
+
 ### 02. Преобразование текста в SQL
+
+
