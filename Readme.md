@@ -69,15 +69,23 @@ const llm = new ChatOpenAI({
 https://console.groq.com/
 
 ```js
-
+const llm = new ChatOpenAI({
+  model: 'openai/gpt-oss-120b',
+  temperature: 0,
+  configuration: {
+    baseURL: 'https://api.groq.com/openai/v1',
+  },
+  apiKey: process.env.GROQ_API_KEY,
+});
 ```
 
 ### [Openrouter + AmneziaVPN]. Бесплатно, но с ограничениями.
 https://Openrouter.ai
 
-```
+```js
 const model = new OpenAIEmbeddings({
   model: 'liquid/lfm-2.5-embedding-350m:free',
+  temperature: 0,
   batchSize: 128,
   configuration: {
     baseURL: 'https://openrouter.ai/api/v1',
