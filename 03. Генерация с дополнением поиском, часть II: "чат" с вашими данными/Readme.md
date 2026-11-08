@@ -475,6 +475,8 @@ $ node ./h-self-query.js
 
 ### 02. Преобразование текста в SQL
 
+:warning: Нужно сравнить текущий код скрипта с оригинальным
+
 <br/>
 
 <img src="../img/ch03-pic09.png" alt="Преобразование текста в SQL">
@@ -495,6 +497,10 @@ $ curl -s https://raw.githubusercontent.com/lerocha/chinook-database/master/Chin
 
 ```shell
 $ node ./i-sql-example.js
+--- СГЕНЕРИРОВАННЫЙ LLM ОТВЕТ ---
+SELECT COUNT(*) FROM Employee;
+---------------------------------
+[{"COUNT(*)":8}]
 ```
 
 Сначала мы преобразуем запрос пользователя в SQL-зaпpoc, подходящий для диа­лекта нашей базы данных. Затем выполняем этот запрос в базе данных.
