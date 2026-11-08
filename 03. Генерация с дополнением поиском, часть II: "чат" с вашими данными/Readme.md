@@ -252,23 +252,23 @@ $ node ./d-rag-fusion.js
 Running rag fusion
 
 AIMessage {
-  "id": "chatcmpl-88d8d7b9a34d4eb0",
-  "content": "В предоставленном контексте `[0,0]` отсутствует текст статьи, на основе которого можно было бы сделать выводы.\n\nПожалуйста, предоставьте сам текст статьи, и я с удовольствием подскажу, о каких в ней речь идёт городах.",
+  "id": "chatcmpl-998398828dad56e0",
+  "content": "Основываясь на предоставленном контексте, в статье упоминаются следующие древнегреческие города-государства (полисы):\n\n1.  **Афины** — подробно описаны как родина демократии.\n2.  **Спарта**\n3.  **Коринф**\n4.  **Фивы**\n\nЭти города названы в тексте как «самые известные из этих городов-государств».",
   "additional_kwargs": {
     "function_call": null
   },
   "response_metadata": {
     "tokenUsage": {
-      "promptTokens": 53,
-      "completionTokens": 52,
-      "totalTokens": 105
+      "promptTokens": 345,
+      "completionTokens": 100,
+      "totalTokens": 445
     },
     "finish_reason": "stop",
     "model_name": "auto",
     "usage": {
-      "prompt_tokens": 53,
-      "total_tokens": 105,
-      "completion_tokens": 52,
+      "prompt_tokens": 345,
+      "total_tokens": 445,
+      "completion_tokens": 100,
       "prompt_tokens_details": null,
       "completion_tokens_details": {
         "reasoning_tokens": 0
@@ -279,9 +279,9 @@ AIMessage {
   "tool_calls": [],
   "invalid_tool_calls": [],
   "usage_metadata": {
-    "output_tokens": 52,
-    "input_tokens": 53,
-    "total_tokens": 105,
+    "output_tokens": 100,
+    "input_tokens": 345,
+    "total_tokens": 445,
     "input_token_details": {},
     "output_token_details": {
       "reasoning": 0
