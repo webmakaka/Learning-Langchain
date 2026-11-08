@@ -25,6 +25,14 @@ $ node ./a-simple-memory.js
 
 <br/>
 
+```js
+// Отрисовать в консоли graph
+const drawableGraph = await graph.getGraphAsync();
+console.log(drawableGraph.drawMermaid());
+```
+
+<br/>
+
 ```shell
 $ node ./b-state-graph.js 
 {
@@ -68,14 +76,6 @@ $ node ./b-state-graph.js
     }
   }
 }
-```
-
-<br/>
-
-```js
-// Отрисовать в консоли graph
-const drawableGraph = await graph.getGraphAsync();
-console.log(drawableGraph.drawMermaid());
 ```
 
 <br/>
