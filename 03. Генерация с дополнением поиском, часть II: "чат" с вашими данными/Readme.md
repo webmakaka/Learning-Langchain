@@ -479,8 +479,24 @@ $ node ./h-self-query.js
 
 <img src="../img/ch03-pic09.png" alt="Преобразование текста в SQL">
 
-```shell
+<br/>
 
+```shell
+$ sudo apt install -y sqlite3
+```
+
+<br/>
+
+```shell
+$ npm install-scripts approve sqlite3 && npm install sqlite3
+$ npm rebuild sqlite3
+```
+
+
+<br/>
+
+```shell
+$ curl -s https://raw.githubusercontent.com/lerocha/chinook-database/master/ChinookDatabase/DataSources/Chinook_Sqlite.sql | sqlite3 Chinook.db
 ```
 
 Сначала мы преобразуем запрос пользователя в SQL-зaпpoc, подходящий для диа­лекта нашей базы данных. Затем выполняем этот запрос в базе данных.
