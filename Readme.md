@@ -80,7 +80,7 @@ const llm = new ChatOpenAI({
 ```
 
 ### [Openrouter + AmneziaVPN] Бесплатно, но с ограничениями.
-https://Openrouter.ai
+https://openrouter.ai
 
 ```js
 const embeddings = new OpenAIEmbeddings({
