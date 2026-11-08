@@ -6,6 +6,23 @@ import { RecursiveCharacterTextSplitter } from '@langchain/textsplitters';
 import 'dotenv/config';
 import { TextLoader } from 'langchain/document_loaders/fs/text';
 
+const model = new OpenAIEmbeddings({
+  model: 'liquid/lfm-2.5-embedding-350m:free',
+  batchSize: 128,
+  configuration: {
+    baseURL: 'https://openrouter.ai/api/v1',
+  },
+  apiKey: process.env.OPENROUTER_API_KEY,
+});
+
+const llm =new ChatOpenAI({
+  model: 'auto',
+  configuration: {
+    baseURL: 'https://vireonix.ai/v1',
+  },
+  apiKey: 'not-needed',
+});
+
 const connectionString =
   'postgresql://langchain:langchain@localhost:6024/langchain';
 // Load the document, split it into chunks
@@ -18,14 +35,6 @@ const splitter = new RecursiveCharacterTextSplitter({
 const splitDocs = await splitter.splitDocuments(raw_docs);
 
 // embed each chunk and insert it into the vector store
-const model = new OpenAIEmbeddings({
-  model: 'liquid/lfm-2.5-embedding-350m:free',
-  batchSize: 128,
-  configuration: {
-    baseURL: 'https://openrouter.ai/api/v1',
-  },
-  apiKey: process.env.OPENROUTER_API_KEY,
-});
 
 const db = await PGVectorStore.fromDocuments(splitDocs, model, {
   postgresConnectionOptions: {
@@ -38,13 +47,6 @@ const retriever = db.asRetriever({ k: 2 });
 /**
  * Provide retrieved docs as context to the LLM to answer a user's question
  */
-const llm =new ChatOpenAI({
-  model: 'auto',
-  configuration: {
-    baseURL: 'https://vireonix.ai/v1',
-  },
-  apiKey: 'not-needed',
-});
 
 const hydePrompt = ChatPromptTemplate.fromTemplate(
   `Пoжaлyйcтa, напиши отрывок, чтобы ответить на вопрос.\n Вопрос: {question} \n Отрывок:`
