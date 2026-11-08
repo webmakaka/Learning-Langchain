@@ -488,6 +488,18 @@ $ sudo apt install -y sqlite3
 <br/>
 
 ```shell
+$ npm install sqlite3
+```
+
+<br/>
+
+**Если ошибки:**
+
+```
+$ sudo apt-get update && sudo apt-get install -y build-essential python3
+```
+
+```shell
 $ npm install-scripts approve sqlite3 && npm install sqlite3
 $ npm rebuild sqlite3
 ```
