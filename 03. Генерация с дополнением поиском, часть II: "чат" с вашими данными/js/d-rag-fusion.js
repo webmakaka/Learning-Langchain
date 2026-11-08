@@ -1,17 +1,4 @@
-/** 
-1. Ensure docker is installed and running (https://docs.docker.com/get-docker/)
-2. Run the following command to start the postgres container:
-   
-docker run \
-    --name pgvector-container \
-    -e POSTGRES_USER=langchain \
-    -e POSTGRES_PASSWORD=langchain \
-    -e POSTGRES_DB=langchain \
-    -p 6024:5432 \
-    -d pgvector/pgvector:pg16
-3. Use the connection string below for the postgres container
-*/
-
+import 'dotenv/config';
 import { TextLoader } from 'langchain/document_loaders/fs/text';
 import { RecursiveCharacterTextSplitter } from '@langchain/textsplitters';
 import { OpenAIEmbeddings } from '@langchain/openai';
@@ -23,7 +10,7 @@ import { RunnableLambda } from '@langchain/core/runnables';
 const connectionString =
   'postgresql://langchain:langchain@localhost:6024/langchain';
 // Load the document, split it into chunks
-const loader = new TextLoader('./test.txt');
+const loader = new TextLoader('./test.rus.txt');
 const raw_docs = await loader.load();
 const splitter = new RecursiveCharacterTextSplitter({
   chunkSize: 1000,
@@ -32,7 +19,14 @@ const splitter = new RecursiveCharacterTextSplitter({
 const splitDocs = await splitter.splitDocuments(raw_docs);
 
 // embed each chunk and insert it into the vector store
-const model = new OpenAIEmbeddings();
+const model = new OpenAIEmbeddings({
+  model: 'liquid/lfm-2.5-embedding-350m:free',
+  batchSize: 128,
+  configuration: {
+    baseURL: 'https://openrouter.ai/api/v1',
+  },
+  apiKey: process.env.OPENROUTER_API_KEY,
+});
 
 const db = await PGVectorStore.fromDocuments(splitDocs, model, {
   postgresConnectionOptions: {
@@ -45,10 +39,18 @@ const retriever = db.asRetriever({ k: 2 });
 /**
  * Provide retrieved docs as context to the LLM to answer a user's question
  */
-const llm = new ChatOpenAI({ temperature: 0, modelName: 'gpt-3.5-turbo' });
+const llm =new ChatOpenAI({
+  model: 'auto',
+  configuration: {
+    baseURL: 'https://vireonix.ai/v1',
+  },
+  apiKey: 'not-needed',
+});
 
 const perspectivesPrompt = ChatPromptTemplate.fromTemplate(
-  `You are a helpful assistant that generates multiple search queries based on a single input query. \n Generate multiple search queries related to: {question} \n Output (4 queries):`
+  `Вы – полезный ассистент, который генерирует несколько поисковых запросов на основе одного исходного запроса. \n
+Сгенерируйте несколько поисковых запросов, связанных с: {question} \n
+Вывод (4 запроса):`
 );
 const queryGen = perspectivesPrompt.pipe(llm).pipe((message) => {
   return message.content.split('\n');
@@ -82,7 +84,7 @@ function reciprocalRankFusion(results, k = 60) {
 }
 
 const prompt = ChatPromptTemplate.fromTemplate(
-  'Answer the question based only on the following context:\n {context}\n\nQuestion: {question}'
+  'Oтвeть на следующий вопрос, основываясь на следующем контексте:\n {context}\n\nВопрос: {question}'
 );
 
 const retrievalChain = queryGen
@@ -101,7 +103,9 @@ const ragFusion = RunnableLambda.from(async (input) => {
 });
 
 const result = await ragFusion.invoke(
-  'Who are the key figures in the ancient greek history of philosophy?'
+  'Подскажи, о каких городах речь в данной статье?'
 );
 
 console.log(result);
+
+await db.end();
