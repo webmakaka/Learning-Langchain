@@ -15,7 +15,7 @@ const model = new OpenAIEmbeddings({
   apiKey: process.env.OPENROUTER_API_KEY,
 });
 
-const llm =new ChatOpenAI({
+const llm = new ChatOpenAI({
   model: 'auto',
   configuration: {
     baseURL: 'https://vireonix.ai/v1',
