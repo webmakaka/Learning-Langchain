@@ -307,3 +307,48 @@ AIMessage {
 
 <img src="../img/ch03-pic05.png" alt="Эмбеддинг гипотетического документа">
 
+<br/>
+
+```shell
+$ node ./e-hyde.js 
+Running hyde
+
+AIMessage {
+  "id": "chatcmpl-ae3474b2f91a49b8",
+  "content": "В предоставленном контексте речь идет исключительно об одном городе (полисе) — **Спарте**.\n\nВ тексте подробно описываются:\n*   Милитаристский характер общества.\n*   Социальная структура, управляемая двойной монархией и советом старейшин.\n*   Система воспитания и военной подготовки спартанских мужчин под названием «агоге».\n\nХотя заголовок содержит слово «Напротив» (что обычно противопоставляет Спарте Афины или другой полис), в самом предоставленном фрагменте текста **упоминается только Спарта**. Другие города в данном тексте не названы.",
+  "additional_kwargs": {
+    "function_call": null
+  },
+  "response_metadata": {
+    "tokenUsage": {
+      "promptTokens": 435,
+      "completionTokens": 140,
+      "totalTokens": 575
+    },
+    "finish_reason": "stop",
+    "model_name": "auto",
+    "usage": {
+      "prompt_tokens": 435,
+      "total_tokens": 575,
+      "completion_tokens": 140,
+      "prompt_tokens_details": null,
+      "completion_tokens_details": {
+        "reasoning_tokens": 0
+      }
+    },
+    "system_fingerprint": "vllm-0.30.0-4dc91a50"
+  },
+  "tool_calls": [],
+  "invalid_tool_calls": [],
+  "usage_metadata": {
+    "output_tokens": 140,
+    "input_tokens": 435,
+    "total_tokens": 575,
+    "input_token_details": {},
+    "output_token_details": {
+      "reasoning": 0
+    }
+  }
+}
+```
+
