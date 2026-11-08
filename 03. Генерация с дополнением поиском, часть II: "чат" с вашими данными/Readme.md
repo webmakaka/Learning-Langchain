@@ -488,27 +488,13 @@ $ sudo apt install -y sqlite3
 <br/>
 
 ```shell
-$ npm install sqlite3
-```
-
-<br/>
-
-**Если ошибки:**
-
-```
-$ sudo apt-get update && sudo apt-get install -y build-essential python3
-```
-
-```shell
-$ npm install-scripts approve sqlite3 && npm install sqlite3
-$ npm rebuild sqlite3
-```
-
-
-<br/>
-
-```shell
 $ curl -s https://raw.githubusercontent.com/lerocha/chinook-database/master/ChinookDatabase/DataSources/Chinook_Sqlite.sql | sqlite3 Chinook.db
+```
+
+<br/>
+
+```shell
+$ node ./i-sql-example.js
 ```
 
 Сначала мы преобразуем запрос пользователя в SQL-зaпpoc, подходящий для диа­лекта нашей базы данных. Затем выполняем этот запрос в базе данных.
