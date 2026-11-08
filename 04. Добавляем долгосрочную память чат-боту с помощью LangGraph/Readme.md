@@ -77,3 +77,13 @@ $ node ./b-state-graph.js
 const drawableGraph = await graph.getGraphAsync();
 console.log(drawableGraph.drawMermaid());
 ```
+
+<br/>
+
+### Добавление памяти в StateGraph
+
+<br/>
+
+```shell
+$ node ./
+```
