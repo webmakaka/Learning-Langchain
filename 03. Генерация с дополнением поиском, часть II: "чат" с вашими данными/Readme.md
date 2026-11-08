@@ -246,3 +246,46 @@ AIMessage {
 <br/>
 
 ### Стратегия RAG-Fusion
+
+```shell
+$ node ./d-rag-fusion.js 
+Running rag fusion
+
+AIMessage {
+  "id": "chatcmpl-88d8d7b9a34d4eb0",
+  "content": "В предоставленном контексте `[0,0]` отсутствует текст статьи, на основе которого можно было бы сделать выводы.\n\nПожалуйста, предоставьте сам текст статьи, и я с удовольствием подскажу, о каких в ней речь идёт городах.",
+  "additional_kwargs": {
+    "function_call": null
+  },
+  "response_metadata": {
+    "tokenUsage": {
+      "promptTokens": 53,
+      "completionTokens": 52,
+      "totalTokens": 105
+    },
+    "finish_reason": "stop",
+    "model_name": "auto",
+    "usage": {
+      "prompt_tokens": 53,
+      "total_tokens": 105,
+      "completion_tokens": 52,
+      "prompt_tokens_details": null,
+      "completion_tokens_details": {
+        "reasoning_tokens": 0
+      }
+    },
+    "system_fingerprint": "vllm-0.30.0-4dc91a50"
+  },
+  "tool_calls": [],
+  "invalid_tool_calls": [],
+  "usage_metadata": {
+    "output_tokens": 52,
+    "input_tokens": 53,
+    "total_tokens": 105,
+    "input_token_details": {},
+    "output_token_details": {
+      "reasoning": 0
+    }
+  }
+}
+```
