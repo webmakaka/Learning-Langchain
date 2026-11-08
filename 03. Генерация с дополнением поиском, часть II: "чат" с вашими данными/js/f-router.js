@@ -1,18 +1,27 @@
-import { ChatOpenAI } from '@langchain/openai';
-import { z } from 'zod';
 import { ChatPromptTemplate } from '@langchain/core/prompts';
+import { ChatOpenAI } from '@langchain/openai';
+import 'dotenv/config';
+import { z } from 'zod';
 
 const routeQuery = z
   .object({
     datasource: z
       .enum(['python_docs', 'js_docs'])
       .describe(
-        'Given a user question, choose which datasource would be most relevant for answering their question'
+        'На основе пользовательского вопроса выбери, какой источник данных будет наиболее подходящим для ответа на него'
       ),
   })
-  .describe('Route a user query to the most relevant datasource.');
+  .describe('Маршрутизация пользовательского запроса к наиболее релевантному источнику данных');
 
-const llm = new ChatOpenAI({ model: 'gpt-3.5-turbo', temperature: 0 });
+const llm =new ChatOpenAI({
+  model: 'auto',
+  temperature: 0,
+  configuration: {
+    baseURL: 'https://vireonix.ai/v1',
+  },
+  apiKey: 'not-needed',
+});
+
 // withStructuredOutput is a method that allows us to use the structured output of the model
 const structuredLlm = llm.withStructuredOutput(routeQuery, {
   name: 'RouteQuery',
@@ -21,14 +30,15 @@ const structuredLlm = llm.withStructuredOutput(routeQuery, {
 const prompt = ChatPromptTemplate.fromMessages([
   [
     'system',
-    `You are an expert at routing a user question to the appropriate data source. Based on the programming language the question is referring to, route it to the relevant data source.`,
+    `Ты эксперт по маршрутизации пользовательских вопросов к соответствующему источнику данных.
+Основываясь на языке программирования, к которому относится вопрос, направь его к соответствующему источнику.`,
   ],
   ['human', '{question}'],
 ]);
 
 const router = prompt.pipe(structuredLlm);
 
-const question = `Why doesn't the following code work: 
+const question = `Почему следующий код не работает: 
 from langchain_core.prompts 
 import ChatPromptTemplate 
 prompt = ChatPromptTemplate.from_messages(["human", "speak in {language}"]) 
