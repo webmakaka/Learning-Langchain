@@ -12,6 +12,14 @@ import { RunnableSequence } from '@langchain/core/runnables';
 import { StringOutputParser } from '@langchain/core/output_parsers';
 import 'dotenv/config';
 
+const llm = new ChatOpenAI({
+  model: 'openai/gpt-oss-120b',
+  configuration: {
+    baseURL: 'https://api.groq.com/openai/v1',
+  },
+  apiKey: process.env.GROQ_API_KEY,
+});
+
 const connectionString =
   'postgresql://langchain:langchain@localhost:6024/langchain';
 const collectionName = 'summaries';
@@ -27,38 +35,6 @@ const docs = await splitter.splitDocuments(parentDocuments);
 const prompt = PromptTemplate.fromTemplate(
   `Summarize the following document:\n\n{doc}`
 );
-
-const llm = new ChatOpenAI({
-  model: 'openai/gpt-oss-120b',
-  configuration: {
-    baseURL: 'https://api.groq.com/openai/v1',
-  },
-  apiKey: process.env.GROQ_API_KEY,
-});
-
-// const llm = new ChatOpenAI({
-//   model: 'glm-4.5-flash',
-//   configuration: {
-//     baseURL: 'https://api.z.ai/api/paas/v4',
-//   },
-//   apiKey: process.env.GLM_API_KEY,
-// });
-
-// const llm = new ChatOpenAI({
-//   model: 'auto',
-//   configuration: {
-//     baseURL: 'https://vireonix.ai/v1',
-//   },
-//   apiKey: 'not-needed',
-// });
-
-// const llm = new ChatOpenAI({
-//   model: 'nvidia/nemotron-3-ultra-550b-a55b:free',
-//   configuration: {
-//     baseURL: 'https://openrouter.ai/api/v1',
-//   },
-//   apiKey: process.env.OPENROUTER_API_KEY,
-// });
 
 const chain = RunnableSequence.from([
   { doc: (doc) => doc.pageContent },
