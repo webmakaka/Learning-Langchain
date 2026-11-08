@@ -83,7 +83,7 @@ const llm = new ChatOpenAI({
 https://Openrouter.ai
 
 ```js
-const model = new OpenAIEmbeddings({
+const embeddings = new OpenAIEmbeddings({
   model: 'liquid/lfm-2.5-embedding-350m:free',
   temperature: 0,
   batchSize: 128,
