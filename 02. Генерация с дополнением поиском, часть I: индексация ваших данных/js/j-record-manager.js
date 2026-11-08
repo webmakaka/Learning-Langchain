@@ -5,6 +5,15 @@ import { PGVectorStore } from '@langchain/community/vectorstores/pgvector';
 import { v4 as uuidv4 } from 'uuid';
 import 'dotenv/config';
 
+const model = new OpenAIEmbeddings({
+  model: 'liquid/lfm-2.5-embedding-350m:free',
+  batchSize: 128,
+  configuration: {
+    baseURL: 'https://openrouter.ai/api/v1',
+  },
+  apiKey: process.env.OPENROUTER_API_KEY,
+});
+
 const tableName = 'test_langchain';
 const connectionString =
   'postgresql://langchain:langchain@localhost:6024/langchain';
@@ -22,15 +31,6 @@ const config = {
     metadataColumnName: 'metadata',
   },
 };
-
-const model = new OpenAIEmbeddings({
-  model: 'liquid/lfm-2.5-embedding-350m:free',
-  batchSize: 128,
-  configuration: {
-    baseURL: 'https://openrouter.ai/api/v1',
-  },
-  apiKey: process.env.OPENROUTER_API_KEY,
-});
 
 const vectorStore = await PGVectorStore.initialize(
   model,
