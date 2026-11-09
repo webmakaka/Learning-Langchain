@@ -237,6 +237,14 @@ Failed to calculate number of tokens, falling back to approximate count Error: U
 
 ### 03.2 Фильтрация сообщений
 
+```
+$ node ./e-filter-messages.js 
+Human messages: [{"lc":1,"type":"constructor","id":["langchain_core","messages","HumanMessage"],"kwargs":{"content":"example input","id":"2","name":"example_user","additional_kwargs":{},"response_metadata":{}}},{"lc":1,"type":"constructor","id":["langchain_core","messages","HumanMessage"],"kwargs":{"content":"real input","id":"4","name":"bob","additional_kwargs":{},"response_metadata":{}}}]
+
+Excluding example names: [{"lc":1,"type":"constructor","id":["langchain_core","messages","SystemMessage"],"kwargs":{"content":"you are a good assistant","id":"1","additional_kwargs":{},"response_metadata":{}}},{"lc":1,"type":"constructor","id":["langchain_core","messages","HumanMessage"],"kwargs":{"content":"real input","id":"4","name":"bob","additional_kwargs":{},"response_metadata":{}}},{"lc":1,"type":"constructor","id":["langchain_core","messages","AIMessage"],"kwargs":{"content":"real output","id":"5","name":"alice","tool_calls":[],"invalid_tool_calls":[],"additional_kwargs":{},"response_metadata":{}}}]
+
+Filtered by types and IDs: [{"lc":1,"type":"constructor","id":["langchain_core","messages","HumanMessage"],"kwargs":{"content":"example input","id":"2","name":"example_user","additional_kwargs":{},"response_metadata":{}}},{"lc":1,"type":"constructor","id":["langchain_core","messages","HumanMessage"],"kwargs":{"content":"real input","id":"4","name":"bob","additional_kwargs":{},"response_metadata":{}}},{"lc":1,"type":"constructor","id":["langchain_core","messages","AIMessage"],"kwargs":{"content":"real output","id":"5","name":"alice","tool_calls":[],"invalid_tool_calls":[],"additional_kwargs":{},"response_metadata":{}}}]
+```
 <br/>
 
 ### 03.3 Объединение последовательных сообщений
