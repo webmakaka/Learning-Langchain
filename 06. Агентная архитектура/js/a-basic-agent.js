@@ -13,9 +13,16 @@ import { HumanMessage } from "@langchain/core/messages";
 const search = new DuckDuckGoSearch();
 const calculator = new Calculator();
 const tools = [search, calculator];
-const model = new ChatOpenAI({
+
+
+const llm =new ChatOpenAI({
+  model: 'auto',
   temperature: 0.1,
-}).bindTools(tools);
+  configuration: {
+    baseURL: 'https://vireonix.ai/v1',
+  },
+  apiKey: 'not-needed',
+}).bindTools(tools);;
 
 const annotation = Annotation.Root({
   messages: Annotation({
@@ -25,7 +32,7 @@ const annotation = Annotation.Root({
 });
 
 async function modelNode(state) {
-  const res = await model.invoke(state.messages);
+  const res = await llm.invoke(state.messages);
   return { messages: res };
 }
 
@@ -42,7 +49,7 @@ const graph = builder.compile();
 const input = {
   messages: [
     new HumanMessage(
-      "How old was the 30th president of the United States when he died?",
+      "Сколько лет было сыну Николая 2 Романова, когда коммунисты убили всю их семью?",
     ),
   ],
 };
