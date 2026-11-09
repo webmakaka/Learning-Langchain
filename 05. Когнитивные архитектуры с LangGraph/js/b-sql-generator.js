@@ -9,9 +9,25 @@ import {
 } from "@langchain/langgraph";
 
 // useful to generate SQL query
-const modelLowTemp = new ChatOpenAI({ temperature: 0.1 });
+const modelLowTemp = new ChatOpenAI({
+  model: 'auto',
+  temperature: 0.1,
+  configuration: {
+    baseURL: 'https://vireonix.ai/v1',
+  },
+  apiKey: 'not-needed',
+});
+
 // useful to generate natural language outputs
-const modelHighTemp = new ChatOpenAI({ temperature: 0.7 });
+const modelHighTemp = new ChatOpenAI({
+  model: 'auto',
+  temperature: 0.7,
+  configuration: {
+    baseURL: 'https://vireonix.ai/v1',
+  },
+  apiKey: 'not-needed',
+});
+
 
 const annotation = Annotation.Root({
   messages: Annotation({ reducer: messagesStateReducer, default: () => [] }),
@@ -21,7 +37,7 @@ const annotation = Annotation.Root({
 });
 
 const generatePrompt = new SystemMessage(
-  "You are a helpful data analyst, who generates SQL queries for users based on their questions.",
+  "Ты - аналитик данных, генерирующий SQL-запросы дпя пользователей на основе их вопросов.",
 );
 
 async function generateSql(state) {
@@ -36,7 +52,7 @@ async function generateSql(state) {
 }
 
 const explainPrompt = new SystemMessage(
-  "You are a helpful data analyst, who explains SQL queries to users.",
+  "Ты - аналитик данных, объясняющий SQL-запросы пользователям.",
 );
 
 async function explainSql(state) {
@@ -60,6 +76,6 @@ const graph = builder.compile();
 
 // Example usage
 const result = await graph.invoke({
-  user_query: "What is the total sales for each product?",
+  user_query: "Каков общий объем продаж каждого продукта?",
 });
 console.log(result);
