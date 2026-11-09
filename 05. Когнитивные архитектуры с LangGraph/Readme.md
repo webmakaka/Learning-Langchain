@@ -222,7 +222,7 @@ $ s$ node ./b-sql-generator.js
 <img src="../img/ch05-pic02.png" alt="Архитектура No 3: Маршрутизатор">
 
 ```shell
-$ s$ node ./c-multi-rag.js 
+$ node ./c-multi-rag.js 
 {
   router: {
     domain: 'insurance',
