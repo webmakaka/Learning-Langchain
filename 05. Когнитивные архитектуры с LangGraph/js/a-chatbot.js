@@ -42,7 +42,7 @@ const builder = new StateGraph(State)
 const graph = builder.compile();
 
 // Example usage
-const input = { messages: [new HumanMessage('hi!')] };
+const input = { messages: [new HumanMessage('Привет!')] };
 for await (const chunk of await graph.stream(input)) {
   console.log(chunk);
 }
