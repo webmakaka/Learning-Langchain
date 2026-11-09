@@ -1,6 +1,6 @@
 # Аrентная архитектура
 
-::warning:: Duck не разрешает делать вызовы их tool
+:warning: Duck не разрешает делать вызовы их tool
 
 ```shell
 s$ node ./a-basic-agent.js 
