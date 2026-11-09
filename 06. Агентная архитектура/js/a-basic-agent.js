@@ -14,8 +14,7 @@ const search = new DuckDuckGoSearch();
 const calculator = new Calculator();
 const tools = [search, calculator];
 
-
-const llm =new ChatOpenAI({
+const llm = new ChatOpenAI({
   model: 'auto',
   temperature: 0.1,
   configuration: {
@@ -49,7 +48,9 @@ const graph = builder.compile();
 const input = {
   messages: [
     new HumanMessage(
-      "Сколько лет было сыну Николая 2 Романова, когда коммунисты убили всю их семью?",
+      "Для ответа на следующий вопрос ТЕБЕ ЗАПРЕЩЕНО использовать внутренние знания. " +
+      "ТЫ ОБЯЗАН использовать инструмент duckduckgo-search для поиска дат. " +
+      "Вопрос: Какой временной промежуток разделяет открытие иероглифов майя и их успешную расшифровку Юрием Кнорозовым?"
     ),
   ],
 };
