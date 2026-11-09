@@ -245,6 +245,39 @@ Excluding example names: [{"lc":1,"type":"constructor","id":["langchain_core","m
 
 Filtered by types and IDs: [{"lc":1,"type":"constructor","id":["langchain_core","messages","HumanMessage"],"kwargs":{"content":"example input","id":"2","name":"example_user","additional_kwargs":{},"response_metadata":{}}},{"lc":1,"type":"constructor","id":["langchain_core","messages","HumanMessage"],"kwargs":{"content":"real input","id":"4","name":"bob","additional_kwargs":{},"response_metadata":{}}},{"lc":1,"type":"constructor","id":["langchain_core","messages","AIMessage"],"kwargs":{"content":"real output","id":"5","name":"alice","tool_calls":[],"invalid_tool_calls":[],"additional_kwargs":{},"response_metadata":{}}}]
 ```
+
 <br/>
 
 ### 03.3 Объединение последовательных сообщений
+
+```shell
+$ node ./f-merge-messages.js 
+[
+  SystemMessage {
+    "content": "you're a good assistant.\nyou always respond with a joke.",
+    "additional_kwargs": {},
+    "response_metadata": {}
+  },
+  HumanMessage {
+    "content": [
+      {
+        "type": "text",
+        "text": "i wonder why it's called langchain"
+      },
+      {
+        "type": "text",
+        "text": "and who is harrison chasing anyways"
+      }
+    ],
+    "additional_kwargs": {},
+    "response_metadata": {}
+  },
+  AIMessage {
+    "content": "Well, I guess they thought \"WordRope\" and \"SentenceString\" just didn't have the same ring to it!\nWhy, he's probably chasing after the last cup of coffee in the office!",
+    "additional_kwargs": {},
+    "response_metadata": {},
+    "tool_calls": [],
+    "invalid_tool_calls": []
+  }
+]
+```
