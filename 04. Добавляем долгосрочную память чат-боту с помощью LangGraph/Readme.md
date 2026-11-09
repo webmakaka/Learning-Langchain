@@ -226,6 +226,15 @@ $ node ./c-persistent-memory.js
 
 <br/>
 
+:warning: Ошибка, моя модель не считает количество токенов!
+
+```
+$ node ./d-trim-messages.js 
+Failed to calculate number of tokens, falling back to approximate count Error: Unknown model
+```
+
+<br/>
+
 ### 03.2 Фильтрация сообщений
 
 <br/>
