@@ -61,3 +61,11 @@ console.log(result_2);
 
 // Get state
 await graph.getState(thread1);
+
+// ----------------
+
+await graph.updateState(thread1, { messages: [new HumanMessage(' Мне нравятся LLM!')] });
+
+const updatedState = await graph.getState(thread1);
+
+console.log(updatedState.values.messages);
