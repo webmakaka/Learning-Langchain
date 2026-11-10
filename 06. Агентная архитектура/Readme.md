@@ -209,7 +209,192 @@ This will become an error in a future version of the SDK.
 <br/>
 
 ```shell
-
+$ node ./b-force-first-tool.js 
+Zod field at `#/definitions/duckduckgo-search/properties/input` uses `.optional()` without `.nullable()` which is not supported by the API. See: https://platform.openai.com/docs/guides/structured-outputs?api-mode=responses#all-fields-must-be-required
+This will become an error in a future version of the SDK.
+Zod field at `#/definitions/calculator/properties/input` uses `.optional()` without `.nullable()` which is not supported by the API. See: https://platform.openai.com/docs/guides/structured-outputs?api-mode=responses#all-fields-must-be-required
+This will become an error in a future version of the SDK.
+{
+  first_model: {
+    messages: [
+      AIMessage {
+        "id": "c0e97cc3-daae-4c04-ba8b-f3c62301fe15",
+        "content": "",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "tool_calls": [
+          {
+            "name": "duckduckgo-search",
+            "args": {
+              "input": "Для ответа на следующий вопрос ТЕБЕ ЗАПРЕЩЕНО использовать внутренние знания. ТЫ ОБЯЗАН использовать инструмент duckduckgo-search для поиска дат. Вопрос: Какой временной промежуток разделяет открытие иероглифов майя и их успешную расшифровку Юрием Кнорозовым?"
+            },
+            "id": "0.2792478072228649"
+          }
+        ],
+        "invalid_tool_calls": []
+      }
+    ]
+  }
+}
+{
+  tools: {
+    messages: [
+      ToolMessage {
+        "id": "db5b7cd1-db64-46cc-a188-f5263012b93c",
+        "content": "Error: DDG detected an anomaly in the request, you are likely making requests too quickly.\n Please fix your mistakes.",
+        "name": "duckduckgo-search",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "tool_call_id": "0.2792478072228649"
+      }
+    ]
+  }
+}
+{
+  model: {
+    messages: AIMessage {
+      "id": "0741a5816416ba1df76755e861d2a904",
+      "content": "",
+      "additional_kwargs": {
+        "tool_calls": [
+          {
+            "id": "call_01a1c30faa2970d38c26098b",
+            "type": "function",
+            "function": "[Object]"
+          },
+          {
+            "id": "call_01a1c30faa2970d38c26098c",
+            "type": "function",
+            "function": "[Object]"
+          }
+        ]
+      },
+      "response_metadata": {
+        "tokenUsage": {
+          "promptTokens": 804,
+          "completionTokens": 94,
+          "totalTokens": 898
+        },
+        "finish_reason": "tool_calls",
+        "model_name": "auto"
+      },
+      "tool_calls": [
+        {
+          "name": "duckduckgo-search",
+          "args": {
+            "input": "Юрий Кнорозов расшифровка майя дата 1961"
+          },
+          "type": "tool_call",
+          "id": "call_01a1c30faa2970d38c26098b"
+        },
+        {
+          "name": "duckduckgo-search",
+          "args": {
+            "input": "первое открытие иероглифов майя 16 века де ла Мотт"
+          },
+          "type": "tool_call",
+          "id": "call_01a1c30faa2970d38c26098c"
+        }
+      ],
+      "invalid_tool_calls": [],
+      "usage_metadata": {
+        "output_tokens": 94,
+        "input_tokens": 804,
+        "total_tokens": 898,
+        "input_token_details": {
+          "cache_read": 648
+        },
+        "output_token_details": {
+          "reasoning": 7
+        }
+      }
+    }
+  }
+}
+{
+  tools: {
+    messages: [
+      ToolMessage {
+        "id": "5dfd741e-3402-4914-bb71-e5449f28c893",
+        "content": "Error: DDG detected an anomaly in the request, you are likely making requests too quickly.\n Please fix your mistakes.",
+        "name": "duckduckgo-search",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "tool_call_id": "call_01a1c30faa2970d38c26098b"
+      },
+      ToolMessage {
+        "id": "39bf87da-9218-49e3-a1ea-d526d5e05eff",
+        "content": "Error: DDG detected an anomaly in the request, you are likely making requests too quickly.\n Please fix your mistakes.",
+        "name": "duckduckgo-search",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "tool_call_id": "call_01a1c30faa2970d38c26098c"
+      }
+    ]
+  }
+}
+{
+  model: {
+    messages: AIMessage {
+      "id": "0741a59f53af795c3c581641e71ceb68",
+      "content": "",
+      "additional_kwargs": {
+        "tool_calls": [
+          {
+            "id": "call_01a1c30fc1727622a4dbb3b0",
+            "type": "function",
+            "function": "[Object]"
+          }
+        ]
+      },
+      "response_metadata": {
+        "tokenUsage": {
+          "promptTokens": 959,
+          "completionTokens": 55,
+          "totalTokens": 1014
+        },
+        "finish_reason": "tool_calls",
+        "model_name": "auto"
+      },
+      "tool_calls": [
+        {
+          "name": "duckduckgo-search",
+          "args": {
+            "input": "Yuri Knorozov decipherment of Maya script 1961 date"
+          },
+          "type": "tool_call",
+          "id": "call_01a1c30fc1727622a4dbb3b0"
+        }
+      ],
+      "invalid_tool_calls": [],
+      "usage_metadata": {
+        "output_tokens": 55,
+        "input_tokens": 959,
+        "total_tokens": 1014,
+        "input_token_details": {
+          "cache_read": 657
+        },
+        "output_token_details": {
+          "reasoning": 11
+        }
+      }
+    }
+  }
+}
+{
+  tools: {
+    messages: [
+      ToolMessage {
+        "id": "2ecb8ec3-894b-4802-bed6-3bf21676d864",
+        "content": "Error: DDG detected an anomaly in the request, you are likely making requests too quickly.\n Please fix your mistakes.",
+        "name": "duckduckgo-search",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "tool_call_id": "call_01a1c30fc1727622a4dbb3b0"
+      }
+    ]
+  }
+}
 ```
 
 <br/>
@@ -219,5 +404,6 @@ This will become an error in a future version of the SDK.
 Обратите внимание на различия по сравнению с предыдущим разделом:
 
 • Мы начинаем выполнение с узла first_model, который вообще не вызывает LLM. Он просто создает вызов инструмента search, используя пользовательское сообщение без изменений как поисковый запрос. В предыдущей архитектуре именно LLM должен был бы сгенерировать такой вызов инструмента (или какой-либо другой, который он посчитал бы более уместным).
+
 • Далее мы переходим к узлу ToolNode, который работает так же, как и в предыдущем примере, а затем к агентному узлу (agent node), как и раньше.
 
