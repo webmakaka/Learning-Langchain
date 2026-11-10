@@ -41,7 +41,7 @@ https://github.com/langchain-ai/learning-langchain
 https://vireonix.ai/
 
 ```js
-const llm =new ChatOpenAI({
+const llm = new ChatOpenAI({
   model: 'auto',
   temperature: 0,
   configuration: {
