@@ -13,7 +13,15 @@ import { ChatOpenAI } from "@langchain/openai";
 const search = new DuckDuckGoSearch();
 const calculator = new Calculator();
 const tools = [search, calculator];
-const model = new ChatOpenAI({ temperature: 0.1 }).bindTools(tools);
+
+const llm = new ChatOpenAI({
+  model: 'auto',
+  temperature: 0.1,
+  configuration: {
+    baseURL: 'https://vireonix.ai/v1',
+  },
+  apiKey: 'not-needed',
+}).bindTools(tools);
 
 const annotation = Annotation.Root({
   messages: Annotation({ reducer: messagesStateReducer, default: () => [] }),
@@ -22,8 +30,8 @@ const annotation = Annotation.Root({
 async function firstModelNode(state) {
   const query = state.messages[state.messages.length - 1].content;
   const searchToolCall = {
-    name: "duckduckgo_search",
-    args: { query },
+    name: "duckduckgo-search",
+    args: { input: query },
     id: Math.random().toString(),
   };
   return {
@@ -32,7 +40,7 @@ async function firstModelNode(state) {
 }
 
 async function modelNode(state) {
-  const res = await model.invoke(state.messages);
+  const res = await llm.invoke(state.messages);
   return { messages: res };
 }
 
@@ -50,8 +58,10 @@ const graph = builder.compile();
 // Example usage
 const input = {
   messages: [
-    new HumanMessage(
-      "How old was the 30th president of the United States when he died?",
+     new HumanMessage(
+      "Для ответа на следующий вопрос ТЕБЕ ЗАПРЕЩЕНО использовать внутренние знания. " +
+      "ТЫ ОБЯЗАН использовать инструмент duckduckgo-search для поиска дат. " +
+      "Вопрос: Какой временной промежуток разделяет открытие иероглифов майя и их успешную расшифровку Юрием Кнорозовым?"
     ),
   ],
 };
