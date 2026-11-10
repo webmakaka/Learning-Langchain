@@ -44,7 +44,7 @@ LLM-приложение, обладающее агентной природой
 <br/>
 
 ```shell
-s$ node ./a-basic-agent.js 
+$ node ./a-basic-agent.js 
 Zod field at `#/definitions/calculator/properties/input` uses `.optional()` without `.nullable()` which is not supported by the API. See: https://platform.openai.com/docs/guides/structured-outputs?api-mode=responses#all-fields-must-be-required
 This will become an error in a future version of the SDK.
 {
