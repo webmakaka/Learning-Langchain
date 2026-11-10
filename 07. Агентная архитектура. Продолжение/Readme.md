@@ -18,7 +18,7 @@
 <img src="../img/ch07-pic01.png" alt="Рефлексия">
 
 ```shell
-s$ node ./a-reflection.js 
+$ node ./a-reflection.js 
 
 New message: Творчество группы «Король и шут» представляет собой уникальный синтез фолк-рока и литературной поэзи ...
 
