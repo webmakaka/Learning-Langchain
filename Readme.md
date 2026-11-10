@@ -25,8 +25,8 @@ https://github.com/langchain-ai/learning-langchain
   <li>:white_check_mark: :book: :hammer_and_wrench: 03. Генерация с дополнением поиском, часть II: "чат" с вашими данными</li>
   <li>:white_check_mark: :book: :hammer_and_wrench: 04. Добавляем долгосрочную память чат-боту с помощью LangGraph</li>
   <li>:white_check_mark: :book: :hammer_and_wrench: 05. Когнитивные архитектуры с LangGraph</li>
-  <li>▶️ 06. Агентная архитектура</li>
-  <li>:pause_button: 07. Агентная архитектура. Продолжение</li>
+  <li>:white_check_mark: :book: :hammer_and_wrench: 06. Агентная архитектура</li>
+  <li>▶️ 07. Агентная архитектура. Продолжение</li>
   <li>:pause_button: 08. Паттерны для максимально эффективного использования LLM</li>
   <li>:pause_button: 09. Развертывание: запуск вашего AI-приложения в продакшен</li>
   <li>:pause_button: 10. Тестирование: оценка, мониторинг и постоянное улучшение</li>
