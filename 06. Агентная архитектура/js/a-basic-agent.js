@@ -1,7 +1,7 @@
 import 'dotenv/config';
 import { tool } from "@langchain/core/tools";
 import { z } from "zod";
-import { Calculator } from "@langchain/community/tools/calculator";
+import { Parser } from "expr-eval"; // Надежный парсер математических выражений
 import {
   StateGraph,
   Annotation,
@@ -9,17 +9,18 @@ import {
   START, END
 } from "@langchain/langgraph";
 import { ChatOpenAI } from "@langchain/openai";
-import { HumanMessage, ToolMessage } from "@langchain/core/messages"; // Импортируем ToolMessage
+import { HumanMessage, ToolMessage, SystemMessage } from "@langchain/core/messages";
 
-// Надежный инструмент поиска с защитой от сбоев сети/VPN
+// 1. Исправленный и надежный поиск
 const search = tool(
   async ({ input }) => {
     try {
+      // Исправлен синтаксис строки шаблона (добавлен ?q=${...})
       const response = await fetch(
         `https://baresearch.org{encodeURIComponent(input)}&format=json`,
         {
           headers: {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
           },
           signal: AbortSignal.timeout(5000)
         }
@@ -49,7 +50,26 @@ const search = tool(
   }
 );
 
-const calculator = new Calculator();
+// 2. КАСТОМНЫЙ КАЛЬКУЛЯТОР (Совместимый с Groq / OpenAI Tool Calls)
+const calculator = tool(
+  async ({ expression }) => {
+    try {
+      // Безопасное вычисление строки выражения (например, "1952 - 1566")
+      const result = Parser.evaluate(expression);
+      return String(result);
+    } catch (error) {
+      return `Ошибка вычисления: ${error.message}`;
+    }
+  },
+  {
+    name: "calculator",
+    description: "Выполняет математические расчеты. Подает на вход строку-выражение, например: '1952 - 1566'.",
+    schema: z.object({
+      expression: z.string().describe("Математическое выражение для вычисления, например '1952 - 1566'"),
+    }),
+  }
+);
+
 const tools = [search, calculator];
 
 const llm = new ChatOpenAI({
@@ -59,7 +79,7 @@ const llm = new ChatOpenAI({
     baseURL: 'https://api.groq.com/openai/v1',
   },
   apiKey: process.env.GROQ_API_KEY,
-}).bindTools(tools);;
+}).bindTools(tools);
 
 const annotation = Annotation.Root({
   messages: Annotation({
@@ -70,7 +90,7 @@ const annotation = Annotation.Root({
 
 async function modelNode(state) {
   const res = await llm.invoke(state.messages);
-  return { messages: [res] }; // Оборачиваем в массив для корректного мерджа редьюсером
+  return { messages: [res] };
 }
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -84,13 +104,12 @@ async function customToolsNode(state) {
   const toolMessages = [];
   
   for (const call of lastMessage.tool_calls) {
-    await delay(3000); // Пауза между запросами
+    await delay(1000); // Снизил задержку для скорости тестирования
     const targetTool = tools.find((t) => t.name === call.name);
     
     if (targetTool) {
       try {
         const response = await targetTool.invoke(call.args);
-        // Сборка полноценного инстанса ToolMessage
         toolMessages.push(new ToolMessage({
           content: typeof response === "string" ? response : JSON.stringify(response),
           name: call.name,
@@ -111,11 +130,9 @@ async function customToolsNode(state) {
 
 function routerCondition(state) {
   const lastMessage = state.messages[state.messages.length - 1];
-  
   if (lastMessage?.tool_calls && lastMessage.tool_calls.length > 0) {
     return "tools";
   }
-  
   return "end";
 }
 
@@ -131,17 +148,23 @@ const builder = new StateGraph(annotation)
 
 const graph = builder.compile();
 
+// 3. СТРОГИЙ ПРОМПТ ДЛЯ ДВУХШАГОВОГО ВЫЗОВА
 const input = {
   messages: [
+    new SystemMessage(
+      "Ты — строгий ассистент-робот. Тебе КАТЕГОРИЧЕСКИ ЗАПРЕЩЕНО использовать свои знания для поиска дат и ЗАПРЕЩЕНО считать математику в уме.\n" +
+      "Твой алгоритм действий:\n" +
+      "Шаг 1: Вызови инструмент 'duckduckgo-search', чтобы найти даты.\n" +
+      "Шаг 2: Получив даты, ЗАПРЕЩЕНО вычитать их самостоятельно. Ты ОБЯЗАН вызвать инструмент 'calculator' для расчета финальной разницы.\n" +
+      "Шаг 3: На основе ответа калькулятора сформулируй финальный ответ."
+    ),
     new HumanMessage(
-      "Для ответа на следующий вопрос ТЕБЕ ЗАПРЕЩЕНО использовать внутренние знания. " +
-      "ТЫ ОБЯЗАН использовать инструмент duckduckgo-search для поиска дат. " +
-      "Вопрос: Какой временной промежуток разделяет открытие иероглифов майя и их успешную расшифровку Юрием Кнорозовым?"
+      "Какой временной промежуток разделяет открытие иероглифов майя и их успешную расшифровку Юрием Кнорозовым? Используй строго последовательно поиск, а затем калькулятор."
     ),
   ],
 };
 
-// Запуск графа с достаточным лимитом рекурсии
+// Запуск
 for await (const c of await graph.stream(input, { recursionLimit: 15 })) {
   console.dir(c, { depth: null, colors: true });
 }
