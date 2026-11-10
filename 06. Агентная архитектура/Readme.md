@@ -37,122 +37,114 @@ LLM-приложение, обладающее агентной природой
 
 :warning: Код сильно поменялся из-за того, что DuckDuckGo писал сообщения о слишком большом количестве запросов и отказывается работать
 
-:warning: GROQ справился. Vireonix нет.
-
 :warning: Предустановленная функция toolsCondition из пакета @langchain/langgraph/prebuilt автоматически возвращает строку "__end__", если в сообщении от модели отсутствуют запросы на вызов инструментов.
 
 <br/>
 
 ```shell
-$ node ./a-basic-agent.js 
+$ node ./a-basic-agent
+Zod field at `#/definitions/calculator/properties/input` uses `.optional()` without `.nullable()` which is not supported by the API. See: https://platform.openai.com/docs/guides/structured-outputs?api-mode=responses#all-fields-must-be-required
+This will become an error in a future version of the SDK.
 {
   model: {
-    messages: [
-      AIMessage {
-        lc_serializable: true,
-        lc_kwargs: {
-          content: '',
-          name: undefined,
-          additional_kwargs: {
-            function_call: undefined,
-            tool_calls: [
-              {
-                id: 'fc_791a8515-9e03-4c9a-88a0-2b0f926b7df3',
-                type: 'function',
-                function: {
-                  name: 'duckduckgo-search',
-                  arguments: '{"input":"first discovery of Mayan hieroglyphs date"}'
-                }
-              }
-            ]
-          },
-          response_metadata: {
-            model_name: 'openai/gpt-oss-120b',
-            usage: {
-              queue_time: 0.427108779,
-              prompt_tokens: 383,
-              prompt_time: 0.051879896,
-              completion_tokens: 466,
-              completion_time: 0.961319388,
-              total_tokens: 849,
-              total_time: 1.013199284,
-              completion_tokens_details: { reasoning_tokens: 427 }
-            },
-            system_fingerprint: 'fp_4200b3f836'
-          },
-          id: 'chatcmpl-25db6814-ed78-45b4-9064-c7172c53757b',
-          tool_calls: [
-            {
-              name: 'duckduckgo-search',
-              args: { input: 'first discovery of Mayan hieroglyphs date' },
-              type: 'tool_call',
-              id: 'fc_791a8515-9e03-4c9a-88a0-2b0f926b7df3'
-            }
-          ],
-          invalid_tool_calls: [],
-          usage_metadata: {
-            output_tokens: 466,
-            input_tokens: 383,
-            total_tokens: 849,
-            input_token_details: { audio: undefined, cache_read: undefined },
-            output_token_details: { audio: undefined, reasoning: 427 }
-          }
-        },
-        lc_namespace: [ 'langchain_core', 'messages' ],
+    messages: AIMessage {
+      lc_serializable: true,
+      lc_kwargs: {
         content: '',
         name: undefined,
         additional_kwargs: {
-          function_call: undefined,
+          function_call: null,
           tool_calls: [
             {
-              id: 'fc_791a8515-9e03-4c9a-88a0-2b0f926b7df3',
+              id: 'chatcmpl-tool-bc8700555deabfd8',
               type: 'function',
               function: {
                 name: 'duckduckgo-search',
-                arguments: '{"input":"first discovery of Mayan hieroglyphs date"}'
+                arguments: '{"input": "When were Mayan hieroglyphs first discovered/opened and when did Yuri Knorozov successfully decipher them"}'
               }
             }
           ]
         },
         response_metadata: {
-          tokenUsage: {
-            promptTokens: 383,
-            completionTokens: 466,
-            totalTokens: 849
-          },
-          finish_reason: 'tool_calls',
-          model_name: 'openai/gpt-oss-120b',
+          model_name: 'auto',
           usage: {
-            queue_time: 0.427108779,
-            prompt_tokens: 383,
-            prompt_time: 0.051879896,
-            completion_tokens: 466,
-            completion_time: 0.961319388,
-            total_tokens: 849,
-            total_time: 1.013199284,
-            completion_tokens_details: { reasoning_tokens: 427 }
+            prompt_tokens: 627,
+            total_tokens: 676,
+            completion_tokens: 49,
+            prompt_tokens_details: null,
+            completion_tokens_details: { reasoning_tokens: 0 }
           },
-          system_fingerprint: 'fp_4200b3f836'
+          system_fingerprint: 'vllm-0.30.0-4dc91a50'
         },
-        id: 'chatcmpl-25db6814-ed78-45b4-9064-c7172c53757b',
+        id: 'chatcmpl-83372b25151bf717',
         tool_calls: [
           {
             name: 'duckduckgo-search',
-            args: { input: 'first discovery of Mayan hieroglyphs date' },
+            args: {
+              input: 'When were Mayan hieroglyphs first discovered/opened and when did Yuri Knorozov successfully decipher them'
+            },
             type: 'tool_call',
-            id: 'fc_791a8515-9e03-4c9a-88a0-2b0f926b7df3'
+            id: 'chatcmpl-tool-bc8700555deabfd8'
           }
         ],
         invalid_tool_calls: [],
         usage_metadata: {
-          output_tokens: 466,
-          input_tokens: 383,
-          total_tokens: 849,
+          output_tokens: 49,
+          input_tokens: 627,
+          total_tokens: 676,
           input_token_details: { audio: undefined, cache_read: undefined },
-          output_token_details: { audio: undefined, reasoning: 427 }
+          output_token_details: { audio: undefined, reasoning: 0 }
         }
+      },
+      lc_namespace: [ 'langchain_core', 'messages' ],
+      content: '',
+      name: undefined,
+      additional_kwargs: {
+        function_call: null,
+        tool_calls: [
+          {
+            id: 'chatcmpl-tool-bc8700555deabfd8',
+            type: 'function',
+            function: {
+              name: 'duckduckgo-search',
+              arguments: '{"input": "When were Mayan hieroglyphs first discovered/opened and when did Yuri Knorozov successfully decipher them"}'
+            }
+          }
+        ]
+      },
+      response_metadata: {
+        tokenUsage: { promptTokens: 627, completionTokens: 49, totalTokens: 676 },
+        finish_reason: 'tool_calls',
+        model_name: 'auto',
+        usage: {
+          prompt_tokens: 627,
+          total_tokens: 676,
+          completion_tokens: 49,
+          prompt_tokens_details: null,
+          completion_tokens_details: { reasoning_tokens: 0 }
+        },
+        system_fingerprint: 'vllm-0.30.0-4dc91a50'
+      },
+      id: 'chatcmpl-83372b25151bf717',
+      tool_calls: [
+        {
+          name: 'duckduckgo-search',
+          args: {
+            input: 'When were Mayan hieroglyphs first discovered/opened and when did Yuri Knorozov successfully decipher them'
+          },
+          type: 'tool_call',
+          id: 'chatcmpl-tool-bc8700555deabfd8'
+        }
+      ],
+      invalid_tool_calls: [],
+      usage_metadata: {
+        output_tokens: 49,
+        input_tokens: 627,
+        total_tokens: 676,
+        input_token_details: { audio: undefined, cache_read: undefined },
+        output_token_details: { audio: undefined, reasoning: 0 }
       }
-    ]
+    }
   }
 }
 {
@@ -161,23 +153,26 @@ $ node ./a-basic-agent.js
       ToolMessage {
         lc_serializable: true,
         lc_kwargs: {
+          status: 'success',
           content: 'Историческая справка: Первое подробное описание иероглифов майя европейцами (Диего де Ланда) произошло в 1566 году. Юрий Кнорозов успешно расшифровал письменность майя, опубликовав свою ключевую работу в 1952 году.',
+          artifact: undefined,
+          tool_call_id: 'chatcmpl-tool-bc8700555deabfd8',
           name: 'duckduckgo-search',
-          tool_call_id: 'fc_791a8515-9e03-4c9a-88a0-2b0f926b7df3',
+          metadata: {},
           additional_kwargs: {},
           response_metadata: {},
-          id: '5abed840-2c6a-465f-a625-088efda28113'
+          id: '8ee329a9-caab-4454-92ad-f4b4514740a3'
         },
         lc_namespace: [ 'langchain_core', 'messages' ],
         content: 'Историческая справка: Первое подробное описание иероглифов майя европейцами (Диего де Ланда) произошло в 1566 году. Юрий Кнорозов успешно расшифровал письменность майя, опубликовав свою ключевую работу в 1952 году.',
         name: 'duckduckgo-search',
         additional_kwargs: {},
         response_metadata: {},
-        id: '5abed840-2c6a-465f-a625-088efda28113',
+        id: '8ee329a9-caab-4454-92ad-f4b4514740a3',
         lc_direct_tool_output: true,
-        status: undefined,
-        tool_call_id: 'fc_791a8515-9e03-4c9a-88a0-2b0f926b7df3',
-        metadata: undefined,
+        status: 'success',
+        tool_call_id: 'chatcmpl-tool-bc8700555deabfd8',
+        metadata: {},
         artifact: undefined
       }
     ]
@@ -185,108 +180,100 @@ $ node ./a-basic-agent.js
 }
 {
   model: {
-    messages: [
-      AIMessage {
-        lc_serializable: true,
-        lc_kwargs: {
-          content: '',
-          name: undefined,
-          additional_kwargs: {
-            function_call: undefined,
-            tool_calls: [
-              {
-                id: 'fc_60badb01-7c7e-490a-a136-ea1f3a99e08b',
-                type: 'function',
-                function: {
-                  name: 'calculator',
-                  arguments: '{"expression":"1952 - 1566"}'
-                }
-              }
-            ]
-          },
-          response_metadata: {
-            model_name: 'openai/gpt-oss-120b',
-            usage: {
-              queue_time: 0.246176975,
-              prompt_tokens: 489,
-              prompt_time: 0.028530732,
-              completion_tokens: 63,
-              completion_time: 0.133571787,
-              total_tokens: 552,
-              total_time: 0.162102519,
-              completion_tokens_details: { reasoning_tokens: 37 }
-            },
-            system_fingerprint: 'fp_0708ac49a5'
-          },
-          id: 'chatcmpl-e237f002-2b4a-4c8e-a1b0-4700f167e25b',
-          tool_calls: [
-            {
-              name: 'calculator',
-              args: { expression: '1952 - 1566' },
-              type: 'tool_call',
-              id: 'fc_60badb01-7c7e-490a-a136-ea1f3a99e08b'
-            }
-          ],
-          invalid_tool_calls: [],
-          usage_metadata: {
-            output_tokens: 63,
-            input_tokens: 489,
-            total_tokens: 552,
-            input_token_details: { audio: undefined, cache_read: undefined },
-            output_token_details: { audio: undefined, reasoning: 37 }
-          }
-        },
-        lc_namespace: [ 'langchain_core', 'messages' ],
+    messages: AIMessage {
+      lc_serializable: true,
+      lc_kwargs: {
         content: '',
         name: undefined,
         additional_kwargs: {
-          function_call: undefined,
+          function_call: null,
           tool_calls: [
             {
-              id: 'fc_60badb01-7c7e-490a-a136-ea1f3a99e08b',
+              id: 'chatcmpl-tool-9508015860d57aa6',
               type: 'function',
               function: {
                 name: 'calculator',
-                arguments: '{"expression":"1952 - 1566"}'
+                arguments: '{"input": "1952 - 1566"}'
               }
             }
           ]
         },
         response_metadata: {
-          tokenUsage: { promptTokens: 489, completionTokens: 63, totalTokens: 552 },
-          finish_reason: 'tool_calls',
-          model_name: 'openai/gpt-oss-120b',
+          model_name: 'auto',
           usage: {
-            queue_time: 0.246176975,
-            prompt_tokens: 489,
-            prompt_time: 0.028530732,
-            completion_tokens: 63,
-            completion_time: 0.133571787,
-            total_tokens: 552,
-            total_time: 0.162102519,
-            completion_tokens_details: { reasoning_tokens: 37 }
+            prompt_tokens: 759,
+            total_tokens: 793,
+            completion_tokens: 34,
+            prompt_tokens_details: null,
+            completion_tokens_details: { reasoning_tokens: 0 }
           },
-          system_fingerprint: 'fp_0708ac49a5'
+          system_fingerprint: 'vllm-0.30.0-4dc91a50'
         },
-        id: 'chatcmpl-e237f002-2b4a-4c8e-a1b0-4700f167e25b',
+        id: 'chatcmpl-bbd9bc716d0f823a',
         tool_calls: [
           {
             name: 'calculator',
-            args: { expression: '1952 - 1566' },
+            args: { input: '1952 - 1566' },
             type: 'tool_call',
-            id: 'fc_60badb01-7c7e-490a-a136-ea1f3a99e08b'
+            id: 'chatcmpl-tool-9508015860d57aa6'
           }
         ],
         invalid_tool_calls: [],
         usage_metadata: {
-          output_tokens: 63,
-          input_tokens: 489,
-          total_tokens: 552,
+          output_tokens: 34,
+          input_tokens: 759,
+          total_tokens: 793,
           input_token_details: { audio: undefined, cache_read: undefined },
-          output_token_details: { audio: undefined, reasoning: 37 }
+          output_token_details: { audio: undefined, reasoning: 0 }
         }
+      },
+      lc_namespace: [ 'langchain_core', 'messages' ],
+      content: '',
+      name: undefined,
+      additional_kwargs: {
+        function_call: null,
+        tool_calls: [
+          {
+            id: 'chatcmpl-tool-9508015860d57aa6',
+            type: 'function',
+            function: {
+              name: 'calculator',
+              arguments: '{"input": "1952 - 1566"}'
+            }
+          }
+        ]
+      },
+      response_metadata: {
+        tokenUsage: { promptTokens: 759, completionTokens: 34, totalTokens: 793 },
+        finish_reason: 'tool_calls',
+        model_name: 'auto',
+        usage: {
+          prompt_tokens: 759,
+          total_tokens: 793,
+          completion_tokens: 34,
+          prompt_tokens_details: null,
+          completion_tokens_details: { reasoning_tokens: 0 }
+        },
+        system_fingerprint: 'vllm-0.30.0-4dc91a50'
+      },
+      id: 'chatcmpl-bbd9bc716d0f823a',
+      tool_calls: [
+        {
+          name: 'calculator',
+          args: { input: '1952 - 1566' },
+          type: 'tool_call',
+          id: 'chatcmpl-tool-9508015860d57aa6'
+        }
+      ],
+      invalid_tool_calls: [],
+      usage_metadata: {
+        output_tokens: 34,
+        input_tokens: 759,
+        total_tokens: 793,
+        input_token_details: { audio: undefined, cache_read: undefined },
+        output_token_details: { audio: undefined, reasoning: 0 }
       }
-    ]
+    }
   }
 }
 {
@@ -295,23 +282,26 @@ $ node ./a-basic-agent.js
       ToolMessage {
         lc_serializable: true,
         lc_kwargs: {
+          status: 'success',
           content: '386',
+          artifact: undefined,
+          tool_call_id: 'chatcmpl-tool-9508015860d57aa6',
           name: 'calculator',
-          tool_call_id: 'fc_60badb01-7c7e-490a-a136-ea1f3a99e08b',
+          metadata: {},
           additional_kwargs: {},
           response_metadata: {},
-          id: 'f1fff436-9728-4211-a9c1-c591677b54b5'
+          id: '7bf43f59-0827-494b-b0b5-1c3f68ac9744'
         },
         lc_namespace: [ 'langchain_core', 'messages' ],
         content: '386',
         name: 'calculator',
         additional_kwargs: {},
         response_metadata: {},
-        id: 'f1fff436-9728-4211-a9c1-c591677b54b5',
+        id: '7bf43f59-0827-494b-b0b5-1c3f68ac9744',
         lc_direct_tool_output: true,
-        status: undefined,
-        tool_call_id: 'fc_60badb01-7c7e-490a-a136-ea1f3a99e08b',
-        metadata: undefined,
+        status: 'success',
+        tool_call_id: 'chatcmpl-tool-9508015860d57aa6',
+        metadata: {},
         artifact: undefined
       }
     ]
@@ -319,68 +309,62 @@ $ node ./a-basic-agent.js
 }
 {
   model: {
-    messages: [
-      AIMessage {
-        lc_serializable: true,
-        lc_kwargs: {
-          content: 'Временной промежуток между открытием иероглифов майя (1566 г.) и их успешной расшифровкой Юрием Кнорозовым (1952 г.) составляет **386 лет**.',
-          name: undefined,
-          additional_kwargs: { function_call: undefined, tool_calls: undefined },
-          response_metadata: {
-            model_name: 'openai/gpt-oss-120b',
-            usage: {
-              queue_time: 0.158507746,
-              prompt_tokens: 519,
-              prompt_time: 0.023944992,
-              completion_tokens: 54,
-              completion_time: 0.111450897,
-              total_tokens: 573,
-              total_time: 0.135395889
-            },
-            system_fingerprint: 'fp_a655021f7d'
-          },
-          id: 'chatcmpl-4f47bec1-243a-4f10-a4f8-84428d761638',
-          tool_calls: [],
-          invalid_tool_calls: [],
-          usage_metadata: {
-            output_tokens: 54,
-            input_tokens: 519,
-            total_tokens: 573,
-            input_token_details: { audio: undefined, cache_read: undefined },
-            output_token_details: { audio: undefined, reasoning: undefined }
-          }
-        },
-        lc_namespace: [ 'langchain_core', 'messages' ],
-        content: 'Временной промежуток между открытием иероглифов майя (1566 г.) и их успешной расшифровкой Юрием Кнорозовым (1952 г.) составляет **386 лет**.',
+    messages: AIMessage {
+      lc_serializable: true,
+      lc_kwargs: {
+        content: 'Временной промежуток между первым подробным описанием иероглифов майя (1566 год, Диего де Ланда) и их успешной расшифровкой Юрием Кнорозовым (1952 год) составляет **386 лет**.',
         name: undefined,
-        additional_kwargs: { function_call: undefined, tool_calls: undefined },
+        additional_kwargs: { function_call: null, tool_calls: undefined },
         response_metadata: {
-          tokenUsage: { promptTokens: 519, completionTokens: 54, totalTokens: 573 },
-          finish_reason: 'stop',
-          model_name: 'openai/gpt-oss-120b',
+          model_name: 'auto',
           usage: {
-            queue_time: 0.158507746,
-            prompt_tokens: 519,
-            prompt_time: 0.023944992,
-            completion_tokens: 54,
-            completion_time: 0.111450897,
-            total_tokens: 573,
-            total_time: 0.135395889
+            prompt_tokens: 813,
+            total_tokens: 876,
+            completion_tokens: 63,
+            prompt_tokens_details: null,
+            completion_tokens_details: { reasoning_tokens: 0 }
           },
-          system_fingerprint: 'fp_a655021f7d'
+          system_fingerprint: 'vllm-0.30.0-4dc91a50'
         },
-        id: 'chatcmpl-4f47bec1-243a-4f10-a4f8-84428d761638',
+        id: 'chatcmpl-9524b005361e8c21',
         tool_calls: [],
         invalid_tool_calls: [],
         usage_metadata: {
-          output_tokens: 54,
-          input_tokens: 519,
-          total_tokens: 573,
+          output_tokens: 63,
+          input_tokens: 813,
+          total_tokens: 876,
           input_token_details: { audio: undefined, cache_read: undefined },
-          output_token_details: { audio: undefined, reasoning: undefined }
+          output_token_details: { audio: undefined, reasoning: 0 }
         }
+      },
+      lc_namespace: [ 'langchain_core', 'messages' ],
+      content: 'Временной промежуток между первым подробным описанием иероглифов майя (1566 год, Диего де Ланда) и их успешной расшифровкой Юрием Кнорозовым (1952 год) составляет **386 лет**.',
+      name: undefined,
+      additional_kwargs: { function_call: null, tool_calls: undefined },
+      response_metadata: {
+        tokenUsage: { promptTokens: 813, completionTokens: 63, totalTokens: 876 },
+        finish_reason: 'stop',
+        model_name: 'auto',
+        usage: {
+          prompt_tokens: 813,
+          total_tokens: 876,
+          completion_tokens: 63,
+          prompt_tokens_details: null,
+          completion_tokens_details: { reasoning_tokens: 0 }
+        },
+        system_fingerprint: 'vllm-0.30.0-4dc91a50'
+      },
+      id: 'chatcmpl-9524b005361e8c21',
+      tool_calls: [],
+      invalid_tool_calls: [],
+      usage_metadata: {
+        output_tokens: 63,
+        input_tokens: 813,
+        total_tokens: 876,
+        input_token_details: { audio: undefined, cache_read: undefined },
+        output_token_details: { audio: undefined, reasoning: 0 }
       }
-    ]
+    }
   }
 }
 ```
