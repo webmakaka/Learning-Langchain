@@ -35,159 +35,234 @@ LLM-приложение, обладающее агентной природой
 
 ### 01. Создание агента на базе LangGraph
 
-:warning: DuckDuckGo говорит, что-то скрипт делает слишком много запросов и отказывается работать
+:warning: Код сильно поменялся из-за того, что DuckDuckGo писал сообщения о слишком большом количестве запросов и отказывается работать
+
+:warning: GROQ справился. Vireonix нет.
 
 :warning: Предустановленная функция toolsCondition из пакета @langchain/langgraph/prebuilt автоматически возвращает строку "__end__", если в сообщении от модели отсутствуют запросы на вызов инструментов.
 
 <br/>
 
 ```shell
-$ node ./a-basic-agent.js 
-Zod field at `#/definitions/duckduckgo-search/properties/input` uses `.optional()` without `.nullable()` which is not supported by the API. See: https://platform.openai.com/docs/guides/structured-outputs?api-mode=responses#all-fields-must-be-required
-This will become an error in a future version of the SDK.
+s$ node ./a-basic-agent.js 
 Zod field at `#/definitions/calculator/properties/input` uses `.optional()` without `.nullable()` which is not supported by the API. See: https://platform.openai.com/docs/guides/structured-outputs?api-mode=responses#all-fields-must-be-required
 This will become an error in a future version of the SDK.
 {
   model: {
-    messages: AIMessage {
-      "id": "0740bbcc48fbb30ea07b0a43a6a5aee0",
-      "content": "",
-      "additional_kwargs": {
-        "tool_calls": [
-          {
-            "id": "call_01a1bf7e6ee3749f9e324f5e",
-            "type": "function",
-            "function": "[Object]"
+    messages: [
+      AIMessage {
+        lc_serializable: true,
+        lc_kwargs: {
+          content: '',
+          name: undefined,
+          additional_kwargs: {
+            function_call: undefined,
+            tool_calls: [
+              {
+                id: 'fc_9ad0a52b-e891-4991-a046-ebaf892b81c3',
+                type: 'function',
+                function: {
+                  name: 'duckduckgo-search',
+                  arguments: '{"input":"when were Maya hieroglyphs first discovered"}'
+                }
+              }
+            ]
           },
-          {
-            "id": "call_01a1bf7e6ee3749f9e324f5f",
-            "type": "function",
-            "function": "[Object]"
+          response_metadata: {
+            model_name: 'openai/gpt-oss-120b',
+            usage: {
+              queue_time: 0.313476653,
+              prompt_tokens: 252,
+              prompt_time: 0.010754297,
+              completion_tokens: 196,
+              completion_time: 0.416671089,
+              total_tokens: 448,
+              total_time: 0.427425386,
+              completion_tokens_details: { reasoning_tokens: 158 }
+            },
+            system_fingerprint: 'fp_c652c0ffaa'
+          },
+          id: 'chatcmpl-2b708196-1e05-4faf-89ec-abff7b733b79',
+          tool_calls: [
+            {
+              name: 'duckduckgo-search',
+              args: { input: 'when were Maya hieroglyphs first discovered' },
+              type: 'tool_call',
+              id: 'fc_9ad0a52b-e891-4991-a046-ebaf892b81c3'
+            }
+          ],
+          invalid_tool_calls: [],
+          usage_metadata: {
+            output_tokens: 196,
+            input_tokens: 252,
+            total_tokens: 448,
+            input_token_details: { audio: undefined, cache_read: undefined },
+            output_token_details: { audio: undefined, reasoning: 158 }
           }
-        ]
-      },
-      "response_metadata": {
-        "tokenUsage": {
-          "promptTokens": 645,
-          "completionTokens": 292,
-          "totalTokens": 937
         },
-        "finish_reason": "tool_calls",
-        "model_name": "auto"
-      },
-      "tool_calls": [
-        {
-          "name": "duckduckgo-search",
-          "args": {
-            "input": "открытие иероглифов майя дата открытия 1511 Кортес"
+        lc_namespace: [ 'langchain_core', 'messages' ],
+        content: '',
+        name: undefined,
+        additional_kwargs: {
+          function_call: undefined,
+          tool_calls: [
+            {
+              id: 'fc_9ad0a52b-e891-4991-a046-ebaf892b81c3',
+              type: 'function',
+              function: {
+                name: 'duckduckgo-search',
+                arguments: '{"input":"when were Maya hieroglyphs first discovered"}'
+              }
+            }
+          ]
+        },
+        response_metadata: {
+          tokenUsage: {
+            promptTokens: 252,
+            completionTokens: 196,
+            totalTokens: 448
           },
-          "type": "tool_call",
-          "id": "call_01a1bf7e6ee3749f9e324f5e"
-        },
-        {
-          "name": "duckduckgo-search",
-          "args": {
-            "input": "Юрий Кнорозов расшифровка иероглифов майя 1962 1963 год"
+          finish_reason: 'tool_calls',
+          model_name: 'openai/gpt-oss-120b',
+          usage: {
+            queue_time: 0.313476653,
+            prompt_tokens: 252,
+            prompt_time: 0.010754297,
+            completion_tokens: 196,
+            completion_time: 0.416671089,
+            total_tokens: 448,
+            total_time: 0.427425386,
+            completion_tokens_details: { reasoning_tokens: 158 }
           },
-          "type": "tool_call",
-          "id": "call_01a1bf7e6ee3749f9e324f5f"
-        }
-      ],
-      "invalid_tool_calls": [],
-      "usage_metadata": {
-        "output_tokens": 292,
-        "input_tokens": 645,
-        "total_tokens": 937,
-        "input_token_details": {
-          "cache_read": 185
+          system_fingerprint: 'fp_c652c0ffaa'
         },
-        "output_token_details": {
-          "reasoning": 196
+        id: 'chatcmpl-2b708196-1e05-4faf-89ec-abff7b733b79',
+        tool_calls: [
+          {
+            name: 'duckduckgo-search',
+            args: { input: 'when were Maya hieroglyphs first discovered' },
+            type: 'tool_call',
+            id: 'fc_9ad0a52b-e891-4991-a046-ebaf892b81c3'
+          }
+        ],
+        invalid_tool_calls: [],
+        usage_metadata: {
+          output_tokens: 196,
+          input_tokens: 252,
+          total_tokens: 448,
+          input_token_details: { audio: undefined, cache_read: undefined },
+          output_token_details: { audio: undefined, reasoning: 158 }
         }
       }
-    }
+    ]
   }
 }
 {
   tools: {
     messages: [
       ToolMessage {
-        "id": "3fddc4d9-3d8c-4981-9ac8-2579c8739f12",
-        "content": "Error: DDG detected an anomaly in the request, you are likely making requests too quickly.\n Please fix your mistakes.",
-        "name": "duckduckgo-search",
-        "additional_kwargs": {},
-        "response_metadata": {},
-        "tool_call_id": "call_01a1bf7e6ee3749f9e324f5e"
-      },
-      ToolMessage {
-        "id": "3ae1c711-e993-4535-8db5-515858e2bbaa",
-        "content": "Error: DDG detected an anomaly in the request, you are likely making requests too quickly.\n Please fix your mistakes.",
-        "name": "duckduckgo-search",
-        "additional_kwargs": {},
-        "response_metadata": {},
-        "tool_call_id": "call_01a1bf7e6ee3749f9e324f5f"
+        lc_serializable: true,
+        lc_kwargs: {
+          content: 'Историческая справка: Первое подробное описание иероглифов майя европейцами (Диего де Ланда) произошло в 1566 году. Юрий Кнорозов успешно расшифровал письменность майя, опубликовав свою ключевую работу в 1952 году.',
+          name: 'duckduckgo-search',
+          tool_call_id: 'fc_9ad0a52b-e891-4991-a046-ebaf892b81c3',
+          additional_kwargs: {},
+          response_metadata: {},
+          id: '61a029fb-3894-4435-a15a-6105cfc13d66'
+        },
+        lc_namespace: [ 'langchain_core', 'messages' ],
+        content: 'Историческая справка: Первое подробное описание иероглифов майя европейцами (Диего де Ланда) произошло в 1566 году. Юрий Кнорозов успешно расшифровал письменность майя, опубликовав свою ключевую работу в 1952 году.',
+        name: 'duckduckgo-search',
+        additional_kwargs: {},
+        response_metadata: {},
+        id: '61a029fb-3894-4435-a15a-6105cfc13d66',
+        lc_direct_tool_output: true,
+        status: undefined,
+        tool_call_id: 'fc_9ad0a52b-e891-4991-a046-ebaf892b81c3',
+        metadata: undefined,
+        artifact: undefined
       }
     ]
   }
 }
 {
   model: {
-    messages: AIMessage {
-      "id": "0740bbd58f9b6f28144d8ca6f630301c",
-      "content": "",
-      "additional_kwargs": {
-        "tool_calls": [
-          {
-            "id": "call_01a1bf7e88fd747f823181dc",
-            "type": "function",
-            "function": "[Object]"
-          }
-        ]
-      },
-      "response_metadata": {
-        "tokenUsage": {
-          "promptTokens": 1004,
-          "completionTokens": 53,
-          "totalTokens": 1057
-        },
-        "finish_reason": "tool_calls",
-        "model_name": "auto"
-      },
-      "tool_calls": [
-        {
-          "name": "duckduckgo-search",
-          "args": {
-            "input": "открытие иероглифов майя история открытия дата"
-          },
-          "type": "tool_call",
-          "id": "call_01a1bf7e88fd747f823181dc"
-        }
-      ],
-      "invalid_tool_calls": [],
-      "usage_metadata": {
-        "output_tokens": 53,
-        "input_tokens": 1004,
-        "total_tokens": 1057,
-        "input_token_details": {
-          "cache_read": 645
-        },
-        "output_token_details": {
-          "reasoning": 8
-        }
-      }
-    }
-  }
-}
-{
-  tools: {
     messages: [
-      ToolMessage {
-        "id": "e50d9cae-046d-4bbf-831b-8f0a95648c75",
-        "content": "Error: DDG detected an anomaly in the request, you are likely making requests too quickly.\n Please fix your mistakes.",
-        "name": "duckduckgo-search",
-        "additional_kwargs": {},
-        "response_metadata": {},
-        "tool_call_id": "call_01a1bf7e88fd747f823181dc"
+      AIMessage {
+        lc_serializable: true,
+        lc_kwargs: {
+          content: 'Первое систематическое знакомство европейцев с майянскими иероглифами датируется 1566 годом (описание Диего де Ланды).  \n' +
+            'Ключевая работа Юрия Кнорозова, в которой он представил успешную расшифровку майянского письма, была опубликована в 1952 году.\n' +
+            '\n' +
+            '**Временной промежуток между этими событиями:**  \n' +
+            '\n' +
+            '1952 – 1566 = **386 лет**.',
+          name: undefined,
+          additional_kwargs: { function_call: undefined, tool_calls: undefined },
+          response_metadata: {
+            model_name: 'openai/gpt-oss-120b',
+            usage: {
+              queue_time: 0.158306685,
+              prompt_tokens: 357,
+              prompt_time: 0.014051783,
+              completion_tokens: 181,
+              completion_time: 0.381349146,
+              total_tokens: 538,
+              total_time: 0.395400929,
+              completion_tokens_details: { reasoning_tokens: 64 }
+            },
+            system_fingerprint: 'fp_c3da0d4bb9'
+          },
+          id: 'chatcmpl-92c8c823-7be2-492e-b3fd-2c9189960072',
+          tool_calls: [],
+          invalid_tool_calls: [],
+          usage_metadata: {
+            output_tokens: 181,
+            input_tokens: 357,
+            total_tokens: 538,
+            input_token_details: { audio: undefined, cache_read: undefined },
+            output_token_details: { audio: undefined, reasoning: 64 }
+          }
+        },
+        lc_namespace: [ 'langchain_core', 'messages' ],
+        content: 'Первое систематическое знакомство европейцев с майянскими иероглифами датируется 1566 годом (описание Диего де Ланды).  \n' +
+          'Ключевая работа Юрия Кнорозова, в которой он представил успешную расшифровку майянского письма, была опубликована в 1952 году.\n' +
+          '\n' +
+          '**Временной промежуток между этими событиями:**  \n' +
+          '\n' +
+          '1952 – 1566 = **386 лет**.',
+        name: undefined,
+        additional_kwargs: { function_call: undefined, tool_calls: undefined },
+        response_metadata: {
+          tokenUsage: {
+            promptTokens: 357,
+            completionTokens: 181,
+            totalTokens: 538
+          },
+          finish_reason: 'stop',
+          model_name: 'openai/gpt-oss-120b',
+          usage: {
+            queue_time: 0.158306685,
+            prompt_tokens: 357,
+            prompt_time: 0.014051783,
+            completion_tokens: 181,
+            completion_time: 0.381349146,
+            total_tokens: 538,
+            total_time: 0.395400929,
+            completion_tokens_details: { reasoning_tokens: 64 }
+          },
+          system_fingerprint: 'fp_c3da0d4bb9'
+        },
+        id: 'chatcmpl-92c8c823-7be2-492e-b3fd-2c9189960072',
+        tool_calls: [],
+        invalid_tool_calls: [],
+        usage_metadata: {
+          output_tokens: 181,
+          input_tokens: 357,
+          total_tokens: 538,
+          input_token_details: { audio: undefined, cache_read: undefined },
+          output_token_details: { audio: undefined, reasoning: 64 }
+        }
       }
     ]
   }
