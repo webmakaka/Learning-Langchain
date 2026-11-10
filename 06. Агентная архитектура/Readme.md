@@ -789,3 +789,5 @@ This will become an error in a future version of the SDK.
 Zod field at `#/definitions/calculator/properties/input` uses `.optional()` without `.nullable()` which is not supported by the API. See: https://platform.openai.com/docs/guides/structured-outputs?api-mode=responses#all-fields-must-be-required
 This will become an error in a future version of the SDK.
 ```
+
+:warning: В данном коде выбор происходит из 2 инструментов.
