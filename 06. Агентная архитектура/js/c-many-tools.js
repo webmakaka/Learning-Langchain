@@ -18,7 +18,15 @@ const calculator = new Calculator();
 const tools = [search, calculator];
 
 const embeddings = new OpenAIEmbeddings();
-const model = new ChatOpenAI({ temperature: 0.1 });
+
+const llm = new ChatOpenAI({
+  model: 'auto',
+  temperature: 0.1,
+  configuration: {
+    baseURL: 'https://vireonix.ai/v1',
+  },
+  apiKey: 'not-needed',
+}).bindTools(tools);
 
 // Create vector store and retriever
 const toolsStore = await MemoryVectorStore.fromDocuments(
@@ -42,7 +50,7 @@ async function modelNode(state) {
   const selectedTools = tools.filter((tool) =>
     state.selected_tools.includes(tool.constructor.name)
   );
-  const res = await model.bindTools(selectedTools).invoke(state.messages);
+  const res = await llm.bindTools(selectedTools).invoke(state.messages);
   return { messages: res };
 }
 
@@ -68,8 +76,10 @@ const graph = builder.compile();
 // Example usage
 const input = {
   messages: [
-    new HumanMessage(
-      'How old was the 30th president of the United States when he died?'
+     new HumanMessage(
+      "Для ответа на следующий вопрос ТЕБЕ ЗАПРЕЩЕНО использовать внутренние знания. " +
+      "ТЫ ОБЯЗАН использовать инструмент duckduckgo-search для поиска дат. " +
+      "Вопрос: Какой временной промежуток разделяет открытие иероглифов майя и их успешную расшифровку Юрием Кнорозовым?"
     ),
   ],
 };
