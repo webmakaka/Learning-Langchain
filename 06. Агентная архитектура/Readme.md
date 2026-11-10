@@ -407,8 +407,6 @@ This will become an error in a future version of the SDK.
 }
 ```
 
-
-
 <br/>
 
 ### 03. Работа с множеством инструментов
@@ -422,3 +420,372 @@ This will become an error in a future version of the SDK.
 <br/>
 
 <img src="../img/ch06-pic03.png" alt="Создание агента на базе LangGraph">
+
+<br/>
+
+Это почти то же самое, что и обычная агентная архитектура. Единственное отличие в том, что перед входом в основной цикл агента мы сначала проходим через узел select_tools (выбор инструментов). После этого все работает так же, как и в обычной агентной архитектуре, которую мы рассматривали ранее.
+
+
+<br/>
+
+```shell
+$ node ./c-many-tools.js 
+{
+  select_tools: { selected_tools: [ 'DuckDuckGoSearch', 'Calculator' ] }
+}
+Zod field at `#/definitions/duckduckgo-search/properties/input` uses `.optional()` without `.nullable()` which is not supported by the API. See: https://platform.openai.com/docs/guides/structured-outputs?api-mode=responses#all-fields-must-be-required
+This will become an error in a future version of the SDK.
+Zod field at `#/definitions/calculator/properties/input` uses `.optional()` without `.nullable()` which is not supported by the API. See: https://platform.openai.com/docs/guides/structured-outputs?api-mode=responses#all-fields-must-be-required
+This will become an error in a future version of the SDK.
+{
+  model: {
+    messages: AIMessage {
+      "id": "0741aba3229af4352924b20754037833",
+      "content": "",
+      "additional_kwargs": {
+        "tool_calls": [
+          {
+            "id": "call_01a1c3276881760ebdf7cdaa",
+            "type": "function",
+            "function": "[Object]"
+          },
+          {
+            "id": "call_01a1c3276881760ebdf7cdab",
+            "type": "function",
+            "function": "[Object]"
+          }
+        ]
+      },
+      "response_metadata": {
+        "tokenUsage": {
+          "promptTokens": 645,
+          "completionTokens": 883,
+          "totalTokens": 1528
+        },
+        "finish_reason": "tool_calls",
+        "model_name": "auto"
+      },
+      "tool_calls": [
+        {
+          "name": "duckduckgo-search",
+          "args": {
+            "input": "открытие иероглифов майя расшифровка Кнорозовым сколько лет спустя"
+          },
+          "type": "tool_call",
+          "id": "call_01a1c3276881760ebdf7cdaa"
+        },
+        {
+          "name": "duckduckgo-search",
+          "args": {
+            "input": "\"иероглифы майя\" \"открыты\" в каком году расшифрованы Кнорозов 1960"
+          },
+          "type": "tool_call",
+          "id": "call_01a1c3276881760ebdf7cdab"
+        }
+      ],
+      "invalid_tool_calls": [],
+      "usage_metadata": {
+        "output_tokens": 883,
+        "input_tokens": 645,
+        "total_tokens": 1528,
+        "input_token_details": {
+          "cache_read": 225
+        },
+        "output_token_details": {
+          "reasoning": 776
+        }
+      }
+    }
+  }
+}
+{
+  tools: {
+    messages: [
+      ToolMessage {
+        "id": "61cc6247-043c-4326-ad87-0e03c2da1470",
+        "content": "Error: DDG detected an anomaly in the request, you are likely making requests too quickly.\n Please fix your mistakes.",
+        "name": "duckduckgo-search",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "tool_call_id": "call_01a1c3276881760ebdf7cdaa"
+      },
+      ToolMessage {
+        "id": "32a8db9e-96f7-4dbb-bcc7-596e0a8d98a3",
+        "content": "Error: DDG detected an anomaly in the request, you are likely making requests too quickly.\n Please fix your mistakes.",
+        "name": "duckduckgo-search",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "tool_call_id": "call_01a1c3276881760ebdf7cdab"
+      }
+    ]
+  }
+}
+Zod field at `#/definitions/duckduckgo-search/properties/input` uses `.optional()` without `.nullable()` which is not supported by the API. See: https://platform.openai.com/docs/guides/structured-outputs?api-mode=responses#all-fields-must-be-required
+This will become an error in a future version of the SDK.
+Zod field at `#/definitions/calculator/properties/input` uses `.optional()` without `.nullable()` which is not supported by the API. See: https://platform.openai.com/docs/guides/structured-outputs?api-mode=responses#all-fields-must-be-required
+This will become an error in a future version of the SDK.
+{
+  model: {
+    messages: AIMessage {
+      "id": "0741abb447d0053d345fec61f8912ac4",
+      "content": "",
+      "additional_kwargs": {
+        "tool_calls": [
+          {
+            "id": "call_01a1c327866f70d889689ad0",
+            "type": "function",
+            "function": "[Object]"
+          }
+        ]
+      },
+      "response_metadata": {
+        "tokenUsage": {
+          "promptTokens": 1595,
+          "completionTokens": 73,
+          "totalTokens": 1668
+        },
+        "finish_reason": "tool_calls",
+        "model_name": "auto"
+      },
+      "tool_calls": [
+        {
+          "name": "duckduckgo-search",
+          "args": {
+            "input": "расшифровка иероглифов майя Кнорозов 1960 открытие иероглифов"
+          },
+          "type": "tool_call",
+          "id": "call_01a1c327866f70d889689ad0"
+        }
+      ],
+      "invalid_tool_calls": [],
+      "usage_metadata": {
+        "output_tokens": 73,
+        "input_tokens": 1595,
+        "total_tokens": 1668,
+        "input_token_details": {
+          "cache_read": 645
+        },
+        "output_token_details": {
+          "reasoning": 15
+        }
+      }
+    }
+  }
+}
+{
+  tools: {
+    messages: [
+      ToolMessage {
+        "id": "9d66d712-2705-452f-8140-6872ed9af13f",
+        "content": "Error: DDG detected an anomaly in the request, you are likely making requests too quickly.\n Please fix your mistakes.",
+        "name": "duckduckgo-search",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "tool_call_id": "call_01a1c327866f70d889689ad0"
+      }
+    ]
+  }
+}
+Zod field at `#/definitions/duckduckgo-search/properties/input` uses `.optional()` without `.nullable()` which is not supported by the API. See: https://platform.openai.com/docs/guides/structured-outputs?api-mode=responses#all-fields-must-be-required
+This will become an error in a future version of the SDK.
+Zod field at `#/definitions/calculator/properties/input` uses `.optional()` without `.nullable()` which is not supported by the API. See: https://platform.openai.com/docs/guides/structured-outputs?api-mode=responses#all-fields-must-be-required
+This will become an error in a future version of the SDK.
+{
+  model: {
+    messages: AIMessage {
+      "id": "0741abbcc426a7619e234dd233193b4f",
+      "content": "",
+      "additional_kwargs": {
+        "tool_calls": [
+          {
+            "id": "call_01a1c327a189715ba636aa56",
+            "type": "function",
+            "function": "[Object]"
+          }
+        ]
+      },
+      "response_metadata": {
+        "tokenUsage": {
+          "promptTokens": 929,
+          "completionTokens": 70,
+          "totalTokens": 999
+        },
+        "finish_reason": "tool_calls",
+        "model_name": "auto"
+      },
+      "tool_calls": [
+        {
+          "name": "duckduckgo-search",
+          "args": {
+            "input": "Maya hieroglyphs discovered year deciphered Yuri Knorozov 1960"
+          },
+          "type": "tool_call",
+          "id": "call_01a1c327a189715ba636aa56"
+        }
+      ],
+      "invalid_tool_calls": [],
+      "usage_metadata": {
+        "output_tokens": 70,
+        "input_tokens": 929,
+        "total_tokens": 999,
+        "input_token_details": {
+          "cache_read": 645
+        },
+        "output_token_details": {
+          "reasoning": 25
+        }
+      }
+    }
+  }
+}
+{
+  tools: {
+    messages: [
+      ToolMessage {
+        "id": "cf148eec-96dc-4801-9345-5907d45dab75",
+        "content": "Error: DDG detected an anomaly in the request, you are likely making requests too quickly.\n Please fix your mistakes.",
+        "name": "duckduckgo-search",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "tool_call_id": "call_01a1c327a189715ba636aa56"
+      }
+    ]
+  }
+}
+Zod field at `#/definitions/duckduckgo-search/properties/input` uses `.optional()` without `.nullable()` which is not supported by the API. See: https://platform.openai.com/docs/guides/structured-outputs?api-mode=responses#all-fields-must-be-required
+This will become an error in a future version of the SDK.
+Zod field at `#/definitions/calculator/properties/input` uses `.optional()` without `.nullable()` which is not supported by the API. See: https://platform.openai.com/docs/guides/structured-outputs?api-mode=responses#all-fields-must-be-required
+This will become an error in a future version of the SDK.
+{
+  model: {
+    messages: AIMessage {
+      "id": "0741abc32e3f41fa7f61b21607c1df0a",
+      "content": "",
+      "additional_kwargs": {
+        "tool_calls": [
+          {
+            "id": "call_01a1c327be117438afb65476",
+            "type": "function",
+            "function": "[Object]"
+          }
+        ]
+      },
+      "response_metadata": {
+        "tokenUsage": {
+          "promptTokens": 1021,
+          "completionTokens": 72,
+          "totalTokens": 1093
+        },
+        "finish_reason": "tool_calls",
+        "model_name": "auto"
+      },
+      "tool_calls": [
+        {
+          "name": "duckduckgo-search",
+          "args": {
+            "input": "иероглифы майя история открытие расшифровка"
+          },
+          "type": "tool_call",
+          "id": "call_01a1c327be117438afb65476"
+        }
+      ],
+      "invalid_tool_calls": [],
+      "usage_metadata": {
+        "output_tokens": 72,
+        "input_tokens": 1021,
+        "total_tokens": 1093,
+        "input_token_details": {
+          "cache_read": 818
+        },
+        "output_token_details": {
+          "reasoning": 27
+        }
+      }
+    }
+  }
+}
+{
+  tools: {
+    messages: [
+      ToolMessage {
+        "id": "b0e3f977-0b30-48a0-ad6d-899271aec245",
+        "content": "Error: DDG detected an anomaly in the request, you are likely making requests too quickly.\n Please fix your mistakes.",
+        "name": "duckduckgo-search",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "tool_call_id": "call_01a1c327be117438afb65476"
+      }
+    ]
+  }
+}
+Zod field at `#/definitions/duckduckgo-search/properties/input` uses `.optional()` without `.nullable()` which is not supported by the API. See: https://platform.openai.com/docs/guides/structured-outputs?api-mode=responses#all-fields-must-be-required
+This will become an error in a future version of the SDK.
+Zod field at `#/definitions/calculator/properties/input` uses `.optional()` without `.nullable()` which is not supported by the API. See: https://platform.openai.com/docs/guides/structured-outputs?api-mode=responses#all-fields-must-be-required
+This will become an error in a future version of the SDK.
+{
+  model: {
+    messages: AIMessage {
+      "id": "0741abcaf394826332fcb87e086d745e",
+      "content": "",
+      "additional_kwargs": {
+        "tool_calls": [
+          {
+            "id": "call_01a1c327e48776a1a9de1733",
+            "type": "function",
+            "function": "[Object]"
+          }
+        ]
+      },
+      "response_metadata": {
+        "tokenUsage": {
+          "promptTokens": 1105,
+          "completionTokens": 46,
+          "totalTokens": 1151
+        },
+        "finish_reason": "tool_calls",
+        "model_name": "auto"
+      },
+      "tool_calls": [
+        {
+          "name": "calculator",
+          "args": {
+            "input": "1960 - 1779"
+          },
+          "type": "tool_call",
+          "id": "call_01a1c327e48776a1a9de1733"
+        }
+      ],
+      "invalid_tool_calls": [],
+      "usage_metadata": {
+        "output_tokens": 46,
+        "input_tokens": 1105,
+        "total_tokens": 1151,
+        "input_token_details": {
+          "cache_read": 913
+        },
+        "output_token_details": {
+          "reasoning": 14
+        }
+      }
+    }
+  }
+}
+{
+  tools: {
+    messages: [
+      ToolMessage {
+        "id": "bda2c54d-0d4f-4467-83ed-13aa2ac3048f",
+        "content": "181",
+        "name": "calculator",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "tool_call_id": "call_01a1c327e48776a1a9de1733"
+      }
+    ]
+  }
+}
+Zod field at `#/definitions/duckduckgo-search/properties/input` uses `.optional()` without `.nullable()` which is not supported by the API. See: https://platform.openai.com/docs/guides/structured-outputs?api-mode=responses#all-fields-must-be-required
+This will become an error in a future version of the SDK.
+Zod field at `#/definitions/calculator/properties/input` uses `.optional()` without `.nullable()` which is not supported by the API. See: https://platform.openai.com/docs/guides/structured-outputs?api-mode=responses#all-fields-must-be-required
+This will become an error in a future version of the SDK.
+```
