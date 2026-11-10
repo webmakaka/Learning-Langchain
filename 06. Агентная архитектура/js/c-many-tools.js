@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import { DuckDuckGoSearch } from '@langchain/community/tools/duckduckgo_search';
 import { Calculator } from '@langchain/community/tools/calculator';
 import { ChatOpenAI } from '@langchain/openai';
@@ -17,7 +18,15 @@ const search = new DuckDuckGoSearch();
 const calculator = new Calculator();
 const tools = [search, calculator];
 
-const embeddings = new OpenAIEmbeddings();
+const embeddings = new OpenAIEmbeddings({
+  model: 'liquid/lfm-2.5-embedding-350m:free',
+  temperature: 0,
+  batchSize: 128,
+  configuration: {
+    baseURL: 'https://openrouter.ai/api/v1',
+  },
+  apiKey: process.env.OPENROUTER_API_KEY,
+});
 
 const llm = new ChatOpenAI({
   model: 'auto',
@@ -26,7 +35,7 @@ const llm = new ChatOpenAI({
     baseURL: 'https://vireonix.ai/v1',
   },
   apiKey: 'not-needed',
-}).bindTools(tools);
+});
 
 // Create vector store and retriever
 const toolsStore = await MemoryVectorStore.fromDocuments(
