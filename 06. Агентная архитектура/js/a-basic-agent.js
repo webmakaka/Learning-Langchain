@@ -1,17 +1,18 @@
 import 'dotenv/config';
-import { tool } from "@langchain/core/tools";
-import { z } from "zod";
-import { Parser } from "expr-eval"; // Надежный парсер математических выражений
+import { DuckDuckGoSearch } from "@langchain/community/tools/duckduckgo_search";
+import { Calculator } from "@langchain/community/tools/calculator";
 import {
   StateGraph,
   Annotation,
   messagesStateReducer,
-  START, END
+  START,
 } from "@langchain/langgraph";
+import { ToolNode, toolsCondition } from "@langchain/langgraph/prebuilt";
 import { ChatOpenAI } from "@langchain/openai";
-import { HumanMessage, ToolMessage, SystemMessage } from "@langchain/core/messages";
+import { AIMessage, HumanMessage, ToolMessage, SystemMessage } from "@langchain/core/messages";
+import { tool } from "@langchain/core/tools";
+import { z } from "zod";
 
-// 1. Исправленный и надежный поиск
 const search = tool(
   async ({ input }) => {
     try {
@@ -49,37 +50,17 @@ const search = tool(
     schema: z.object({ input: z.string() }),
   }
 );
-
-// 2. КАСТОМНЫЙ КАЛЬКУЛЯТОР (Совместимый с Groq / OpenAI Tool Calls)
-const calculator = tool(
-  async ({ expression }) => {
-    try {
-      // Безопасное вычисление строки выражения (например, "1952 - 1566")
-      const result = Parser.evaluate(expression);
-      return String(result);
-    } catch (error) {
-      return `Ошибка вычисления: ${error.message}`;
-    }
-  },
-  {
-    name: "calculator",
-    description: "Выполняет математические расчеты. Подает на вход строку-выражение, например: '1952 - 1566'.",
-    schema: z.object({
-      expression: z.string().describe("Математическое выражение для вычисления, например '1952 - 1566'"),
-    }),
-  }
-);
-
+const calculator = new Calculator();
 const tools = [search, calculator];
 
 const llm = new ChatOpenAI({
-  model: 'openai/gpt-oss-120b',
-  temperature: 0,
+  model: 'auto',
+  temperature: 0.1,
   configuration: {
-    baseURL: 'https://api.groq.com/openai/v1',
+    baseURL: 'https://vireonix.ai/v1',
   },
-  apiKey: process.env.GROQ_API_KEY,
-}).bindTools(tools);
+  apiKey: 'not-needed',
+}).bindTools(tools);;
 
 const annotation = Annotation.Root({
   messages: Annotation({
@@ -90,65 +71,19 @@ const annotation = Annotation.Root({
 
 async function modelNode(state) {
   const res = await llm.invoke(state.messages);
-  return { messages: [res] };
-}
-
-const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-
-async function customToolsNode(state) {
-  const lastMessage = state.messages[state.messages.length - 1];
-  if (!lastMessage.tool_calls || lastMessage.tool_calls.length === 0) {
-    return { messages: [] };
-  }
-
-  const toolMessages = [];
-  
-  for (const call of lastMessage.tool_calls) {
-    await delay(1000); // Снизил задержку для скорости тестирования
-    const targetTool = tools.find((t) => t.name === call.name);
-    
-    if (targetTool) {
-      try {
-        const response = await targetTool.invoke(call.args);
-        toolMessages.push(new ToolMessage({
-          content: typeof response === "string" ? response : JSON.stringify(response),
-          name: call.name,
-          tool_call_id: call.id,
-        }));
-      } catch (error) {
-        toolMessages.push(new ToolMessage({
-          content: `Error: ${error.message}`,
-          name: call.name,
-          tool_call_id: call.id,
-        }));
-      }
-    }
-  }
-
-  return { messages: toolMessages };
-}
-
-function routerCondition(state) {
-  const lastMessage = state.messages[state.messages.length - 1];
-  if (lastMessage?.tool_calls && lastMessage.tool_calls.length > 0) {
-    return "tools";
-  }
-  return "end";
+  return { messages: res };
 }
 
 const builder = new StateGraph(annotation)
   .addNode("model", modelNode)
-  .addNode("tools", customToolsNode)
+  .addNode("tools", new ToolNode(tools))
   .addEdge(START, "model")
-  .addConditionalEdges("model", routerCondition, {
-    tools: "tools",
-    end: END,
-  })
+  .addConditionalEdges("model", toolsCondition)
   .addEdge("tools", "model");
 
 const graph = builder.compile();
 
-// 3. СТРОГИЙ ПРОМПТ ДЛЯ ДВУХШАГОВОГО ВЫЗОВА
+// Example usage
 const input = {
   messages: [
     new SystemMessage(
@@ -164,7 +99,6 @@ const input = {
   ],
 };
 
-// Запуск
 for await (const c of await graph.stream(input, { recursionLimit: 15 })) {
   console.dir(c, { depth: null, colors: true });
 }
