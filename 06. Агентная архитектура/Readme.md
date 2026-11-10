@@ -710,69 +710,110 @@ This will become an error in a future version of the SDK.
 ```shell
 $ node ./c-many-tools.js 
 {
-  select_tools: { selected_tools: [ 'DuckDuckGoSearch', 'Calculator' ] }
+  select_tools: { selected_tools: [ 'DynamicStructuredTool', 'Calculator' ] }
 }
-Zod field at `#/definitions/duckduckgo-search/properties/input` uses `.optional()` without `.nullable()` which is not supported by the API. See: https://platform.openai.com/docs/guides/structured-outputs?api-mode=responses#all-fields-must-be-required
-This will become an error in a future version of the SDK.
 Zod field at `#/definitions/calculator/properties/input` uses `.optional()` without `.nullable()` which is not supported by the API. See: https://platform.openai.com/docs/guides/structured-outputs?api-mode=responses#all-fields-must-be-required
 This will become an error in a future version of the SDK.
 {
   model: {
     messages: AIMessage {
-      "id": "0741aba3229af4352924b20754037833",
-      "content": "",
-      "additional_kwargs": {
-        "tool_calls": [
-          {
-            "id": "call_01a1c3276881760ebdf7cdaa",
-            "type": "function",
-            "function": "[Object]"
+      lc_serializable: true,
+      lc_kwargs: {
+        content: '',
+        name: undefined,
+        additional_kwargs: {
+          function_call: undefined,
+          tool_calls: [
+            {
+              id: 'fc_3c936ddc-e954-43e8-ac3a-9262f749e109',
+              type: 'function',
+              function: {
+                name: 'duckduckgo-search',
+                arguments: '{"input":"first discovery of Mayan hieroglyphs date"}'
+              }
+            }
+          ]
+        },
+        response_metadata: {
+          model_name: 'openai/gpt-oss-120b',
+          usage: {
+            queue_time: 0.286018896,
+            prompt_tokens: 364,
+            prompt_time: 0.016209895,
+            completion_tokens: 349,
+            completion_time: 0.72330745,
+            total_tokens: 713,
+            total_time: 0.739517345,
+            completion_tokens_details: { reasoning_tokens: 310 }
           },
+          system_fingerprint: 'fp_854fa9be4c'
+        },
+        id: 'chatcmpl-afc02603-604b-4f3a-bf46-1550e0bb69e0',
+        tool_calls: [
           {
-            "id": "call_01a1c3276881760ebdf7cdab",
-            "type": "function",
-            "function": "[Object]"
+            name: 'duckduckgo-search',
+            args: { input: 'first discovery of Mayan hieroglyphs date' },
+            type: 'tool_call',
+            id: 'fc_3c936ddc-e954-43e8-ac3a-9262f749e109'
+          }
+        ],
+        invalid_tool_calls: [],
+        usage_metadata: {
+          output_tokens: 349,
+          input_tokens: 364,
+          total_tokens: 713,
+          input_token_details: { audio: undefined, cache_read: undefined },
+          output_token_details: { audio: undefined, reasoning: 310 }
+        }
+      },
+      lc_namespace: [ 'langchain_core', 'messages' ],
+      content: '',
+      name: undefined,
+      additional_kwargs: {
+        function_call: undefined,
+        tool_calls: [
+          {
+            id: 'fc_3c936ddc-e954-43e8-ac3a-9262f749e109',
+            type: 'function',
+            function: {
+              name: 'duckduckgo-search',
+              arguments: '{"input":"first discovery of Mayan hieroglyphs date"}'
+            }
           }
         ]
       },
-      "response_metadata": {
-        "tokenUsage": {
-          "promptTokens": 645,
-          "completionTokens": 883,
-          "totalTokens": 1528
+      response_metadata: {
+        tokenUsage: { promptTokens: 364, completionTokens: 349, totalTokens: 713 },
+        finish_reason: 'tool_calls',
+        model_name: 'openai/gpt-oss-120b',
+        usage: {
+          queue_time: 0.286018896,
+          prompt_tokens: 364,
+          prompt_time: 0.016209895,
+          completion_tokens: 349,
+          completion_time: 0.72330745,
+          total_tokens: 713,
+          total_time: 0.739517345,
+          completion_tokens_details: { reasoning_tokens: 310 }
         },
-        "finish_reason": "tool_calls",
-        "model_name": "auto"
+        system_fingerprint: 'fp_854fa9be4c'
       },
-      "tool_calls": [
+      id: 'chatcmpl-afc02603-604b-4f3a-bf46-1550e0bb69e0',
+      tool_calls: [
         {
-          "name": "duckduckgo-search",
-          "args": {
-            "input": "открытие иероглифов майя расшифровка Кнорозовым сколько лет спустя"
-          },
-          "type": "tool_call",
-          "id": "call_01a1c3276881760ebdf7cdaa"
-        },
-        {
-          "name": "duckduckgo-search",
-          "args": {
-            "input": "\"иероглифы майя\" \"открыты\" в каком году расшифрованы Кнорозов 1960"
-          },
-          "type": "tool_call",
-          "id": "call_01a1c3276881760ebdf7cdab"
+          name: 'duckduckgo-search',
+          args: { input: 'first discovery of Mayan hieroglyphs date' },
+          type: 'tool_call',
+          id: 'fc_3c936ddc-e954-43e8-ac3a-9262f749e109'
         }
       ],
-      "invalid_tool_calls": [],
-      "usage_metadata": {
-        "output_tokens": 883,
-        "input_tokens": 645,
-        "total_tokens": 1528,
-        "input_token_details": {
-          "cache_read": 225
-        },
-        "output_token_details": {
-          "reasoning": 776
-        }
+      invalid_tool_calls: [],
+      usage_metadata: {
+        output_tokens: 349,
+        input_tokens: 364,
+        total_tokens: 713,
+        input_token_details: { audio: undefined, cache_read: undefined },
+        output_token_details: { audio: undefined, reasoning: 310 }
       }
     }
   }
@@ -781,72 +822,135 @@ This will become an error in a future version of the SDK.
   tools: {
     messages: [
       ToolMessage {
-        "id": "61cc6247-043c-4326-ad87-0e03c2da1470",
-        "content": "Error: DDG detected an anomaly in the request, you are likely making requests too quickly.\n Please fix your mistakes.",
-        "name": "duckduckgo-search",
-        "additional_kwargs": {},
-        "response_metadata": {},
-        "tool_call_id": "call_01a1c3276881760ebdf7cdaa"
-      },
-      ToolMessage {
-        "id": "32a8db9e-96f7-4dbb-bcc7-596e0a8d98a3",
-        "content": "Error: DDG detected an anomaly in the request, you are likely making requests too quickly.\n Please fix your mistakes.",
-        "name": "duckduckgo-search",
-        "additional_kwargs": {},
-        "response_metadata": {},
-        "tool_call_id": "call_01a1c3276881760ebdf7cdab"
+        lc_serializable: true,
+        lc_kwargs: {
+          status: 'success',
+          content: 'Историческая справка: Первое подробное описание иероглифов майя европейцами (Диего де Ланда) произошло в 1566 году. Юрий Кнорозов успешно расшифровал письменность майя, опубликовав свою ключевую работу в 1952 году.',
+          artifact: undefined,
+          tool_call_id: 'fc_3c936ddc-e954-43e8-ac3a-9262f749e109',
+          name: 'duckduckgo-search',
+          metadata: {},
+          additional_kwargs: {},
+          response_metadata: {},
+          id: '57d5598e-5d5c-4b30-8006-339f8f7e2387'
+        },
+        lc_namespace: [ 'langchain_core', 'messages' ],
+        content: 'Историческая справка: Первое подробное описание иероглифов майя европейцами (Диего де Ланда) произошло в 1566 году. Юрий Кнорозов успешно расшифровал письменность майя, опубликовав свою ключевую работу в 1952 году.',
+        name: 'duckduckgo-search',
+        additional_kwargs: {},
+        response_metadata: {},
+        id: '57d5598e-5d5c-4b30-8006-339f8f7e2387',
+        lc_direct_tool_output: true,
+        status: 'success',
+        tool_call_id: 'fc_3c936ddc-e954-43e8-ac3a-9262f749e109',
+        metadata: {},
+        artifact: undefined
       }
     ]
   }
 }
-Zod field at `#/definitions/duckduckgo-search/properties/input` uses `.optional()` without `.nullable()` which is not supported by the API. See: https://platform.openai.com/docs/guides/structured-outputs?api-mode=responses#all-fields-must-be-required
-This will become an error in a future version of the SDK.
 Zod field at `#/definitions/calculator/properties/input` uses `.optional()` without `.nullable()` which is not supported by the API. See: https://platform.openai.com/docs/guides/structured-outputs?api-mode=responses#all-fields-must-be-required
 This will become an error in a future version of the SDK.
 {
   model: {
     messages: AIMessage {
-      "id": "0741abb447d0053d345fec61f8912ac4",
-      "content": "",
-      "additional_kwargs": {
-        "tool_calls": [
+      lc_serializable: true,
+      lc_kwargs: {
+        content: '',
+        name: undefined,
+        additional_kwargs: {
+          function_call: undefined,
+          tool_calls: [
+            {
+              id: 'fc_6de49679-1b8b-439b-9097-ed4b7e35161f',
+              type: 'function',
+              function: {
+                name: 'calculator',
+                arguments: '{"input":"1952 - 1566"}'
+              }
+            }
+          ]
+        },
+        response_metadata: {
+          model_name: 'openai/gpt-oss-120b',
+          usage: {
+            queue_time: 0.287459383,
+            prompt_tokens: 470,
+            prompt_time: 0.019692767,
+            completion_tokens: 75,
+            completion_time: 0.157605681,
+            total_tokens: 545,
+            total_time: 0.177298448,
+            completion_tokens_details: { reasoning_tokens: 47 }
+          },
+          system_fingerprint: 'fp_96d96a151c'
+        },
+        id: 'chatcmpl-f3a157aa-64a0-4384-a0f2-e3acad124d91',
+        tool_calls: [
           {
-            "id": "call_01a1c327866f70d889689ad0",
-            "type": "function",
-            "function": "[Object]"
+            name: 'calculator',
+            args: { input: '1952 - 1566' },
+            type: 'tool_call',
+            id: 'fc_6de49679-1b8b-439b-9097-ed4b7e35161f'
+          }
+        ],
+        invalid_tool_calls: [],
+        usage_metadata: {
+          output_tokens: 75,
+          input_tokens: 470,
+          total_tokens: 545,
+          input_token_details: { audio: undefined, cache_read: undefined },
+          output_token_details: { audio: undefined, reasoning: 47 }
+        }
+      },
+      lc_namespace: [ 'langchain_core', 'messages' ],
+      content: '',
+      name: undefined,
+      additional_kwargs: {
+        function_call: undefined,
+        tool_calls: [
+          {
+            id: 'fc_6de49679-1b8b-439b-9097-ed4b7e35161f',
+            type: 'function',
+            function: {
+              name: 'calculator',
+              arguments: '{"input":"1952 - 1566"}'
+            }
           }
         ]
       },
-      "response_metadata": {
-        "tokenUsage": {
-          "promptTokens": 1595,
-          "completionTokens": 73,
-          "totalTokens": 1668
+      response_metadata: {
+        tokenUsage: { promptTokens: 470, completionTokens: 75, totalTokens: 545 },
+        finish_reason: 'tool_calls',
+        model_name: 'openai/gpt-oss-120b',
+        usage: {
+          queue_time: 0.287459383,
+          prompt_tokens: 470,
+          prompt_time: 0.019692767,
+          completion_tokens: 75,
+          completion_time: 0.157605681,
+          total_tokens: 545,
+          total_time: 0.177298448,
+          completion_tokens_details: { reasoning_tokens: 47 }
         },
-        "finish_reason": "tool_calls",
-        "model_name": "auto"
+        system_fingerprint: 'fp_96d96a151c'
       },
-      "tool_calls": [
+      id: 'chatcmpl-f3a157aa-64a0-4384-a0f2-e3acad124d91',
+      tool_calls: [
         {
-          "name": "duckduckgo-search",
-          "args": {
-            "input": "расшифровка иероглифов майя Кнорозов 1960 открытие иероглифов"
-          },
-          "type": "tool_call",
-          "id": "call_01a1c327866f70d889689ad0"
+          name: 'calculator',
+          args: { input: '1952 - 1566' },
+          type: 'tool_call',
+          id: 'fc_6de49679-1b8b-439b-9097-ed4b7e35161f'
         }
       ],
-      "invalid_tool_calls": [],
-      "usage_metadata": {
-        "output_tokens": 73,
-        "input_tokens": 1595,
-        "total_tokens": 1668,
-        "input_token_details": {
-          "cache_read": 645
-        },
-        "output_token_details": {
-          "reasoning": 15
-        }
+      invalid_tool_calls: [],
+      usage_metadata: {
+        output_tokens: 75,
+        input_tokens: 470,
+        total_tokens: 545,
+        input_token_details: { audio: undefined, cache_read: undefined },
+        output_token_details: { audio: undefined, reasoning: 47 }
       }
     }
   }
@@ -855,218 +959,99 @@ This will become an error in a future version of the SDK.
   tools: {
     messages: [
       ToolMessage {
-        "id": "9d66d712-2705-452f-8140-6872ed9af13f",
-        "content": "Error: DDG detected an anomaly in the request, you are likely making requests too quickly.\n Please fix your mistakes.",
-        "name": "duckduckgo-search",
-        "additional_kwargs": {},
-        "response_metadata": {},
-        "tool_call_id": "call_01a1c327866f70d889689ad0"
+        lc_serializable: true,
+        lc_kwargs: {
+          status: 'success',
+          content: '386',
+          artifact: undefined,
+          tool_call_id: 'fc_6de49679-1b8b-439b-9097-ed4b7e35161f',
+          name: 'calculator',
+          metadata: {},
+          additional_kwargs: {},
+          response_metadata: {},
+          id: '9103cd94-8dc7-467c-a0d4-83f754a3f27f'
+        },
+        lc_namespace: [ 'langchain_core', 'messages' ],
+        content: '386',
+        name: 'calculator',
+        additional_kwargs: {},
+        response_metadata: {},
+        id: '9103cd94-8dc7-467c-a0d4-83f754a3f27f',
+        lc_direct_tool_output: true,
+        status: 'success',
+        tool_call_id: 'fc_6de49679-1b8b-439b-9097-ed4b7e35161f',
+        metadata: {},
+        artifact: undefined
       }
     ]
   }
 }
-Zod field at `#/definitions/duckduckgo-search/properties/input` uses `.optional()` without `.nullable()` which is not supported by the API. See: https://platform.openai.com/docs/guides/structured-outputs?api-mode=responses#all-fields-must-be-required
-This will become an error in a future version of the SDK.
 Zod field at `#/definitions/calculator/properties/input` uses `.optional()` without `.nullable()` which is not supported by the API. See: https://platform.openai.com/docs/guides/structured-outputs?api-mode=responses#all-fields-must-be-required
 This will become an error in a future version of the SDK.
 {
   model: {
     messages: AIMessage {
-      "id": "0741abbcc426a7619e234dd233193b4f",
-      "content": "",
-      "additional_kwargs": {
-        "tool_calls": [
-          {
-            "id": "call_01a1c327a189715ba636aa56",
-            "type": "function",
-            "function": "[Object]"
-          }
-        ]
-      },
-      "response_metadata": {
-        "tokenUsage": {
-          "promptTokens": 929,
-          "completionTokens": 70,
-          "totalTokens": 999
-        },
-        "finish_reason": "tool_calls",
-        "model_name": "auto"
-      },
-      "tool_calls": [
-        {
-          "name": "duckduckgo-search",
-          "args": {
-            "input": "Maya hieroglyphs discovered year deciphered Yuri Knorozov 1960"
+      lc_serializable: true,
+      lc_kwargs: {
+        content: 'Временной промежуток между первым описанием иероглифов майя (1566 г.) и их успешной расшифровкой Юрием Кнорозовым (1952 г.) составляет **386 лет**.',
+        name: undefined,
+        additional_kwargs: { function_call: undefined, tool_calls: undefined },
+        response_metadata: {
+          model_name: 'openai/gpt-oss-120b',
+          usage: {
+            queue_time: 0.370098931,
+            prompt_tokens: 500,
+            prompt_time: 0.019510595,
+            completion_tokens: 55,
+            completion_time: 0.114073972,
+            total_tokens: 555,
+            total_time: 0.133584567
           },
-          "type": "tool_call",
-          "id": "call_01a1c327a189715ba636aa56"
-        }
-      ],
-      "invalid_tool_calls": [],
-      "usage_metadata": {
-        "output_tokens": 70,
-        "input_tokens": 929,
-        "total_tokens": 999,
-        "input_token_details": {
-          "cache_read": 645
+          system_fingerprint: 'fp_c868cf1eaa'
         },
-        "output_token_details": {
-          "reasoning": 25
+        id: 'chatcmpl-ddd95f29-ab8c-4c57-b402-19ff39f5fa29',
+        tool_calls: [],
+        invalid_tool_calls: [],
+        usage_metadata: {
+          output_tokens: 55,
+          input_tokens: 500,
+          total_tokens: 555,
+          input_token_details: { audio: undefined, cache_read: undefined },
+          output_token_details: { audio: undefined, reasoning: undefined }
         }
+      },
+      lc_namespace: [ 'langchain_core', 'messages' ],
+      content: 'Временной промежуток между первым описанием иероглифов майя (1566 г.) и их успешной расшифровкой Юрием Кнорозовым (1952 г.) составляет **386 лет**.',
+      name: undefined,
+      additional_kwargs: { function_call: undefined, tool_calls: undefined },
+      response_metadata: {
+        tokenUsage: { promptTokens: 500, completionTokens: 55, totalTokens: 555 },
+        finish_reason: 'stop',
+        model_name: 'openai/gpt-oss-120b',
+        usage: {
+          queue_time: 0.370098931,
+          prompt_tokens: 500,
+          prompt_time: 0.019510595,
+          completion_tokens: 55,
+          completion_time: 0.114073972,
+          total_tokens: 555,
+          total_time: 0.133584567
+        },
+        system_fingerprint: 'fp_c868cf1eaa'
+      },
+      id: 'chatcmpl-ddd95f29-ab8c-4c57-b402-19ff39f5fa29',
+      tool_calls: [],
+      invalid_tool_calls: [],
+      usage_metadata: {
+        output_tokens: 55,
+        input_tokens: 500,
+        total_tokens: 555,
+        input_token_details: { audio: undefined, cache_read: undefined },
+        output_token_details: { audio: undefined, reasoning: undefined }
       }
     }
   }
 }
-{
-  tools: {
-    messages: [
-      ToolMessage {
-        "id": "cf148eec-96dc-4801-9345-5907d45dab75",
-        "content": "Error: DDG detected an anomaly in the request, you are likely making requests too quickly.\n Please fix your mistakes.",
-        "name": "duckduckgo-search",
-        "additional_kwargs": {},
-        "response_metadata": {},
-        "tool_call_id": "call_01a1c327a189715ba636aa56"
-      }
-    ]
-  }
-}
-Zod field at `#/definitions/duckduckgo-search/properties/input` uses `.optional()` without `.nullable()` which is not supported by the API. See: https://platform.openai.com/docs/guides/structured-outputs?api-mode=responses#all-fields-must-be-required
-This will become an error in a future version of the SDK.
-Zod field at `#/definitions/calculator/properties/input` uses `.optional()` without `.nullable()` which is not supported by the API. See: https://platform.openai.com/docs/guides/structured-outputs?api-mode=responses#all-fields-must-be-required
-This will become an error in a future version of the SDK.
-{
-  model: {
-    messages: AIMessage {
-      "id": "0741abc32e3f41fa7f61b21607c1df0a",
-      "content": "",
-      "additional_kwargs": {
-        "tool_calls": [
-          {
-            "id": "call_01a1c327be117438afb65476",
-            "type": "function",
-            "function": "[Object]"
-          }
-        ]
-      },
-      "response_metadata": {
-        "tokenUsage": {
-          "promptTokens": 1021,
-          "completionTokens": 72,
-          "totalTokens": 1093
-        },
-        "finish_reason": "tool_calls",
-        "model_name": "auto"
-      },
-      "tool_calls": [
-        {
-          "name": "duckduckgo-search",
-          "args": {
-            "input": "иероглифы майя история открытие расшифровка"
-          },
-          "type": "tool_call",
-          "id": "call_01a1c327be117438afb65476"
-        }
-      ],
-      "invalid_tool_calls": [],
-      "usage_metadata": {
-        "output_tokens": 72,
-        "input_tokens": 1021,
-        "total_tokens": 1093,
-        "input_token_details": {
-          "cache_read": 818
-        },
-        "output_token_details": {
-          "reasoning": 27
-        }
-      }
-    }
-  }
-}
-{
-  tools: {
-    messages: [
-      ToolMessage {
-        "id": "b0e3f977-0b30-48a0-ad6d-899271aec245",
-        "content": "Error: DDG detected an anomaly in the request, you are likely making requests too quickly.\n Please fix your mistakes.",
-        "name": "duckduckgo-search",
-        "additional_kwargs": {},
-        "response_metadata": {},
-        "tool_call_id": "call_01a1c327be117438afb65476"
-      }
-    ]
-  }
-}
-Zod field at `#/definitions/duckduckgo-search/properties/input` uses `.optional()` without `.nullable()` which is not supported by the API. See: https://platform.openai.com/docs/guides/structured-outputs?api-mode=responses#all-fields-must-be-required
-This will become an error in a future version of the SDK.
-Zod field at `#/definitions/calculator/properties/input` uses `.optional()` without `.nullable()` which is not supported by the API. See: https://platform.openai.com/docs/guides/structured-outputs?api-mode=responses#all-fields-must-be-required
-This will become an error in a future version of the SDK.
-{
-  model: {
-    messages: AIMessage {
-      "id": "0741abcaf394826332fcb87e086d745e",
-      "content": "",
-      "additional_kwargs": {
-        "tool_calls": [
-          {
-            "id": "call_01a1c327e48776a1a9de1733",
-            "type": "function",
-            "function": "[Object]"
-          }
-        ]
-      },
-      "response_metadata": {
-        "tokenUsage": {
-          "promptTokens": 1105,
-          "completionTokens": 46,
-          "totalTokens": 1151
-        },
-        "finish_reason": "tool_calls",
-        "model_name": "auto"
-      },
-      "tool_calls": [
-        {
-          "name": "calculator",
-          "args": {
-            "input": "1960 - 1779"
-          },
-          "type": "tool_call",
-          "id": "call_01a1c327e48776a1a9de1733"
-        }
-      ],
-      "invalid_tool_calls": [],
-      "usage_metadata": {
-        "output_tokens": 46,
-        "input_tokens": 1105,
-        "total_tokens": 1151,
-        "input_token_details": {
-          "cache_read": 913
-        },
-        "output_token_details": {
-          "reasoning": 14
-        }
-      }
-    }
-  }
-}
-{
-  tools: {
-    messages: [
-      ToolMessage {
-        "id": "bda2c54d-0d4f-4467-83ed-13aa2ac3048f",
-        "content": "181",
-        "name": "calculator",
-        "additional_kwargs": {},
-        "response_metadata": {},
-        "tool_call_id": "call_01a1c327e48776a1a9de1733"
-      }
-    ]
-  }
-}
-Zod field at `#/definitions/duckduckgo-search/properties/input` uses `.optional()` without `.nullable()` which is not supported by the API. See: https://platform.openai.com/docs/guides/structured-outputs?api-mode=responses#all-fields-must-be-required
-This will become an error in a future version of the SDK.
-Zod field at `#/definitions/calculator/properties/input` uses `.optional()` without `.nullable()` which is not supported by the API. See: https://platform.openai.com/docs/guides/structured-outputs?api-mode=responses#all-fields-must-be-required
-This will become an error in a future version of the SDK.
 ```
 
 :warning: В данном коде выбор происходит из 2 инструментов.
