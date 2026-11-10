@@ -37,6 +37,10 @@ LLM-приложение, обладающее агентной природой
 
 :warning: DuckDuckGo говорит, что-то скрипт делает слишком много запросов и отказывается работать
 
+:warning: Предустановленная функция toolsCondition из пакета @langchain/langgraph/prebuilt автоматически возвращает строку "__end__", если в сообщении от модели отсутствуют запросы на вызов инструментов.
+
+<br/>
+
 ```shell
 s$ node ./a-basic-agent.js 
 Zod field at `#/definitions/duckduckgo-search/properties/input` uses `.optional()` without `.nullable()` which is not supported by the API. See: https://platform.openai.com/docs/guides/structured-outputs?api-mode=responses#all-fields-must-be-required
