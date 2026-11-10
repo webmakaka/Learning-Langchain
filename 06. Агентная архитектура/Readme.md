@@ -42,7 +42,7 @@ LLM-приложение, обладающее агентной природой
 <br/>
 
 ```shell
-s$ node ./a-basic-agent.js 
+$ node ./a-basic-agent.js 
 Zod field at `#/definitions/duckduckgo-search/properties/input` uses `.optional()` without `.nullable()` which is not supported by the API. See: https://platform.openai.com/docs/guides/structured-outputs?api-mode=responses#all-fields-must-be-required
 This will become an error in a future version of the SDK.
 Zod field at `#/definitions/calculator/properties/input` uses `.optional()` without `.nullable()` which is not supported by the API. See: https://platform.openai.com/docs/guides/structured-outputs?api-mode=responses#all-fields-must-be-required
@@ -205,3 +205,19 @@ This will become an error in a future version of the SDK.
 <br/>
 
 ### Всегда сначала вызываем инструмент
+
+<br/>
+
+```shell
+
+```
+
+<br/>
+
+<img src="../img/ch06-pic02.png" alt="Создание агента на базе LangGraph">
+
+Обратите внимание на различия по сравнению с предыдущим разделом:
+
+• Мы начинаем выполнение с узла first_model, который вообще не вызывает LLM. Он просто создает вызов инструмента search, используя пользовательское сообщение без изменений как поисковый запрос. В предыдущей архитектуре именно LLM должен был бы сгенерировать такой вызов инструмента (или какой-либо другой, который он посчитал бы более уместным).
+• Далее мы переходим к узлу ToolNode, который работает так же, как и в предыдущем примере, а затем к агентному узлу (agent node), как и раньше.
+
