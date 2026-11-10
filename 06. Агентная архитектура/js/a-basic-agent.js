@@ -21,7 +21,7 @@ const llm = new ChatOpenAI({
     baseURL: 'https://vireonix.ai/v1',
   },
   apiKey: 'not-needed',
-}).bindTools(tools);;
+}).bindTools(tools);
 
 const annotation = Annotation.Root({
   messages: Annotation({
