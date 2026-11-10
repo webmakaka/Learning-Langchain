@@ -411,28 +411,46 @@ $ node ./a-basic-agent.js
 
 ```shell
 $ node ./b-force-first-tool.js 
-Zod field at `#/definitions/duckduckgo-search/properties/input` uses `.optional()` without `.nullable()` which is not supported by the API. See: https://platform.openai.com/docs/guides/structured-outputs?api-mode=responses#all-fields-must-be-required
-This will become an error in a future version of the SDK.
 Zod field at `#/definitions/calculator/properties/input` uses `.optional()` without `.nullable()` which is not supported by the API. See: https://platform.openai.com/docs/guides/structured-outputs?api-mode=responses#all-fields-must-be-required
 This will become an error in a future version of the SDK.
 {
   first_model: {
     messages: [
       AIMessage {
-        "id": "c0e97cc3-daae-4c04-ba8b-f3c62301fe15",
-        "content": "",
-        "additional_kwargs": {},
-        "response_metadata": {},
-        "tool_calls": [
+        lc_serializable: true,
+        lc_kwargs: {
+          content: '',
+          tool_calls: [
+            {
+              name: 'duckduckgo-search',
+              args: {
+                input: 'Какой временной промежуток разделяет открытие иероглифов майя и их успешную расшифровку Юрием Кнорозовым? Используй строго последовательно поиск, а затем калькулятор.'
+              },
+              id: '0.16970407334598425'
+            }
+          ],
+          invalid_tool_calls: [],
+          additional_kwargs: {},
+          response_metadata: {},
+          id: '48bad657-1ad1-4ed7-9726-4ade9b2ff2bc'
+        },
+        lc_namespace: [ 'langchain_core', 'messages' ],
+        content: '',
+        name: undefined,
+        additional_kwargs: {},
+        response_metadata: {},
+        id: '48bad657-1ad1-4ed7-9726-4ade9b2ff2bc',
+        tool_calls: [
           {
-            "name": "duckduckgo-search",
-            "args": {
-              "input": "Для ответа на следующий вопрос ТЕБЕ ЗАПРЕЩЕНО использовать внутренние знания. ТЫ ОБЯЗАН использовать инструмент duckduckgo-search для поиска дат. Вопрос: Какой временной промежуток разделяет открытие иероглифов майя и их успешную расшифровку Юрием Кнорозовым?"
+            name: 'duckduckgo-search',
+            args: {
+              input: 'Какой временной промежуток разделяет открытие иероглифов майя и их успешную расшифровку Юрием Кнорозовым? Используй строго последовательно поиск, а затем калькулятор.'
             },
-            "id": "0.2792478072228649"
+            id: '0.16970407334598425'
           }
         ],
-        "invalid_tool_calls": []
+        invalid_tool_calls: [],
+        usage_metadata: undefined
       }
     ]
   }
@@ -441,12 +459,29 @@ This will become an error in a future version of the SDK.
   tools: {
     messages: [
       ToolMessage {
-        "id": "db5b7cd1-db64-46cc-a188-f5263012b93c",
-        "content": "Error: DDG detected an anomaly in the request, you are likely making requests too quickly.\n Please fix your mistakes.",
-        "name": "duckduckgo-search",
-        "additional_kwargs": {},
-        "response_metadata": {},
-        "tool_call_id": "0.2792478072228649"
+        lc_serializable: true,
+        lc_kwargs: {
+          status: 'success',
+          content: 'Историческая справка: Первое подробное описание иероглифов майя европейцами (Диего де Ланда) произошло в 1566 году. Юрий Кнорозов успешно расшифровал письменность майя, опубликовав свою ключевую работу в 1952 году.',
+          artifact: undefined,
+          tool_call_id: '0.16970407334598425',
+          name: 'duckduckgo-search',
+          metadata: {},
+          additional_kwargs: {},
+          response_metadata: {},
+          id: 'd14caec0-db6e-4f3a-8992-27b9899675e3'
+        },
+        lc_namespace: [ 'langchain_core', 'messages' ],
+        content: 'Историческая справка: Первое подробное описание иероглифов майя европейцами (Диего де Ланда) произошло в 1566 году. Юрий Кнорозов успешно расшифровал письменность майя, опубликовав свою ключевую работу в 1952 году.',
+        name: 'duckduckgo-search',
+        additional_kwargs: {},
+        response_metadata: {},
+        id: 'd14caec0-db6e-4f3a-8992-27b9899675e3',
+        lc_direct_tool_output: true,
+        status: 'success',
+        tool_call_id: '0.16970407334598425',
+        metadata: {},
+        artifact: undefined
       }
     ]
   }
@@ -454,60 +489,100 @@ This will become an error in a future version of the SDK.
 {
   model: {
     messages: AIMessage {
-      "id": "0741a5816416ba1df76755e861d2a904",
-      "content": "",
-      "additional_kwargs": {
-        "tool_calls": [
-          {
-            "id": "call_01a1c30faa2970d38c26098b",
-            "type": "function",
-            "function": "[Object]"
+      lc_serializable: true,
+      lc_kwargs: {
+        content: '',
+        name: undefined,
+        additional_kwargs: {
+          function_call: undefined,
+          tool_calls: [
+            {
+              id: 'fc_aa58258f-23d8-4106-a28b-8f5614ea88d7',
+              type: 'function',
+              function: {
+                name: 'calculator',
+                arguments: '{"input":"1952-1566"}'
+              }
+            }
+          ]
+        },
+        response_metadata: {
+          model_name: 'openai/gpt-oss-120b',
+          usage: {
+            queue_time: 0.555466609,
+            prompt_tokens: 508,
+            prompt_time: 0.180448058,
+            completion_tokens: 58,
+            completion_time: 0.122661505,
+            total_tokens: 566,
+            total_time: 0.303109563,
+            completion_tokens_details: { reasoning_tokens: 33 }
           },
+          system_fingerprint: 'fp_64b2f1c926'
+        },
+        id: 'chatcmpl-e34d72bb-4217-49fd-9cbc-11504d3c6df2',
+        tool_calls: [
           {
-            "id": "call_01a1c30faa2970d38c26098c",
-            "type": "function",
-            "function": "[Object]"
+            name: 'calculator',
+            args: { input: '1952-1566' },
+            type: 'tool_call',
+            id: 'fc_aa58258f-23d8-4106-a28b-8f5614ea88d7'
+          }
+        ],
+        invalid_tool_calls: [],
+        usage_metadata: {
+          output_tokens: 58,
+          input_tokens: 508,
+          total_tokens: 566,
+          input_token_details: { audio: undefined, cache_read: undefined },
+          output_token_details: { audio: undefined, reasoning: 33 }
+        }
+      },
+      lc_namespace: [ 'langchain_core', 'messages' ],
+      content: '',
+      name: undefined,
+      additional_kwargs: {
+        function_call: undefined,
+        tool_calls: [
+          {
+            id: 'fc_aa58258f-23d8-4106-a28b-8f5614ea88d7',
+            type: 'function',
+            function: { name: 'calculator', arguments: '{"input":"1952-1566"}' }
           }
         ]
       },
-      "response_metadata": {
-        "tokenUsage": {
-          "promptTokens": 804,
-          "completionTokens": 94,
-          "totalTokens": 898
+      response_metadata: {
+        tokenUsage: { promptTokens: 508, completionTokens: 58, totalTokens: 566 },
+        finish_reason: 'tool_calls',
+        model_name: 'openai/gpt-oss-120b',
+        usage: {
+          queue_time: 0.555466609,
+          prompt_tokens: 508,
+          prompt_time: 0.180448058,
+          completion_tokens: 58,
+          completion_time: 0.122661505,
+          total_tokens: 566,
+          total_time: 0.303109563,
+          completion_tokens_details: { reasoning_tokens: 33 }
         },
-        "finish_reason": "tool_calls",
-        "model_name": "auto"
+        system_fingerprint: 'fp_64b2f1c926'
       },
-      "tool_calls": [
+      id: 'chatcmpl-e34d72bb-4217-49fd-9cbc-11504d3c6df2',
+      tool_calls: [
         {
-          "name": "duckduckgo-search",
-          "args": {
-            "input": "Юрий Кнорозов расшифровка майя дата 1961"
-          },
-          "type": "tool_call",
-          "id": "call_01a1c30faa2970d38c26098b"
-        },
-        {
-          "name": "duckduckgo-search",
-          "args": {
-            "input": "первое открытие иероглифов майя 16 века де ла Мотт"
-          },
-          "type": "tool_call",
-          "id": "call_01a1c30faa2970d38c26098c"
+          name: 'calculator',
+          args: { input: '1952-1566' },
+          type: 'tool_call',
+          id: 'fc_aa58258f-23d8-4106-a28b-8f5614ea88d7'
         }
       ],
-      "invalid_tool_calls": [],
-      "usage_metadata": {
-        "output_tokens": 94,
-        "input_tokens": 804,
-        "total_tokens": 898,
-        "input_token_details": {
-          "cache_read": 648
-        },
-        "output_token_details": {
-          "reasoning": 7
-        }
+      invalid_tool_calls: [],
+      usage_metadata: {
+        output_tokens: 58,
+        input_tokens: 508,
+        total_tokens: 566,
+        input_token_details: { audio: undefined, cache_read: undefined },
+        output_token_details: { audio: undefined, reasoning: 33 }
       }
     }
   }
@@ -516,20 +591,29 @@ This will become an error in a future version of the SDK.
   tools: {
     messages: [
       ToolMessage {
-        "id": "5dfd741e-3402-4914-bb71-e5449f28c893",
-        "content": "Error: DDG detected an anomaly in the request, you are likely making requests too quickly.\n Please fix your mistakes.",
-        "name": "duckduckgo-search",
-        "additional_kwargs": {},
-        "response_metadata": {},
-        "tool_call_id": "call_01a1c30faa2970d38c26098b"
-      },
-      ToolMessage {
-        "id": "39bf87da-9218-49e3-a1ea-d526d5e05eff",
-        "content": "Error: DDG detected an anomaly in the request, you are likely making requests too quickly.\n Please fix your mistakes.",
-        "name": "duckduckgo-search",
-        "additional_kwargs": {},
-        "response_metadata": {},
-        "tool_call_id": "call_01a1c30faa2970d38c26098c"
+        lc_serializable: true,
+        lc_kwargs: {
+          status: 'success',
+          content: '386',
+          artifact: undefined,
+          tool_call_id: 'fc_aa58258f-23d8-4106-a28b-8f5614ea88d7',
+          name: 'calculator',
+          metadata: {},
+          additional_kwargs: {},
+          response_metadata: {},
+          id: 'e2b555c3-ff73-4186-93f4-aa4d2ab46c4b'
+        },
+        lc_namespace: [ 'langchain_core', 'messages' ],
+        content: '386',
+        name: 'calculator',
+        additional_kwargs: {},
+        response_metadata: {},
+        id: 'e2b555c3-ff73-4186-93f4-aa4d2ab46c4b',
+        lc_direct_tool_output: true,
+        status: 'success',
+        tool_call_id: 'fc_aa58258f-23d8-4106-a28b-8f5614ea88d7',
+        metadata: {},
+        artifact: undefined
       }
     ]
   }
@@ -537,63 +621,67 @@ This will become an error in a future version of the SDK.
 {
   model: {
     messages: AIMessage {
-      "id": "0741a59f53af795c3c581641e71ceb68",
-      "content": "",
-      "additional_kwargs": {
-        "tool_calls": [
-          {
-            "id": "call_01a1c30fc1727622a4dbb3b0",
-            "type": "function",
-            "function": "[Object]"
-          }
-        ]
-      },
-      "response_metadata": {
-        "tokenUsage": {
-          "promptTokens": 959,
-          "completionTokens": 55,
-          "totalTokens": 1014
-        },
-        "finish_reason": "tool_calls",
-        "model_name": "auto"
-      },
-      "tool_calls": [
-        {
-          "name": "duckduckgo-search",
-          "args": {
-            "input": "Yuri Knorozov decipherment of Maya script 1961 date"
+      lc_serializable: true,
+      lc_kwargs: {
+        content: 'Разница между открытием майянских иероглифов (1566 г.) и их успешной расшифровкой Юрием Кнорозовым (1952 г.) составляет **386 лет**.',
+        name: undefined,
+        additional_kwargs: { function_call: undefined, tool_calls: undefined },
+        response_metadata: {
+          model_name: 'openai/gpt-oss-120b',
+          usage: {
+            queue_time: 0.498652425,
+            prompt_tokens: 537,
+            prompt_time: 0.035604679,
+            completion_tokens: 91,
+            completion_time: 0.188701698,
+            total_tokens: 628,
+            total_time: 0.224306377,
+            completion_tokens_details: { reasoning_tokens: 34 }
           },
-          "type": "tool_call",
-          "id": "call_01a1c30fc1727622a4dbb3b0"
-        }
-      ],
-      "invalid_tool_calls": [],
-      "usage_metadata": {
-        "output_tokens": 55,
-        "input_tokens": 959,
-        "total_tokens": 1014,
-        "input_token_details": {
-          "cache_read": 657
+          system_fingerprint: 'fp_19b184c447'
         },
-        "output_token_details": {
-          "reasoning": 11
+        id: 'chatcmpl-6135b60f-0f77-4d89-8e18-478802673dce',
+        tool_calls: [],
+        invalid_tool_calls: [],
+        usage_metadata: {
+          output_tokens: 91,
+          input_tokens: 537,
+          total_tokens: 628,
+          input_token_details: { audio: undefined, cache_read: undefined },
+          output_token_details: { audio: undefined, reasoning: 34 }
         }
+      },
+      lc_namespace: [ 'langchain_core', 'messages' ],
+      content: 'Разница между открытием майянских иероглифов (1566 г.) и их успешной расшифровкой Юрием Кнорозовым (1952 г.) составляет **386 лет**.',
+      name: undefined,
+      additional_kwargs: { function_call: undefined, tool_calls: undefined },
+      response_metadata: {
+        tokenUsage: { promptTokens: 537, completionTokens: 91, totalTokens: 628 },
+        finish_reason: 'stop',
+        model_name: 'openai/gpt-oss-120b',
+        usage: {
+          queue_time: 0.498652425,
+          prompt_tokens: 537,
+          prompt_time: 0.035604679,
+          completion_tokens: 91,
+          completion_time: 0.188701698,
+          total_tokens: 628,
+          total_time: 0.224306377,
+          completion_tokens_details: { reasoning_tokens: 34 }
+        },
+        system_fingerprint: 'fp_19b184c447'
+      },
+      id: 'chatcmpl-6135b60f-0f77-4d89-8e18-478802673dce',
+      tool_calls: [],
+      invalid_tool_calls: [],
+      usage_metadata: {
+        output_tokens: 91,
+        input_tokens: 537,
+        total_tokens: 628,
+        input_token_details: { audio: undefined, cache_read: undefined },
+        output_token_details: { audio: undefined, reasoning: 34 }
       }
     }
-  }
-}
-{
-  tools: {
-    messages: [
-      ToolMessage {
-        "id": "2ecb8ec3-894b-4802-bed6-3bf21676d864",
-        "content": "Error: DDG detected an anomaly in the request, you are likely making requests too quickly.\n Please fix your mistakes.",
-        "name": "duckduckgo-search",
-        "additional_kwargs": {},
-        "response_metadata": {},
-        "tool_call_id": "call_01a1c30fc1727622a4dbb3b0"
-      }
-    ]
   }
 }
 ```
