@@ -44,7 +44,7 @@ LLM-приложение, обладающее агентной природой
 <br/>
 
 ```shell
-s$ node ./a-basic-agent.js 
+$ node ./a-basic-agent.js 
 {
   model: {
     messages: [
