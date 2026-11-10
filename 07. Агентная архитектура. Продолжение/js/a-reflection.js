@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import {
   AIMessage,
   SystemMessage,
@@ -12,26 +13,44 @@ import {
   END,
 } from '@langchain/langgraph';
 
-const model = new ChatOpenAI();
+const llm1 = new ChatOpenAI({
+  model: 'auto',
+  temperature: 0,
+  configuration: {
+    baseURL: 'https://vireonix.ai/v1',
+  },
+  apiKey: 'not-needed',
+});
+
+const llm2 = new ChatOpenAI({
+  model: 'openai/gpt-oss-120b',
+  temperature: 0,
+  configuration: {
+    baseURL: 'https://api.groq.com/openai/v1',
+  },
+  apiKey: process.env.GROQ_API_KEY,
+});
+
+
 
 const annotation = Annotation.Root({
   messages: Annotation({ reducer: messagesStateReducer, default: () => [] }),
 });
 
 const generatePrompt = new SystemMessage(
-  `You are an essay assistant tasked with writing excellent 3-paragraph essays.
-Generate the best essay possible for the user's request.
-If the user provides critique, respond with a revised version of your previous attempts.`
+  `Вы — ассистент по написанию эссе, чья задача — создавать отличные эссе из трех абзацев.
+Сгенерируйте максимально качественное эссе по запросу пользователя.
+Если пользователь предоставляет критику, ответьте измененной версией ваших предыдущих попыток.`
 );
 
 async function generate(state) {
-  const answer = await model.invoke([generatePrompt, ...state.messages]);
+  const answer = await llm1.invoke([generatePrompt, ...state.messages]);
   return { messages: [answer] };
 }
 
 const reflectionPrompt = new SystemMessage(
-  `You are a teacher grading an essay submission. Generate critique and recommendations for the user's submission.
-Provide detailed recommendations, including requests for length, depth, style, etc.`
+  `Вы — преподаватель, оценивающий отправленное эссе. Сгенерируйте критику и рекомендации для работы пользователя.
+Предоставьте подробные рекомендации, включая требования к объему, глубине содержания, стилю и т. д.`
 );
 
 async function reflect(state) {
@@ -48,7 +67,7 @@ async function reflect(state) {
       .slice(1)
       .map((msg) => new clsMap[msg._getType()](msg.content)),
   ];
-  const answer = await model.invoke(translated);
+  const answer = await llm2.invoke(translated);
   // We treat the output of this as human feedback for the generator
   return { messages: [new HumanMessage({ content: answer.content })] };
 }
@@ -75,7 +94,7 @@ const graph = builder.compile();
 const initialState = {
   messages: [
     new HumanMessage(
-      "Write an essay about the relevance of 'The Little Prince' today."
+      "Напиши краткое эссе на пару абзацев о мифах и сказках, повлиявших на творчество группы 'Король и шут'"
     ),
   ],
 };
