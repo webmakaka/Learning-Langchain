@@ -1,6 +1,11 @@
 from langchain_openai.chat_models import ChatOpenAI
 
-model = ChatOpenAI(model="gpt-3.5-turbo")
+llm = ChatOpenAI(
+    model="auto",
+    temperature=0,
+    base_url="https://vireonix.ai/v1",
+    api_key="not-needed"
+);
 
-response = model.invoke("The sky is")
+response = llm.invoke("Какого цвета облака?")
 print(response.content)
