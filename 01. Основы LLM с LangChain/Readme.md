@@ -29,6 +29,12 @@ $ node ./a-llm.js
 ## Python
 
 ```shell
+$ cd js
 $ uv sync
+```
+
+<br/>
+
+```shell
 $ uv run python a-llm.py 
 ```
