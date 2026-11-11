@@ -13,7 +13,8 @@ https://github.com/langchain-ai/learning-langchain
 
 <br/>
 
-:triangular_flag_on_post: Оригинальное репо книги переведено в архив более года назад! :triangular_flag_on_post: 
+:triangular_flag_on_post: Оригинальное репо книги переведено в архив более года назад! :triangular_flag_on_post:  
+:triangular_flag_on_post: Очень много ошибок в оригинальном коде! Похоже его даже не запускали! :triangular_flag_on_post: 
 
 <br/>
 
