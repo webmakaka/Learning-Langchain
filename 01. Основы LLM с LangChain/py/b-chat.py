@@ -1,8 +1,13 @@
 from langchain_openai.chat_models import ChatOpenAI
 from langchain_core.messages import HumanMessage
 
-model = ChatOpenAI()
-prompt = [HumanMessage("What is the capital of France?")]
+llm = ChatOpenAI(
+    model="auto",
+    temperature=0,
+    base_url="https://vireonix.ai/v1",
+    api_key="not-needed"
+);
+prompt = [HumanMessage("Какой город является столицей Франции?")]
 
-response = model.invoke(prompt)
+response = llm.invoke(prompt)
 print(response.content)
