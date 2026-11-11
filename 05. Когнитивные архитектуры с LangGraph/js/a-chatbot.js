@@ -9,7 +9,14 @@ import {
 import { ChatOpenAI } from '@langchain/openai';
 import { HumanMessage } from '@langchain/core/messages';
 
-const model = new ChatOpenAI();
+const llm =new ChatOpenAI({
+  model: 'auto',
+  temperature: 0,
+  configuration: {
+    baseURL: 'https://vireonix.ai/v1',
+  },
+  apiKey: 'not-needed',
+});
 
 const State = {
   // Messages have the type "list". The `add_messages`
@@ -23,7 +30,7 @@ const State = {
 };
 
 async function chatbot(state) {
-  const answer = await model.invoke(state.messages);
+  const answer = await llm.invoke(state.messages);
   return { messages: answer };
 }
 
@@ -35,7 +42,7 @@ const builder = new StateGraph(State)
 const graph = builder.compile();
 
 // Example usage
-const input = { messages: [new HumanMessage('hi!')] };
+const input = { messages: [new HumanMessage('Привет!')] };
 for await (const chunk of await graph.stream(input)) {
   console.log(chunk);
 }

@@ -1,10 +1,30 @@
-import { ChatOpenAI } from '@langchain/openai';
-import { SelfQueryRetriever } from 'langchain/retrievers/self_query';
 import { FunctionalTranslator } from '@langchain/core/structured_query';
-import { MemoryVectorStore } from 'langchain/vectorstores/memory';
-import { Document } from 'langchain/document';
+import { ChatOpenAI, OpenAIEmbeddings } from '@langchain/openai';
+import 'dotenv/config';
 import { AttributeInfo } from 'langchain/chains/query_constructor';
-import { OpenAIEmbeddings } from '@langchain/openai';
+import { Document } from 'langchain/document';
+import { SelfQueryRetriever } from 'langchain/retrievers/self_query';
+import { MemoryVectorStore } from 'langchain/vectorstores/memory';
+
+const embeddings = new OpenAIEmbeddings({
+  model: 'liquid/lfm-2.5-embedding-350m:free',
+  temperature: 0,
+  batchSize: 128,
+  configuration: {
+    baseURL: 'https://openrouter.ai/api/v1',
+  },
+  apiKey: process.env.OPENROUTER_API_KEY,
+});
+
+const llm = new ChatOpenAI({
+  model: 'openai/gpt-oss-120b',
+  temperature: 0,
+  configuration: {
+    baseURL: 'https://api.groq.com/openai/v1',
+  },
+  apiKey: process.env.GROQ_API_KEY,
+});
+
 /**
  * First, we create a bunch of documents. You can load your own documents here instead.
  * Each document has a pageContent and a metadata field. Make sure your metadata matches the AttributeInfo below.
@@ -60,9 +80,6 @@ const docs = [
   }),
 ];
 
-const llm = new ChatOpenAI({ modelName: 'gpt-3.5-turbo', temperature: 0 });
-
-const embeddings = new OpenAIEmbeddings();
 
 const vectorStore = await MemoryVectorStore.fromDocuments(docs, embeddings);
 
@@ -114,6 +131,6 @@ const selfQueryRetriever = SelfQueryRetriever.fromLLM({
 });
 
 const result = await selfQueryRetriever.invoke(
-  'Which movies are less than 90 minutes?'
+  'Какой научно-фантастический фильм имеет высокий рейтинг (выше 8,5)?'
 );
 console.log(result);

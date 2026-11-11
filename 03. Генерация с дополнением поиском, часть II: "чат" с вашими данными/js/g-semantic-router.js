@@ -1,13 +1,35 @@
-import { cosineSimilarity } from '@langchain/core/utils/math';
-import { ChatOpenAI, OpenAIEmbeddings } from '@langchain/openai';
 import { PromptTemplate } from '@langchain/core/prompts';
 import { RunnableLambda } from '@langchain/core/runnables';
+import { cosineSimilarity } from '@langchain/core/utils/math';
+import { ChatOpenAI, OpenAIEmbeddings } from '@langchain/openai';
+import 'dotenv/config';
 
-const physicsTemplate = `You are a very smart physics professor. You are great     at answering questions about physics in a concise and easy-to-understand     manner. When you don't know the answer to a question, you admit that you don't know. Here is a question: {query}`;
+const llm = new ChatOpenAI({
+  model: 'openai/gpt-oss-120b',
+  temperature: 0,
+  configuration: {
+    baseURL: 'https://api.groq.com/openai/v1',
+  },
+  apiKey: process.env.GROQ_API_KEY,
+});
 
-const mathTemplate = `You are a very good mathematician. You are great at answering     math questions. You are so good because you are able to break down hard     problems into their component parts, answer the component parts, and then     put them together to answer the broader question. Here is a question: {query}`;
+const physicsTemplate = `Вы – очень умный профессор физики. Вы отлично умеете отвечать на вопросы по физике кратко и понятно.
+Если вы не знаете ответа на вопрос, вы честно признаетесь в этом.
+Вот вопрос: {query}`;
 
-const embeddings = new OpenAIEmbeddings();
+const mathTemplate = `Вы – очень хороший математик. Вы отлично отвечаете
+на математические вопросы. Ваша сила в том, что вы умеете разбивать сложные задачи на части, решать каждую часть по отдельности, а затем собирать их в общий ответ.
+Вот вопрос: {query}`;
+
+const embeddings = new OpenAIEmbeddings({
+  model: 'liquid/lfm-2.5-embedding-350m:free',
+  temperature: 0,
+  batchSize: 128,
+  configuration: {
+    baseURL: 'https://openrouter.ai/api/v1',
+  },
+  apiKey: process.env.OPENROUTER_API_KEY,
+});
 
 const promptTemplates = [physicsTemplate, mathTemplate];
 
@@ -28,8 +50,8 @@ const promptRouter = RunnableLambda.from(async (query) => {
 });
 
 const semanticRouter = promptRouter.pipe(
-  new ChatOpenAI({ modelName: 'gpt-3.5-turbo', temperature: 0 })
+  llm
 );
 
-const result = await semanticRouter.invoke('What is a black hole');
+const result = await semanticRouter.invoke('Что такое косинусное расстояние?');
 console.log('\nSemantic router result: ', result);

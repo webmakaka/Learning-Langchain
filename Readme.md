@@ -13,7 +13,8 @@ https://github.com/langchain-ai/learning-langchain
 
 <br/>
 
-:triangular_flag_on_post: Оригинальное репо книги переведено в архив более года назад! :triangular_flag_on_post: 
+:triangular_flag_on_post: Оригинальное репо книги переведено в архив более года назад! :triangular_flag_on_post:  
+:triangular_flag_on_post: Очень много ошибок в оригинальном коде! Похоже его даже не запускали! :triangular_flag_on_post: 
 
 <br/>
 
@@ -21,13 +22,13 @@ https://github.com/langchain-ai/learning-langchain
 
 <ul>
   <li>:white_check_mark: :book: :hammer_and_wrench: 01. Основы LLM с LangChain</li>
-  <li>:white_check_mark: :book: :hammer_and_wrench:  02. Генерация с дополнением поиском, часть I: индексация ваших данных</li>
-  <li>▶️ 03. Генерация с дополнением поиском, часть II: "чат" с вашими данными</li>
-  <li>:pause_button: 04. Добавляем долгосрочную память чат-боту с помощью LangGraph</li>
-  <li>:pause_button: 05. Когнитивные архитектуры с LangGraph</li>
-  <li>:pause_button: 06. Агентная архитектура</li>
-  <li>:pause_button: 07. Агентная архитектура. Продолжение</li>
-  <li>:pause_button: 08. Паттерны для максимально эффективного использования LLM</li>
+  <li>:white_check_mark: :book: :hammer_and_wrench: 02. Генерация с дополнением поиском, часть I: индексация ваших данных</li>
+  <li>:white_check_mark: :book: :hammer_and_wrench: 03. Генерация с дополнением поиском, часть II: "чат" с вашими данными</li>
+  <li>:white_check_mark: :book: :hammer_and_wrench: 04. Добавляем долгосрочную память чат-боту с помощью LangGraph</li>
+  <li>:white_check_mark: :book: :hammer_and_wrench: 05. Когнитивные архитектуры с LangGraph</li>
+  <li>:white_check_mark: :book: :hammer_and_wrench: 06. Агентная архитектура</li>
+  <li>:white_check_mark: :book: :hammer_and_wrench: 07. Агентная архитектура. Продолжение</li>
+  <li>▶️ 08. Паттерны для максимально эффективного использования LLM</li>
   <li>:pause_button: 09. Развертывание: запуск вашего AI-приложения в продакшен</li>
   <li>:pause_button: 10. Тестирование: оценка, мониторинг и постоянное улучшение</li>
   <li>:pause_button: 11. Разработка приложений с LLM</li>
@@ -37,11 +38,11 @@ https://github.com/langchain-ai/learning-langchain
 
 ## Чем пользуюсь:
 
-### [Vireonix] [Qwen] Free AI for chat, apps, and agents. Бесплатно, но с ограничениями.
+### [Vireonix][Qwen] Free AI for chat, apps, and agents. Бесплатно, но с ограничениями.
 https://vireonix.ai/
 
 ```js
-const llm =new ChatOpenAI({
+const llm = new ChatOpenAI({
   model: 'auto',
   temperature: 0,
   configuration: {
@@ -51,7 +52,7 @@ const llm =new ChatOpenAI({
 });
 ```
 
-### [][GLM] glm-4.5-flash и glm-4.7-flash. Бесплатно, но с ограничениями.
+### [Z.ai] glm-4.5-flash и glm-4.7-flash. Бесплатно, но с ограничениями.
 https://z.ai/model-api
 
 ```js
@@ -69,16 +70,36 @@ const llm = new ChatOpenAI({
 https://console.groq.com/
 
 ```js
-
+const llm = new ChatOpenAI({
+  model: 'openai/gpt-oss-120b',
+  temperature: 0,
+  configuration: {
+    baseURL: 'https://api.groq.com/openai/v1',
+  },
+  apiKey: process.env.GROQ_API_KEY,
+});
 ```
 
-### [Openrouter + AmneziaVPN]. Бесплатно, но с ограничениями.
-https://Openrouter.ai
+### [Openrouter + AmneziaVPN] Бесплатно, но с ограничениями.
+https://openrouter.ai
 
-```
-const model = new OpenAIEmbeddings({
+```js
+const embeddings = new OpenAIEmbeddings({
   model: 'liquid/lfm-2.5-embedding-350m:free',
+  temperature: 0,
   batchSize: 128,
+  configuration: {
+    baseURL: 'https://openrouter.ai/api/v1',
+  },
+  apiKey: process.env.OPENROUTER_API_KEY,
+});
+```
+
+<br/>
+
+```js
+const llm = new ChatOpenAI({
+  model: 'nvidia/nemotron-3-ultra-550b-a55b:free',
   configuration: {
     baseURL: 'https://openrouter.ai/api/v1',
   },

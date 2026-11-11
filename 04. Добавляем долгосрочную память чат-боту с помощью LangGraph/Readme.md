@@ -1,0 +1,283 @@
+# 04. Добавляем долгосрочную память чат-боту с помощью LangGraph
+
+<br/>
+
+<img src="../img/ch04-pic01.png" alt="Добавляем долгосрочную память чат-боту с помощью LangGraph">
+
+<br/>
+
+<img src="../img/ch04-pic02.png" alt="Добавляем долгосрочную память чат-боту с помощью LangGraph">
+
+<br/>
+
+```shell
+$ node ./a-simple-memory.js 
+Я перевел ваше предложение "I love programming" на русский язык.
+
+Перевод: **Я люблю программировать.**
+
+Если вы имели в виду что-то другое или хотите уточнить контекст, пожалуйста, дайте знать! 😊
+```
+
+<br/>
+
+## 01. Знакомство с LangGraph
+
+<br/>
+
+```js
+// Отрисовать в консоли graph
+const drawableGraph = await graph.getGraphAsync();
+console.log(drawableGraph.drawMermaid());
+```
+
+<br/>
+
+```shell
+$ node ./b-state-graph.js 
+{
+  chatbot: {
+    messages: AIMessage {
+      "id": "chatcmpl-a86e8fbf599ef32a",
+      "content": "Привет! Чем могу помочь?",
+      "additional_kwargs": {
+        "function_call": null
+      },
+      "response_metadata": {
+        "tokenUsage": {
+          "promptTokens": 16,
+          "completionTokens": 9,
+          "totalTokens": 25
+        },
+        "finish_reason": "stop",
+        "model_name": "auto",
+        "usage": {
+          "prompt_tokens": 16,
+          "total_tokens": 25,
+          "completion_tokens": 9,
+          "prompt_tokens_details": null,
+          "completion_tokens_details": {
+            "reasoning_tokens": 0
+          }
+        },
+        "system_fingerprint": "vllm-0.30.0-4dc91a50"
+      },
+      "tool_calls": [],
+      "invalid_tool_calls": [],
+      "usage_metadata": {
+        "output_tokens": 9,
+        "input_tokens": 16,
+        "total_tokens": 25,
+        "input_token_details": {},
+        "output_token_details": {
+          "reasoning": 0
+        }
+      }
+    }
+  }
+}
+```
+
+<br/>
+
+### 02. Добавление памяти в StateGraph
+
+<br/>
+
+```shell
+$ node ./c-persistent-memory.js 
+{
+  messages: [
+    HumanMessage {
+      "id": "58f13305-cc1b-4e65-a1d9-7cf475852479",
+      "content": "Привет, я Malrey!",
+      "additional_kwargs": {},
+      "response_metadata": {}
+    },
+    AIMessage {
+      "id": "chatcmpl-864ee7e9ed42195f",
+      "content": "Привет, Malrey! Рад знакомству. Чем могу помочь тебе сегодня?",
+      "additional_kwargs": {
+        "function_call": null
+      },
+      "response_metadata": {
+        "tokenUsage": {
+          "promptTokens": 20,
+          "completionTokens": 19,
+          "totalTokens": 39
+        },
+        "finish_reason": "stop",
+        "model_name": "auto",
+        "usage": {
+          "prompt_tokens": 20,
+          "total_tokens": 39,
+          "completion_tokens": 19,
+          "prompt_tokens_details": null,
+          "completion_tokens_details": {
+            "reasoning_tokens": 0
+          }
+        },
+        "system_fingerprint": "vllm-0.30.0-4dc91a50"
+      },
+      "tool_calls": [],
+      "invalid_tool_calls": [],
+      "usage_metadata": {
+        "output_tokens": 19,
+        "input_tokens": 20,
+        "total_tokens": 39,
+        "input_token_details": {},
+        "output_token_details": {
+          "reasoning": 0
+        }
+      }
+    }
+  ]
+}
+{
+  messages: [
+    HumanMessage {
+      "id": "58f13305-cc1b-4e65-a1d9-7cf475852479",
+      "content": "Привет, я Malrey!",
+      "additional_kwargs": {},
+      "response_metadata": {}
+    },
+    AIMessage {
+      "id": "chatcmpl-864ee7e9ed42195f",
+      "content": "Привет, Malrey! Рад знакомству. Чем могу помочь тебе сегодня?",
+      "additional_kwargs": {
+        "function_call": null
+      },
+      "response_metadata": {
+        "tokenUsage": {
+          "promptTokens": 20,
+          "completionTokens": 19,
+          "totalTokens": 39
+        },
+        "finish_reason": "stop",
+        "model_name": "auto",
+        "usage": {
+          "prompt_tokens": 20,
+          "total_tokens": 39,
+          "completion_tokens": 19,
+          "prompt_tokens_details": null,
+          "completion_tokens_details": {
+            "reasoning_tokens": 0
+          }
+        },
+        "system_fingerprint": "vllm-0.30.0-4dc91a50"
+      },
+      "tool_calls": [],
+      "invalid_tool_calls": []
+    },
+    HumanMessage {
+      "id": "6f50059f-7954-48e1-9659-f50555ea6ed6",
+      "content": "Не забыл как меня зовут?",
+      "additional_kwargs": {},
+      "response_metadata": {}
+    },
+    AIMessage {
+      "id": "chatcmpl-afd635d6041be776",
+      "content": "Конечно, я помню! Вас зовут **Malrey**. 😊\n\nЧем могу быть полезен?",
+      "additional_kwargs": {
+        "function_call": null
+      },
+      "response_metadata": {
+        "tokenUsage": {
+          "promptTokens": 61,
+          "completionTokens": 25,
+          "totalTokens": 86
+        },
+        "finish_reason": "stop",
+        "model_name": "auto",
+        "usage": {
+          "prompt_tokens": 61,
+          "total_tokens": 86,
+          "completion_tokens": 25,
+          "prompt_tokens_details": null,
+          "completion_tokens_details": {
+            "reasoning_tokens": 0
+          }
+        },
+        "system_fingerprint": "vllm-0.30.0-4dc91a50"
+      },
+      "tool_calls": [],
+      "invalid_tool_calls": [],
+      "usage_metadata": {
+        "output_tokens": 25,
+        "input_tokens": 61,
+        "total_tokens": 86,
+        "input_token_details": {},
+        "output_token_details": {
+          "reasoning": 0
+        }
+      }
+    }
+  ]
+}
+```
+
+<br/>
+
+### 03. Изменение истории чата (trirnrning, filtering и merging)
+
+<br/>
+
+### 03.1 Обрезка сообщений
+
+<br/>
+
+:warning: Ошибка, моя модель не считает количество токенов!
+
+```
+$ node ./d-trim-messages.js 
+Failed to calculate number of tokens, falling back to approximate count Error: Unknown model
+```
+
+<br/>
+
+### 03.2 Фильтрация сообщений
+
+```
+$ node ./e-filter-messages.js 
+Human messages: [{"lc":1,"type":"constructor","id":["langchain_core","messages","HumanMessage"],"kwargs":{"content":"example input","id":"2","name":"example_user","additional_kwargs":{},"response_metadata":{}}},{"lc":1,"type":"constructor","id":["langchain_core","messages","HumanMessage"],"kwargs":{"content":"real input","id":"4","name":"bob","additional_kwargs":{},"response_metadata":{}}}]
+
+Excluding example names: [{"lc":1,"type":"constructor","id":["langchain_core","messages","SystemMessage"],"kwargs":{"content":"you are a good assistant","id":"1","additional_kwargs":{},"response_metadata":{}}},{"lc":1,"type":"constructor","id":["langchain_core","messages","HumanMessage"],"kwargs":{"content":"real input","id":"4","name":"bob","additional_kwargs":{},"response_metadata":{}}},{"lc":1,"type":"constructor","id":["langchain_core","messages","AIMessage"],"kwargs":{"content":"real output","id":"5","name":"alice","tool_calls":[],"invalid_tool_calls":[],"additional_kwargs":{},"response_metadata":{}}}]
+
+Filtered by types and IDs: [{"lc":1,"type":"constructor","id":["langchain_core","messages","HumanMessage"],"kwargs":{"content":"example input","id":"2","name":"example_user","additional_kwargs":{},"response_metadata":{}}},{"lc":1,"type":"constructor","id":["langchain_core","messages","HumanMessage"],"kwargs":{"content":"real input","id":"4","name":"bob","additional_kwargs":{},"response_metadata":{}}},{"lc":1,"type":"constructor","id":["langchain_core","messages","AIMessage"],"kwargs":{"content":"real output","id":"5","name":"alice","tool_calls":[],"invalid_tool_calls":[],"additional_kwargs":{},"response_metadata":{}}}]
+```
+
+<br/>
+
+### 03.3 Объединение последовательных сообщений
+
+```shell
+$ node ./f-merge-messages.js 
+[
+  SystemMessage {
+    "content": "you're a good assistant.\nyou always respond with a joke.",
+    "additional_kwargs": {},
+    "response_metadata": {}
+  },
+  HumanMessage {
+    "content": [
+      {
+        "type": "text",
+        "text": "i wonder why it's called langchain"
+      },
+      {
+        "type": "text",
+        "text": "and who is harrison chasing anyways"
+      }
+    ],
+    "additional_kwargs": {},
+    "response_metadata": {}
+  },
+  AIMessage {
+    "content": "Well, I guess they thought \"WordRope\" and \"SentenceString\" just didn't have the same ring to it!\nWhy, he's probably chasing after the last cup of coffee in the office!",
+    "additional_kwargs": {},
+    "response_metadata": {},
+    "tool_calls": [],
+    "invalid_tool_calls": []
+  }
+]
+```

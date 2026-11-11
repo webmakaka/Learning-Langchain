@@ -3,6 +3,15 @@ import { ChatOpenAI } from '@langchain/openai';
 import 'dotenv/config';
 import { z } from 'zod';
 
+const llm =new ChatOpenAI({
+  model: 'auto',
+  temperature: 0,
+  configuration: {
+    baseURL: 'https://vireonix.ai/v1',
+  },
+  apiKey: 'not-needed',
+});
+
 const routeQuery = z
   .object({
     datasource: z
@@ -12,15 +21,6 @@ const routeQuery = z
       ),
   })
   .describe('Маршрутизация пользовательского запроса к наиболее релевантному источнику данных');
-
-const llm =new ChatOpenAI({
-  model: 'auto',
-  temperature: 0,
-  configuration: {
-    baseURL: 'https://vireonix.ai/v1',
-  },
-  apiKey: 'not-needed',
-});
 
 // withStructuredOutput is a method that allows us to use the structured output of the model
 const structuredLlm = llm.withStructuredOutput(routeQuery, {
