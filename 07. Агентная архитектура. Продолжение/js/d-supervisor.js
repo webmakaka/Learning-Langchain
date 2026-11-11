@@ -1,3 +1,4 @@
+import { AIMessage } from "@langchain/core/messages";
 import 'dotenv/config';
 import { ChatOpenAI } from '@langchain/openai';
 import {
@@ -50,64 +51,116 @@ const modelWithStructuredOutput =
 const agents = ["researcher", "coder"];
 
 // Define system prompts
-const systemPromptPart1 = `Вы — супервизор, чья задача — управлять беседой между следующими исполнителями (workers): ${agents.join(
-  ", ",
-)}. Учитывая следующий запрос пользователя, укажите исполнителя (worker), который должен действовать дальше. Каждый исполнитель выполнит задачу и предоставит свои результаты и статус. По окончании работы ответьте ГОТОВО!.`;
+const systemPromptPart1 = `Вы — супервизор, координирующий работу агентов: ${agents.join(", ")}.
+Ваша задача — проанализировать историю беседы и определить следующего исполнителя (next) или завершить работу.
 
-const systemPromptPart2 = `Учитывая приведенную выше беседу, кто должен действовать дальше? Или мы должны завершить работу (ГОТОВО!)? Выберите один из вариантов: ${agents.join(
-  ", ",
-)}, ГОТОВО!`;
+Правила принятия решений:
+1. Если поле researcher_done равно true, а coder_done равно false, вызовите "coder".
+2. Если поле coder_done равно true, завершите работу, вернув "ГОТОВО!".
 
-// Define supervisor
+Текущий запрос пользователя:`;
+
+const systemPromptPart2 = `На основе истории сообщений выше определите следующий шаг. Выберите строго один из вариантов: ${agents.join(", ")}, ГОТОВО!`;
+
+// ----------------------------------
+// Supervisor
+
 const supervisor = async (state) => {
+  // Передаем оба флага в текстовый контекст модели
+  const stateContext = `\nТекущий статус состояния графа: researcher_done = ${state.researcher_done}, coder_done = ${state.coder_done}`;
+  
   const messages = [
-    { role: "system", content: systemPromptPart1 },
+    { role: "system", content: systemPromptPart1 + stateContext },
     ...state.messages,
     { role: "system", content: systemPromptPart2 },
   ];
 
-  // return await modelWithStructuredOutput.invoke(messages);
-
-    const response = await modelWithStructuredOutput.invoke(messages);
-  
-  // Возвращаем объект для обновления ключа 'next' в состоянии графа
+  const response = await modelWithStructuredOutput.invoke(messages);
   return { next: response.next };
 };
+
+// Supervisor
+// ----------------------------------
 
 // Define state type
 const StateAnnotation = Annotation.Root({
   ...MessagesAnnotation.spec,
-  // next: Annotation("researcher" | "coder" | "ГОТОВО!"),
   next: Annotation({
     reducer: (x, y) => y ?? x,
     default: () => "supervisor",
   }),
+  researcher_done: Annotation({
+    reducer: (x, y) => y ?? x,
+    default: () => false,
+  }),
+  // Добавлен новый флаг
+  coder_done: Annotation({
+    reducer: (x, y) => y ?? x,
+    default: () => false,
+  }),
 });
 
-// Define agent functions
+// ------------------------------------
+// Researcher
+
+const ResearcherResponseSchema = z.object({
+  analysis_text: z.string().describe("Результаты текстового анализа данных"),
+  is_complete: z.boolean().describe("Флаг завершения работы. Всегда true, если анализ готов"),
+});
+
+const researcherModel = llm1.withStructuredOutput(ResearcherResponseSchema);
+
 const researcher = async (state) => {
-  const response = await llm1.invoke([
+  const response = await researcherModel.invoke([
     {
       role: "system",
-      content:
-        "Вы — ассистент-исследователь. Проанализируйте запрос, предоставьте релевантную информацию. После предоставления информации обязательно напишите в самом конце текста слово 'ГОТОВО', чтобы супервизор знал, что вы завершили этап.",
+      content: "Вы — ассистент-исследователь. Проанализируйте запрос пользователя, извлеките ключевые метрики и предоставьте текстовый анализ. Заполните поле is_complete значением true.",
     },
     ...state.messages,
   ]);
-  return { messages: [response] };
+
+  // Явно создаем объект сообщения для редьюсера истории
+  const aiMessage = new AIMessage({ content: response.analysis_text });
+
+  return { 
+    messages: [aiMessage],
+    researcher_done: response.is_complete
+  };
 };
 
+// Researcher
+// ------------------------------------
+
+
+// ------------------------------------
+// Coder
+
+// 1. Добавьте схему ответа кодера
+const CoderResponseSchema = z.object({
+  code_text: z.string().describe("Готовый программный код для визуализации данных"),
+  is_complete: z.boolean().describe("Флаг завершения работы над кодом. Всегда true"),
+});
+
+const coderModel = llm2.withStructuredOutput(CoderResponseSchema);
+
+// 2. Исправленная функция coder
 const coder = async (state) => {
-  const response = await llm2.invoke([
+  const response = await coderModel.invoke([
     {
       role: "system",
-      content:
-        "Вы — ассистент по программированию. Реализуйте запрошенную функциональность.",
+      content: "Вы — ассистент по программированию. Реализуйте запрошенную функциональность визуализации. Напишите готовый код на основе анализа researcher. Не задавайте вопросов пользователю. Установите флаг is_complete в значение true.",
     },
     ...state.messages,
   ]);
-  return { messages: [response] };
+
+  return { 
+    messages: [new AIMessage({ content: response.code_text })],
+    coder_done: response.is_complete
+  };
 };
+
+// Coder
+// ------------------------------------
 
 // Build the graph
 const graph = new StateGraph(StateAnnotation)
@@ -136,18 +189,6 @@ const initialState = {
 };
 
 const stream = await graph.stream(initialState);
-
-// for await (const output of stream) {
-//   console.log(`\nStep decision: ${output.next || "N/A"}`);
-//   if (output.messages) {
-//     console.log(
-//       `Response: ${output.messages[output.messages.length - 1].content.slice(
-//         0,
-//         100,
-//       )}...`,
-//     );
-//   }
-// }
 
 for await (const chunk of stream) {
   // Получаем имя узла (например, "supervisor") и возвращенные им данные
