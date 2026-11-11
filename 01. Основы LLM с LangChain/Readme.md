@@ -26,15 +26,9 @@ $ node ./a-llm.js
 
 <br/>
 
-## Python (М.б. когда-нибудь потом!)
+## Python
 
 ```shell
-$ pip install notebook
-
-$ pip install langchain langchain-openai langchain-community
-$ pip install langchain-text-splitters langchain-postgres
-
-$ export ОРЕNАI_АРI_КЕУ=ваш-ключ
-
-$ jupyter notebook
+$ uv sync
+$ uv run python a-llm.py 
 ```
