@@ -1,12 +1,34 @@
+import { MemorySaver } from "@langchain/langgraph"
 import { HumanMessage } from "@langchain/core/messages";
+import { StateGraph, MessagesAnnotation, START, END } from "@langchain/langgraph";
+import { ChatOpenAI } from "@langchain/openai";
 
-// Assuming graph is already created and configured
-const graph = new StateGraph().compile();
+const llm = new ChatOpenAI({
+  model: "auto",
+  temperature: 0,
+  configuration: {
+    baseURL: "https://vireonix.ai/v1",
+  },
+  apiKey: "not-needed",
+});
+
+// Узел вызова модели
+const callModel = async (state) => {
+  const response = await llm.invoke(state.messages);
+  return { messages: [response] };
+};
+
+// Сборка и компиляция графа
+const graph = new StateGraph(MessagesAnnotation)
+  .addNode("agent", callModel)
+  .addEdge(START, "agent")
+  .addEdge("agent", END)
+  .compile({ checkpointer: new MemorySaver() });
 
 const input = {
   messages: [
     new HumanMessage(
-      "How old was the 30th president of the United States when he died?",
+      "Какой временной промежуток разделяет открытие иероглифов майя и их успешную расшифровку Юрием Кнорозовым?",
     ),
   ],
 };
