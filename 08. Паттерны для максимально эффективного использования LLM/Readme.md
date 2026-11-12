@@ -132,8 +132,74 @@ $ node ./c-interrupt.js
 
 ```
 $ d-authorize.js
+s$ node ./d-authorize.js 
+{
+  agent: {
+    messages: [
+      AIMessage {
+        "id": "07444f607e6e83710a95b81ad4061586",
+        "content": "",
+        "additional_kwargs": {
+          "tool_calls": [
+            {
+              "id": "call_01a1cd7714b9728dac47be47",
+              "type": "function",
+              "function": "[Object]"
+            },
+            {
+              "id": "call_01a1cd7714b9728dac47be48",
+              "type": "function",
+              "function": "[Object]"
+            }
+          ]
+        },
+        "response_metadata": {
+          "tokenUsage": {
+            "promptTokens": 524,
+            "completionTokens": 1275,
+            "totalTokens": 1799
+          },
+          "finish_reason": "tool_calls",
+          "model_name": "auto"
+        },
+        "tool_calls": [
+          {
+            "name": "subtract_years",
+            "args": {
+              "a": 1959,
+              "b": 1963
+            },
+            "type": "tool_call",
+            "id": "call_01a1cd7714b9728dac47be47"
+          },
+          {
+            "name": "subtract_years",
+            "args": {
+              "a": 1963,
+              "b": 1959
+            },
+            "type": "tool_call",
+            "id": "call_01a1cd7714b9728dac47be48"
+          }
+        ],
+        "invalid_tool_calls": [],
+        "usage_metadata": {
+          "output_tokens": 1275,
+          "input_tokens": 524,
+          "total_tokens": 1799,
+          "input_token_details": {
+            "cache_read": 185
+          },
+          "output_token_details": {
+            "reasoning": 1203
+          }
+        }
+      }
+    ]
+  }
+}
+{ __interrupt__: [] }
 ```
-
 
 В этом режиме граф будет выполняться до момента, пока не войдет в узел с именем `tools`, — таким образом, у вас появляется возможность изучить текущее состояние и решить, стоит ли продолжать выполнение. Параметр `interrupt_before` представляет собой список, в котором порядок элементов не имеет значения: если вы передадите несколько имен узлов, выполнение будет прерываться перед входом в каждый из них.
 
