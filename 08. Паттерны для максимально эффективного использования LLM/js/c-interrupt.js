@@ -38,7 +38,7 @@ const controller = new AbortController();
 
 const timeoutId = setTimeout(() => {
   controller.abort();
-}, 2000);
+}, 8000);
 
 try {
   const output = await graph.stream(input, {
