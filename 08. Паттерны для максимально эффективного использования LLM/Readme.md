@@ -234,6 +234,16 @@ const output = await graph.strearn(input, config};
 
 Иногда может возникнуть необходимость обновить состояние графа перед тем, как продолжить его выполнение. Это возможно с помощью метода update_state. Обычно сначала требуется получить текущее состояние с помощью get_state.
 
+```js
+const state = await graph.getState(config);
+console.log("Current state:", state);
+
+// something you want to add or replace
+const update = {};
+
+await graph.updateState(config, update);
+console.log("State updated");
+```
 
 Это создаст новую контрольную точку (checkpoint), содержащую ваши обновления. После этого вы можете продолжить выполнение графа с этой новой точки.
 
