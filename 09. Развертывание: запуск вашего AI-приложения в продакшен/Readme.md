@@ -23,11 +23,24 @@
 
 ## [JS] Тестирование приложения LangGraph локально
 
+:warning: Нужно каталог со скриптами переитеновать во что-то без кириллицы и `:`
+
 ```
 $ cd js
 $ npm install
 $ npm install -g @langchain/langgraph-cli --allow-scripts=esbuild
 $ langgraphjs dev
+```
+
+<br/>
+
+langgraphjs должен быть запущен
+
+<br/>
+
+```
+$ npm i -D tsx
+$ npx tsx demo.ts
 ```
 
 
