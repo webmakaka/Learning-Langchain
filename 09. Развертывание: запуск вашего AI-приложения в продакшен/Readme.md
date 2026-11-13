@@ -29,6 +29,8 @@
 $ cd js
 $ npm install
 $ npm install -g @langchain/langgraph-cli --allow-scripts=esbuild
+
+// [FAIL!] 
 $ langgraphjs dev
 ```
 
