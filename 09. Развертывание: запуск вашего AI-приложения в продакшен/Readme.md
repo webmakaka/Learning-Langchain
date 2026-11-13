@@ -1,5 +1,13 @@
 # 09. Развертывание: запуск вашего AI-приложения в продакшен
 
+В примере развертывания, представленном в этой главе, мы будем использовать следующие сервисы:
+
+* Векторное хранилище: Supabase;
+* Мониторинг и отладка: LangSmith;
+* Бэкенд API: LangGraph Platform.
+
+<br/>
+
 This directory contains the code for deploying a Retrieval-Augmented Generation (RAG) AI chatbot agent, as discussed in Chapter 9 of "Learning LangChain." This agent is designed to ingest documents and then answer questions based on the content of those documents.
 
 ## Overview
