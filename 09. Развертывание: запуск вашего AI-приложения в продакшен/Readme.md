@@ -17,7 +17,60 @@
 ## Предварительные требования
 
 1. **Переменные окружения:** Настройте файл `.env` в корне репозитория (`learning-langchain`), ориентируясь на `.env.example`.
-2. **Supabase:** Создайте проект на [supabase.com](https://supabase.com), скопируйте `Project URL` и ключ `service_role` в переменные `SUPABASE_URL` и `SUPABASE_SERVICE_ROLE_KEY`.
+2. **Supabase:** Создайте проект на supabase.com, скопируйте `Project URL` и ключ `service_role` в переменные `SUPABASE_URL` и `SUPABASE_SERVICE_ROLE_KEY`.
+
+<br/>
+
+### Векторное хранилище
+
+Нужно создать организацию.
+
+<br/>
+
+**Supabase > SQL Editor**
+
+```
+-- Включаем расширение pgvector для работы со встраиванием векторов
+create extension vector;
+
+-- Создаем таблицу для хранения ваших документов
+create table documents (
+  id bigserial primary key,
+  content text, -- соответствует Document.pageContent
+  metadata jsonb, -- соответствует Document.met
+  embedding vector(1536) -- 1536 для эмбеддингов OpenAI, измените, если нужно
+);
+
+-- Функция для поиска документов
+create function match_documents (
+  query_embedding vector(1536),
+  match_count int DEFAULT null,
+  filter jsonb DEFAULT '{}'
+) returns table (
+  id bigint,
+  content text,
+  metadata jsonb,
+  embedding jsonb,
+  similarity float
+)
+language plpgsql
+as $$
+#variable_conflict use_column
+begin
+  return query
+  select
+    id,
+    content,
+    metadata,
+    (embedding::text)::jsonb as embedding,
+    1 - (documents.embedding <=> query_embedding) as similarity
+  from documents
+  where metadata @> filter
+  order by documents.embedding <=> query_embedding
+  limit match_count;
+end;
+$$;
+```
 
 <br/>
 
