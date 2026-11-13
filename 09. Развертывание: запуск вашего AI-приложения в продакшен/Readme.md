@@ -81,10 +81,20 @@ import {
   SupabaseVectorStore
 } from "@langchain/community/vectorstores/supabase";
 import { OpenAIEmbeddings } from "@langchain/openai";
-
 import { createClient } from "@supabase/supabase-js";
 
-const embeddings = new OpenAIEmbeddings();
+// const embeddings = new OpenAIEmbeddings();
+
+const embeddings = new OpenAIEmbeddings({
+  model: 'liquid/lfm-2.5-embedding-350m:free',
+  temperature: 0,
+  batchSize: 128,
+  configuration: {
+    baseURL: 'https://openrouter.ai/api/v1',
+  },
+  apiKey: process.env.OPENROUTER_API_KEY,
+});
+
 const supabaseClient = createClient(
   process.env.SUPABASE_URL,
   process.env.SUPABASE_SERVICE_ROLE_KEY
