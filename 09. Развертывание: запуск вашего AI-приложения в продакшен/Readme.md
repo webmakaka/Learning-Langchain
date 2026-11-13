@@ -77,6 +77,7 @@ $$;
 book-sample.ts
 
 ```js
+import dotenv from 'dotenv';
 import {
   SupabaseVectorStore
 } from "@langchain/community/vectorstores/supabase";
