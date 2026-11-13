@@ -6,7 +6,7 @@
 
 <br/>
 
-В примере развертывания, мы будем использовать следующие сервисы:
+В примере развертывания (в книге) используются следующие сервисы:
 
 * Векторное хранилище: Supabase;
 * Мониторинг и отладка: LangSmith;
@@ -36,7 +36,7 @@ $ langgraphjs dev
 
 <br/>
 
-langgraphjs должен быть запущен
+langgraphjs должен быть запущен на порту 2024 с доступом к интерфейсу LangSmith
 
 <br/>
 
@@ -45,29 +45,8 @@ $ npm i -D tsx
 $ npx tsx demo.ts
 ```
 
-
-## Структура репозитория
-
-Директория содержит раздельные реализации для JS и Python с аналогичной архитектурой (`ingestion_graph`, `retrieval_graph`, файлы конфигурации и демо-скрипты).
-
-## Настройка и запуск
-
-### Python
-* **Установка:** `python -m venv .venv`, активация окружения, затем `pip install -e .` в папке `ch9/py`.
-* **Запуск демо:** `python demo.py`
-* **Сервер разработки:** `langgraph dev -c ch9/py/langgraph.json --verbose` (или `langgraph-dev`).
-
-### JavaScript
-* **Установка:** `npm install` в папке `ch9/js`.
-* **Запуск демо:** `node demo.ts`
-* **Сервер разработки:** `npm run langgraph:dev` (из корня репозитория).
-
-Сервер разработки запускается на порту 2024 с доступом к интерфейсу LangSmith.
+<br/>
 
 ## Развертывание и взаимодействие
 
-Развертывание выполняется через LangGraph CLI:
 * **JS:** `npx @langchain/langgraph-cli deploy -c ch9/js/langgraph.json`
-* **Python:** `npx @langchain/langgraph-cli deploy -c ch9/py/langgraph.json`
-
-Для взаимодействия с API используйте LangGraph SDK и примеры из `demo.ts` / `demo.py`.
