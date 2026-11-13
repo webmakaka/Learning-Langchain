@@ -29,7 +29,7 @@
 
 **Supabase > SQL Editor**
 
-```
+```sql
 -- Включаем расширение pgvector для работы со встраиванием векторов
 create extension vector;
 
@@ -70,6 +70,62 @@ begin
   limit match_count;
 end;
 $$;
+```
+
+<br/>
+
+book-sample.ts
+
+```js
+import {
+  SupabaseVectorStore
+} from "@langchain/community/vectorstores/supabase";
+import { OpenAIEmbeddings } from "@langchain/openai";
+
+import { createClient } from "@supabase/supabase-js";
+
+const embeddings = new OpenAIEmbeddings();
+const supabaseClient = createClient(
+  process.env.SUPABASE_URL,
+  process.env.SUPABASE_SERVICE_ROLE_KEY
+);
+
+const vectorStore = new SupabaseVectorStore(embeddings, {
+  client: supabaseClient,
+  tableName: "documents",
+  queryName: "match_documents",
+});
+
+// Пример структуры документов ваших данных
+
+const document1: Document = {
+  pageContent: "The powerhouse of the cell is the mitochondria",
+  metadata: { source: "https://example.com" },
+};
+
+const document2: Document = {
+  pageContent: "Buildings are made of brick",
+  metadata: { source: "https://example.com" },
+};
+
+const documents = [document1, document2]
+
+// Помещаем эмбеддинг данных в БД
+await vectorStore.addDocuments(documents, { ids: ["1", "2"] });
+
+// Опрашиваем векторное хранилище
+
+const filter = { source: "https://example.com" };
+
+const similaritySearchResults = await vectorStore.similaritySearch(
+  "biology",
+  2,
+  filter
+);
+
+for (const doc of similaritySearchResults) {
+  console.log(`* ${doc.pageContent} [${JSON.stringify(doc.metadata, null)}]`);
+}
 ```
 
 <br/>
