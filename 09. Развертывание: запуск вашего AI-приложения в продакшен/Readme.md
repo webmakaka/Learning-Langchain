@@ -10,7 +10,7 @@
 
 * Векторное хранилище: Supabase;
 * Мониторинг и отладка: LangSmith;
-* Бэкенд API: LangGraph Platform.
+* :heavy_dollar_sign: Бэкенд API: LangGraph Platform.
 
 <br/>
 
