@@ -18,11 +18,18 @@
 
 1. **Переменные окружения:** Настройте файл `.env` в корне репозитория (`learning-langchain`), ориентируясь на `.env.example`.
 2. **Supabase:** Создайте проект на [supabase.com](https://supabase.com), скопируйте `Project URL` и ключ `service_role` в переменные `SUPABASE_URL` и `SUPABASE_SERVICE_ROLE_KEY`.
-3. **Docker (опционально):** Требуется для Chroma в JS-реализации:
-   ```bash
-   docker pull chromadb/chroma
-   docker run -p 8000:8000 chromadb/chroma
-   ```
+
+<br/>
+
+## [JS] Тестирование приложения LangGraph локально
+
+```
+$ cd js
+$ npm install
+$ npm install -g @langchain/langgraph-cli --allow-scripts=esbuild
+$ langgraphjs dev
+```
+
 
 ## Структура репозитория
 
