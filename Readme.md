@@ -30,8 +30,8 @@ https://github.com/langchain-ai/learning-langchain
   <li>:white_check_mark: :book: :hammer_and_wrench: 07. Агентная архитектура. Продолжение</li>
   <li>:white_check_mark: :book: :hammer_and_wrench: 08. Паттерны для максимально эффективного использования LLM</li>
   <li>:x: :heavy_dollar_sign: :book: :hammer_and_wrench: 09. Развертывание: запуск вашего AI-приложения в продакшен</li>
-  <li>▶️ :pause_button: 10. Тестирование: оценка, мониторинг и постоянное улучшение</li>
-  <li>:pause_button: 11. Разработка приложений с LLM</li>
+  <li>:x: :book: :hammer_and_wrench: 10. Тестирование: оценка, мониторинг и постоянное улучшение</li>
+  <li>▶️ :pause_button: 11. Разработка приложений с LLM</li>
 </ul>
 
 <br/>
