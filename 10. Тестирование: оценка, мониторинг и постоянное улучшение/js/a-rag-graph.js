@@ -1,10 +1,11 @@
-import { Annotation, StateGraph } from '@langchain/langgraph';
 import { CheerioWebBaseLoader } from '@langchain/community/document_loaders/web/cheerio';
+import { StringOutputParser } from '@langchain/core/output_parsers';
+import { Annotation, StateGraph } from '@langchain/langgraph';
+import { ChatOpenAI, OpenAIEmbeddings } from '@langchain/openai';
+import 'dotenv/config';
+import * as hub from 'langchain/hub';
 import { RecursiveCharacterTextSplitter } from 'langchain/text_splitter';
 import { MemoryVectorStore } from 'langchain/vectorstores/memory';
-import { ChatOpenAI, OpenAIEmbeddings } from '@langchain/openai';
-import * as hub from 'langchain/hub';
-import { StringOutputParser } from '@langchain/core/output_parsers';
 
 const GraphState = Annotation.Root({
   question: Annotation(),
@@ -43,7 +44,17 @@ const indexing = async (state) => {
 
   const docSplits = await textSplitter.splitDocuments(state.scrapedDocuments);
 
-  const vectorstore = new MemoryVectorStore(new OpenAIEmbeddings());
+  const embeddings = new OpenAIEmbeddings({
+    model: 'liquid/lfm-2.5-embedding-350m:free',
+    temperature: 0,
+    batchSize: 128,
+    configuration: {
+      baseURL: 'https://openrouter.ai/api/v1',
+    },
+    apiKey: process.env.OPENROUTER_API_KEY,
+  });
+
+  const vectorstore = new MemoryVectorStore(embeddings);
 
   await vectorstore.addDocuments(docSplits);
 
@@ -59,7 +70,14 @@ const retrieveAndGenerate = async (state) => {
 
   const prompt = await hub.pull('rlm/rag-prompt');
 
-  const llm = new ChatOpenAI({ model: 'gpt-3.5-turbo', temperature: 0 });
+  const llm = new ChatOpenAI({
+    model: 'auto',
+    temperature: 0,
+    configuration: {
+      baseURL: 'https://vireonix.ai/v1',
+    },
+    apiKey: 'not-needed',
+  });
 
   const docs = await retriever.invoke(question);
 

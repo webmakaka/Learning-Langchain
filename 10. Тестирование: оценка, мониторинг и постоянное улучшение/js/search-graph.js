@@ -1,11 +1,11 @@
-import { Annotation, StateGraph, START, END } from '@langchain/langgraph';
+import { DuckDuckGoSearch } from '@langchain/community/tools/duckduckgo_search';
+import { Document } from '@langchain/core/documents';
 import { StringOutputParser } from '@langchain/core/output_parsers';
 import { ChatPromptTemplate } from '@langchain/core/prompts';
+import { Annotation, END, START, StateGraph } from '@langchain/langgraph';
 import { ChatOpenAI } from '@langchain/openai';
-import { DuckDuckGoSearch } from '@langchain/community/tools/duckduckgo_search';
 import * as hub from 'langchain/hub';
-import { retriever, retrievalGrader } from './retrieve-and-grade.js';
-import { Document } from '@langchain/core/documents';
+import { retrievalGrader, retriever } from './retrieve-and-grade.js';
 
 // LLM setup
 const prompt = await hub.pull('rlm/rag-prompt');

@@ -1,10 +1,10 @@
 import { ChatOpenAI } from '@langchain/openai';
-import { graph } from './agent-sql-graph.js';
 import crypto from 'crypto';
 import * as hub from 'langchain/hub';
 import { evaluate } from 'langsmith/evaluation';
 import { traceable } from 'langsmith/traceable';
 import { z } from 'zod';
+import { graph } from './agent-sql-graph.js';
 
 const thread_id = crypto.randomUUID();
 const config = {

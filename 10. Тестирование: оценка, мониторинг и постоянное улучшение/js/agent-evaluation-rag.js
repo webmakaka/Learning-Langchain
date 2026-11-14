@@ -1,9 +1,9 @@
-import { ChatOpenAI } from '@langchain/openai';
 import { ChatPromptTemplate } from '@langchain/core/prompts';
+import { ChatOpenAI } from '@langchain/openai';
 import { evaluate } from 'langsmith/evaluation';
 import { traceable } from 'langsmith/traceable';
-import { graph } from './rag-graph.js';
 import { z } from 'zod';
+import { graph } from './rag-graph.js';
 
 const defaultDataset = 'langchain-blogs-qa';
 
