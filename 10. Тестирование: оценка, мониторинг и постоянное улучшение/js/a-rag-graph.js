@@ -101,4 +101,4 @@ const workflow = new StateGraph(GraphState)
 
 const graph = workflow.compile();
 
-await graph.invoke({ question: 'What are ambient agents?' });
+await graph.invoke({ question: 'Что такое фоновые агенты?' });

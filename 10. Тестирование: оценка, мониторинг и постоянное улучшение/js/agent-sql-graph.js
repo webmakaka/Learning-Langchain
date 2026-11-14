@@ -16,7 +16,14 @@ import { DataSource } from 'typeorm';
 import { z } from 'zod';
 
 // LLM
-const llm = new ChatOpenAI({ model: 'gpt-4o', temperature: 0 });
+const llm = new ChatOpenAI({
+  model: 'auto',
+  temperature: 0,
+  configuration: {
+    baseURL: 'https://vireonix.ai/v1',
+  },
+  apiKey: 'not-needed',
+});
 
 // SQL toolkit
 const datasource = new DataSource({

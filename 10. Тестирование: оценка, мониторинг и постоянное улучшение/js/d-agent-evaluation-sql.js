@@ -13,7 +13,14 @@ const config = {
   },
 };
 
-const llm = new ChatOpenAI({ model: 'gpt-4o-mini', temperature: 0 });
+const llm = new ChatOpenAI({
+  model: 'auto',
+  temperature: 0,
+  configuration: {
+    baseURL: 'https://vireonix.ai/v1',
+  },
+  apiKey: 'not-needed',
+});
 
 const predictSQLAgentAnswer = traceable(async (example) => {
   const messages = await graph.invoke(

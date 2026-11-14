@@ -9,7 +9,14 @@ const defaultDataset = 'langchain-blogs-qa';
 
 const experimentPrefix = 'langchain-blogs-qa-evals';
 
-const llm = new ChatOpenAI({ model: 'gpt-4o', temperature: 0 });
+const llm = new ChatOpenAI({
+  model: 'auto',
+  temperature: 0,
+  configuration: {
+    baseURL: 'https://vireonix.ai/v1',
+  },
+  apiKey: 'not-needed',
+});
 
 const EVALUATION_PROMPT = `You are a teacher grading a quiz.
 
