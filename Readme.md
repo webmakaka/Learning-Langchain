@@ -135,6 +135,12 @@ console.log(
   Boolean(process.env.CLOUDFLARE_ACCOUNT_ID)
 );
 
+// @cf/google/gemma-4-26b-a4b-it
+// @cf/openai/gpt-oss-120b
+// @cf/mistralai/mistral-small-3.1-24b-instruct
+// @cf/meta/llama-3.3-70b-instruct-fp8-fast
+// @cf/deepseek-ai/deepseek-r1-distill-qwen-32b
+
 const model = new ChatOpenAI({
   model: '@cf/deepseek-ai/deepseek-r1-distill-qwen-32b',
   apiKey: process.env.CLOUDFLARE_AUTH_TOKEN,
