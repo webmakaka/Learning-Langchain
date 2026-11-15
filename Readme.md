@@ -106,3 +106,39 @@ const llm = new ChatOpenAI({
   apiKey: process.env.OPENROUTER_API_KEY,
 });
 ```
+
+
+<br/>
+
+---
+
+### [CloudFlare] Попробовал. Не очень результат.
+
+**.env**
+
+```js
+CLOUDFLARE_AUTH_TOKEN=
+CLOUDFLARE_ACCOUNT_ID=
+```
+
+<br/>
+
+```js
+console.log(
+  'CLOUDFLARE_AUTH_TOKEN загружен:',
+  Boolean(process.env.CLOUDFLARE_AUTH_TOKEN)
+);
+console.log(
+  'CLOUDFLARE_ACCOUNT_ID загружен:',
+  Boolean(process.env.CLOUDFLARE_ACCOUNT_ID)
+);
+
+const model = new ChatOpenAI({
+  model: '@cf/deepseek-ai/deepseek-r1-distill-qwen-32b',
+  apiKey: process.env.CLOUDFLARE_AUTH_TOKEN,
+  maxTokens: 2048,
+  configuration: {
+    baseURL: `https://api.cloudflare.com/client/v4/accounts/${process.env.CLOUDFLARE_ACCOUNT_ID}/ai/v1`,
+  },
+});
+```
